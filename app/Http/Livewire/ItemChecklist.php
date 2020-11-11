@@ -8,8 +8,35 @@ class ItemChecklist extends Component
 {
     private $item_id;
 
+    public $deal = [
+        'checks' => [
+            'additional_tenant' => 'no',
+            'save' => 'no'
+        ],
+         'data' => [
+         'additional_tenant_name' => '',
+         'mortgage_type' => '',
+        ' welcome_bonus' => 'yes',
+
+         ]
+    ];
+    protected $rules = [
+        'deal.data.additional_tenant_name' => 'required|min:6',
+
+    ];
+
+    public $item_checklist = [''];
+
     public function mount($item_id){
         $this->item_id = $item_id;
+
+    }
+
+    public function hydrate(){
+
+        if($this->deal['checks']['additional_tenant'] == 'no') {
+            $this->deal['data']['additional_tenant_name'] = '';
+        }
 
     }
 
@@ -22,7 +49,14 @@ class ItemChecklist extends Component
         return $this->redirect('/portfolio');
     }
 //
-//    public function new_construction($val){
-//        dd($val);
-//    }
+    public function deal_save(){
+        dd($this->validate());
+//        if($this->deal['checks']['save'] == 'yes')
+//            dd($this->deal);
+    }
+
+    public function book_house(){
+
+
+    }
 }

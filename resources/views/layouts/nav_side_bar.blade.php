@@ -56,7 +56,7 @@
                 <li class="sidebar-item">
                     <a href="{{url('house/dropouts')}}" class="sidebar-link">
                         <i class="fa fa-minus"></i>
-                        <span class="hide-menu"> Drop Out Houses </span>
+                        <span class="hide-menu"> Drop Out Clients </span>
                     </a>
                 </li>
 

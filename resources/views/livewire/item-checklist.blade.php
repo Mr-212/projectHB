@@ -6,7 +6,7 @@
         </div>
 
     </div>
-    <div class="row p-2">
+    <div class="row p-2 item_checklist_deal_info_div">
             <div class="col-md-12 col-lg-12 bg-info">
                 <h4 class="text-white pt-2">Client Info</h4>
 
@@ -75,29 +75,33 @@
                 </div>
 
         </div>
-        <div class="row col-md-12">
+        <div class="col-md-12 col-lg-12" wire:ignore>
+            <div class="row">
+
+
             <div class="col-md-6 col-lg-6">
-                <div class="d-inline">
                     <label>Additional Tenants ?</label>
-                    <select class="form-control-sm" name="deal_additional_tenants" id="deal_additional_tenants">
+                    <select class="form-control" name="deal_additional_tenants" id="deal_additional_tenants" wire:model="deal.checks.additional_tenant" onchange="hideShow(this.value,'.deal_additional_tenant_div')">
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
 
                     </select>
-                </div>
-                <div class="col-md-6 col-lg-6 deal_additional_tenant_div d-none">
-                    <div class="d-inline">
-                        <label>Name</label>
-                        <span><input class="form-control" type="text" name="deal_additional_tenants_name" value=""></span>
-                    </div>
-
+            </div>
+            <div class="col-md-6 col-lg-6 deal_additional_tenant_div d-none">
+                <div class="d-inline">
+                    @error('deal.data.additional_tenant_name') <span class="error">{{ $message }}</span> @enderror
+                    <label>Name</label>
+                   <input class="form-control" type="text" name="deal_additional_tenant_name" value="" wire:model="deal.data.additional_tenant_name">
                 </div>
 
             </div>
+            </div>
+
+        </div>
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>$500 Welcome Down Payment ?</label>
-                    <select class="form-control-sm" name="deal_welcome_bonus">
+                    <select class="form-control" name="deal_welcome_bonus" wire:model="deal.data.welcome_bonus">
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>
@@ -105,9 +109,10 @@
 
             </div>
             <div class="col-md-6 col-lg-6">
+                @error('name') <span class="error">{{ $message }}</span> @enderror
                 <div class="d-inline">
-                    <label>Mortgage TYpe ?</label>
-                    <select class="form-control-sm" name="deal_mortgage_type">
+                    <label>Mortgage Type ?</label>
+                    <select class="form-control" name="deal_mortgage_type" wire:model="deal.data.mortgage_type">
                         <option value="0">Select</option>
                         <option value="fha">FHA</option>
                         <option value="va">VA</option>
@@ -121,16 +126,16 @@
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Rental Verification</label>
-                    <input class="form-control" type="text" name="deal_rental_verification" value="">
+                    <input class="form-control" type="text" name="deal_rental_verification" value="" wire:model="deal.data.rental_verification">
                 </div>
 
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Deal Save?</label>
-                    <select class="form-control-sm" name="deal_save">
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
+                    <select class="form-control" name="deal_save" wire:model="deal.checks.save" wire:click="deal_save">
+                        <option value="no" >No</option>
+                        <option value="yes" >Yes</option>
                     </select>
                 </div>
 
@@ -142,17 +147,28 @@
     </div>
     {{--<div class="border"></div>--}}
 
-    <div class="row pl-2">
+    <div class="row pl-2 item_checklist_peropert_info_div">
         <div class="col-md-12 col-lg-12 bg-info">
             <h4 class="text-white pt-2">Property Information</h4>
 
         </div>
-
-
-        <div class="col-md-12 col-lg-12">
-            <h5>Property house number and street Info</h5>
+        <div class="col-md-12 mt-2">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>New Construction</label>
+                    <select class="form-control" name="item_checklist_new_construction" id="item_checklist_new_construction" onchange="hideShow(this.value,'.item_checklist_new_construction_input_div')">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-lg-6 d-none item_checklist_new_construction_input_div" id="item_checklist_new_construction_input_div">
+                    <label>Builder Name</label>
+                    <input  class="form-control" type="text" name="builder_name" value="" placeholder="Builder Name">
+                </div>
+            </div>
 
         </div>
+
         <div class="col-md-6 col-lg-6">
             <div class="d-inline">
                 <label>Property Country</label>
@@ -178,24 +194,24 @@
                 <span><input  class="form-control" type="text" name="property_zip" value=""></span>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="d-inline">
-                <span><input type="checkbox" name="down_payment" value="0"></span>
-                <label>New Construction?</label>
-                <span><input  class="form-control" type="text" name="builder_name" value="" placeholder="Builder Name"></span>
-            </div>
 
-        </div>
         <div class="col-md-6 col-lg-6">
             <div class="d-inline">
                 <label>Purchase Price</label>
-                <span><input  class="form-control" type="number" name="purchase_price" value=""></span>
+                <input  class="form-control" type="number" name="item_check_list_purchase_price" value="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-6">
             <div class="d-inline">
-                <label>Closing Credit</label>
+                <label>Closing Cost</label>
+                <input  class="form-control" type="number" name="closing_cost_price" value="3500">
+
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="d-inline">
+                <label>Closing Credit General</label>
                 <span><input  class="form-control" type="number" name="closing_credit" value=""></span>
 
             </div>
@@ -207,20 +223,16 @@
 
             </div>
         </div>
-        <div class="col-md-6 col-lg-6">
-            <div class="d-inline">
-                <label>Closing Cost Price</label>
-                <span><input  class="form-control" type="number" name="closing_cost_price" value="3500"></span>
 
-            </div>
-        </div>
         <div class="col-md-12 col-lg-12">
-            <div class="">
                 <div class="">
-                    <span><input type="checkbox" name="hoa_checkbox" id="hoa_checkbox" value="0"></span>
-                    <label>HOA?</label>
-                </div>
-                <div class="row hoa_div d-none">
+                        <label>HOA</label>
+                        <select class="form-control" name="item_checklist_hoa" id="item_checklist_hoa" onchange="hideShow(this.value,'.item_checklist_hoa_div')">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+               </div>
+                <div class="row item_checklist_hoa_div d-none">
                     <div class="col-md-6 col-lg-6">
                         <span>HOA Name</span>
                         <span><input  class="form-control" type="text" name="hoa_name" value="" placeholder=""></span>
@@ -229,41 +241,57 @@
                         <span>HOA Contact</span>
                         <span><input  class="form-control" type="text" name="hoa_name" value="" placeholder=""></span>
                     </div>
+                </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+                <div class="">
+                        <label>Repair Request</label>
+                        <select class="form-control" name="item_checklist_repair_request" id="item_checklist_repair_request" onchange="hideShow(this.value,'.item_checklist_repair_request_div')">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+               </div>
+                <div class="row item_checklist_repair_request_div d-none">
+                    <div class="col-md-6 col-lg-6">
+                        <span>Item Names</span>
+                        <input  class="form-control" type="text" name="item_checklist_repair_request_name" value="" placeholder="">
+                    </div>
 
                 </div>
-
-            </div>
         </div>
 
         <div class="col-md-6 col-lg-6">
             <div class="">
                 <label>Closing Date</label>
-                <span><input  class="form-control" type="date" name="closing_date" value=""></span>
+               <input  class="form-control" type="date" name="closing_date" value="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-6">
             <div class="">
-                <label>DD Expires</label>
+                <label>Due Diligence Expires</label>
                 <span><input  class="form-control" type="date" name="dd_expire_date" value=""></span>
 
             </div>
         </div>
 
-        <div class="col-md-12 pb-2">
+        <div class="col-md-12 mt-2 mb-2">
             <div class="">
-                <input type="checkbox" name="lender" id="lender_checkbox" value="0">
                 <label>Lender?</label>
+                <select class="form-control" name="item_checklist_lender" id="item_checklist_lender" onchange="hideShow(this.value,'.item_checklist_lender_name_div')">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
             </div>
 
-            <div class="row col-md-6 lender_div d-none">
-                    <input class="form-control" type="text" name="builder_name" value="" placeholder="Lender Name">
+            <div class="row col-md-6 item_checklist_lender_name_div d-none">
+                    <input class="form-control" type="text" name="item_checklist_lender_name" value="" placeholder="Lender Name">
             </div>
         </div>
     </div>
 
 
-    <div class="row pl-2 letter_of_commitment">
+    <div class="row pl-2 item_checklist_due_diligence_div">
         <div class="col-md-12 col-lg-12 bg-info">
             <h4 class="text-white pt-2">Due Diligence Checklist </h4>
         </div>
@@ -273,131 +301,291 @@
                 <span>$<input  class="form-control" type="number" name="rent" value="10"></span>
             </div>
         </div>
-
-        <div class="col-md-12 col-lg-12">
-            <div class="row col-md-12">
-                <span><input type="checkbox" name="deal_option_checkbox" id="deal_option_checkbox" value="0"></span>
-                <label>Option?</label>
-            </div>
-            <div class="row col-md-12 col-lg-12 select_deal_option_div d-none">
-                <div class="col-md-4">
-                    <span><input type="checkbox" name="select_deal_option_checkbox" id="select_deal_option_checkbox" value="3"></span>
-                    <label>3 MO Option</label>
-                </div>
-                <div class="col-md-4">
-                    <span><input type="checkbox" name="select_deal_option_checkbox" id="select_deal_option_checkbox" value="6"></span>
-                    <label>6 MO Option</label>
-                </div>
-                <div class="col-md-4">
-                    <span><input type="checkbox" name="select_deal_option_checkbox" id="select_deal_option_checkbox" value="12"></span>
-                    <label>12 MO Option</label>
-                </div>
-                <div class="col-md-6 deal_option_value_div d-none pb-2">
-                    <span>$<input  class="form-control" type="text" name="deal_option_value" value=""></span>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="row pl-2 on_board_fee_payment">
-        <div class="col-md-12 col-lg-12 bg-info">
-            <h4 class="text-white pt-2">On Board Fee Payment </h4>
-        </div>
-        <div class="col-md-6 col-lg-6">
+        <div class="col-md-6 col-lg-6 mt-2">
             <div class="">
                 <label>Option Payment Date</label>
-                <span><input  class="form-control" type="date" name="option_payment_date" value=""></span>
+                <input  class="form-control" type="date" name="item_checklist_option_payment_date" value="">
             </div>
         </div>
 
-
-        <div class="col-md-12 col-lg-12 ">
-            <h4 class="pt-2">Inspection</h4>
-
-        <div class="">
+        <div class="row col-md-12 col-lg-12 mt-2">
             <div class="col-md-6">
-                <label>Termite</label>
-                <span><input  class="form-control" type="text" name="termite" value=""></span>
+                <label>Option?</label>
+                <select class="form-control" name="item_checklist_lender" id="item_checklist_option" onchange="hideShow(this.value,'.item_checklist_option_list_div')">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
             </div>
-            <div class="col-md-6">
-                <div class="">
-                    <span><input type="checkbox" name="septic_inspection" id="septic_inspection" value="yes"></span>
-                    <label>Septic inspection</label>
-                </div>
+            <div class="col-md-6 col-lg-6 item_checklist_option_list_div d-none">
+                <label>Option?</label>
+                <select class="form-control" name="item_checklist_option_list" id="item_checklist_option_list" >
+                    <option value="">Select Option</option>
+                    <option value="3_month_option">3 Month Option</option>
+                    <option value="6_month_option">6 Mont Option</option>
+                    <option value="12_month_option">12 Month Option</option>
+                </select>
             </div>
-        </div>
-
-        <div class="col-md-12 col-lg-12 ">
-            <h4 class="pt-2">Repair Credit</h4>
-        <div class="">
-            <div class="col-md-6">
-                <div class="">
-                    <span><input type="checkbox" name="septic_inspection" id="septic_inspection" value="yes"></span>
-                    <label>Septic inspection</label>
-                </div>
+            <div class="col-md-6 col-lg-6 item_checklist_option_list_value_div d-none">
+                <label>Option Payment</label>
+                <input  class="form-control" type="number" name="item_checklist_option_list_value" value="">
             </div>
-        </div>
 
         </div>
 
+
+
+        <div class="row col-md-12 col-lg-12 no-gutters mb-2">
+            <div class="col-md-6 col-lg-6">
+                <label>Inspection Date?</label>
+                <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')">
+
+            </div>
+            <div class="row col-md-6 col-lg-6 item_checklist_option_list_inspection_date_div d-none">
+                <label>Date</label>
+                <input  class="form-control" type="date" name="item_checklist_option_list_inspection_date" value="">
+            </div>
+        </div>
 
     </div>
+
+
+    <div class="row pl-2 item_checklist_pre_closing">
+        <div class="col-md-12 col-lg-12 bg-info">
+            <h4 class="text-white pt-2">Pre Closing Checklist </h4>
+        </div>
+        <div class="col-md-12 col-lg-12 mt-2">
+            <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <label>Appraisal Value?</label>
+                <input  class="" type="checkbox" name="item_checklist_appraisal_value_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_appraisal_value_div')">
+
+            </div>
+            <div class=" col-md-6 col-lg-6 item_checklist_appraisal_value_div d-none">
+                <label>Value</label>
+                <input  class="form-control" type="number" name="item_checklist_appraisal_value" value="">
+            </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Driver license applicant</label>
+                    <input class="form-control" type="text" name="item_checklist_driver_license_applicant" value="">
+                </div>
+
+
+            <div class="col-md-6 col-lg-6">
+                <label>Co Driver license applicant</label>
+                <input  class="form-control" type="text" name="item_checklist_co_driver_license_applicant" value="">
+
+            </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                     <label>Soc Sec card Applicant</label>
+                     <input class="form-control" type="text" name="item_checklist_soc_sec_card_applicant" value="">
+                </div>
+
+            <div class="col-md-6 col-lg-6">
+                <div class="">
+                    <label>Soc Sec card Co Applicant</label>
+                    <input  class="form-control" type="text" name="item_checklist_soc_sec_card_co_applicant" value="">
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Renters insurance?</label>
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_renters_insurance_div')">
+                </div>
+                <div class="col-md-6 col-lg-6 item_checklist_renters_insurance_div d-none">
+                    <label>Company</label>
+                    <input  class="form-control" type="text" name="item_checklist_renters_insurance_company" value="">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 col-lg-12 item_checklist_renters_insurance_div  d-none">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Flood Certificate</label>
+                    <input  class="form-control" type="text" name="item_checklist_renters_insurance" value="">
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <label>Landlord Insurance</label>
+                    <input  class="form-control" type="text" name="item_checklist_renters_insurance" value="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Warranty?</label>
+                    <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_warranty_div')">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 col-lg-12 item_checklist_warranty_div d-none">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Company Name</label>
+                    <input  class="form-control" type="text" name="item_checklist_warranty_company" value="">
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <label>Warranty paid by seller</label>
+                    <select class="form-control" name="item_checklist_warranty_paid_by_seller" id="item_checklist_warranty_paid_by_seller" onchange="hideShow(this.value,'.item_checklist_option_list_div')">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Lease?</label>
+                    <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_lease_div')">
+                </div>
+            </div>
+            <div class="row item_checklist_lease_div d-none">
+                <div class="col-md-6 col-lg-6 ">
+                    <label>Lease Expire</label>
+                    <input  class="form-control" type="date" name="item_checklist_lease_expire" value="">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 col-lg-12">
+            <h4>Option</h4>
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Termite ?</label>
+                    <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_termite_paid_by_div')">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 item_checklist_termite_paid_by_div d-none">
+                    <div class="">
+                        <label>Paid BY</label>
+                        <select class="form-control" name="item_checklist_termite_paid_by" id="item_checklist_termite_paid_by">
+                            <option value="seller">Seller</option>
+                            <option value="dream">Dream</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="">
+                        <label>Septic inspection</label>
+                        <select class="form-control" name="item_checklist_septic_inspection" id="item_checklist_septic_inspection">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Prorated Rent ?</label>
+                    <input  class="" type="checkbox" name="item_checklist_prorated_rent_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_prorated_rent_div')">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 item_checklist_prorated_rent_div d-none">
+                    <div class="">
+                        <label>Rent</label>
+                        <input  class="form-control" type="text" name="item_checklist_prorated_rent" value="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Other?</label>
+                    <input  class="" type="checkbox" name="item_checklist_other_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_other_input_div')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 item_checklist_other_input_div d-none">
+                    <div class="">
+                        <label>Other</label>
+                        <input  class="form-control" type="text" name="item_checklist_other" value="">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
 
     <div class="col-md-12 border-bottom pt-4">
     </div>
 
     <div class="col-md-12 pt-4">
         <div class="float-right">
-            <a  class="btn btn-warning  mr-2" type="submit" href="{{url('/items/outstanding/before_dd')}}">Cancel Purchase</a>
-            <button  class="btn btn-info" type="submit" wire:click="save_book_purchase">Book Purchase</button>
+            <a  class="btn btn-warning  mr-2" type="submit" href="{{url('/items/outstanding/before_dd')}}">Before Closing</a>
+            <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/cancelled')}}">Cancel Purchase</a>
+            <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/dropouts')}}">Cancel Client</a>
+            <button  class="btn btn-info" type="submit" wire:click="book_house">Book House</button>
         </div>
 
 
     </div>
 
-</div>
+
 
 @push('scripts')
     <script>
-        $(document).find('#hoa_checkbox').click(function () {
-            if($(this).is(':checked'))
-                $('.hoa_div').removeClass('d-none')
-            else
-                $('.hoa_div').addClass('d-none')
 
-        });
-        $(document).find('#lender_checkbox').click(function () {
-            if($(this).is(':checked'))
-                $('.lender_div').removeClass('d-none')
-            else
-                $('.lender_div').addClass('d-none')
-
-        }) ;
         $(document).find('#deal_option_checkbox').click(function () {
             if($(this).is(':checked'))
                 $('.select_deal_option_div').removeClass('d-none')
             else
                 $('.select_deal_option_div').addClass('d-none')
         });
+
         $(document).find('#select_deal_option_checkbox').click(function (_this) {
             if($(this).is(':checked')) {
-                // $('#select_deal_option_checkbox').not($(_this)).prop('checked', false);
                 $('.deal_option_value_div').removeClass('d-none')
             }else{
                 $('.deal_option_value_div').addClass('d-none')
             }
         });
-        $(document).find('#deal_additional_tenants').change(function () {
-            if($(this).val() == 'yes') {
-                // $('#select_deal_option_checkbox').not($(_this)).prop('checked', false);
-                $('.deal_additional_tenant_div').removeClass('d-none')
+        $(document).find('#item_checklist_option_list').change(function (_this) {
+            if($(this).val() !== "") {
+                $('.item_checklist_option_list_value_div').removeClass('d-none')
             }else{
-                $('.deal_additional_tenant_div').addClass('d-none')
+                $('.item_checklist_option_list_value_div').addClass('d-none')
             }
         });
+
+        function hideShow(val,div) {
+            console.log(val);
+            if(val == 'yes' || val == true) {
+                $(div).removeClass('d-none')
+            }
+            else{
+                $(div).addClass('d-none')
+            }
+        }
 
 
     </script>
