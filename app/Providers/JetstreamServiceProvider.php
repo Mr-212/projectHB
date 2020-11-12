@@ -9,6 +9,10 @@ use App\Actions\Jetstream\DeleteUser;
 use App\Actions\Jetstream\UpdateTeamName;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
+use Laravel\Fortify\Fortify;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -36,6 +40,8 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::addTeamMembersUsing(AddTeamMember::class);
         Jetstream::deleteTeamsUsing(DeleteTeam::class);
         Jetstream::deleteUsersUsing(DeleteUser::class);
+
+        $this->customAuthentication();
     }
 
     /**
@@ -63,5 +69,16 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::role('reader', __('Reader'), [
             'read',
         ])->description(__('Reader users have the ability to read only.'));
+    }
+
+    protected function customAuthentication(){
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+//            dd($user->current_team_id);
+            if ($user && !empty($user->current_team_id) &&
+                Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+        });
     }
 }

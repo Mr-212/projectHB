@@ -1,4 +1,7 @@
 <div class="">
+    @php
+
+    @endphp
     {{-- Do your work, then step back. --}}
     <div class="row pl-2">
         <div class="col-md-12">
@@ -6,13 +9,18 @@
         </div>
 
     </div>
+    {{--<form wire:submit.prevent="book_house">--}}
     <div class="row p-2 item_checklist_deal_info_div">
             <div class="col-md-12 col-lg-12 bg-info">
                 <h4 class="text-white pt-2">Client Info</h4>
 
             </div>
+        {{--@if($errors->any())--}}
+            {{--{!! implode('', $errors->all('<div>:message</div>')) !!}--}}
+        {{--@endif--}}
+        {{--@error('additional_tenant_name') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
-            <div class="col-md-6 col-lg-6 pt-4">
+        <div class="col-md-6 col-lg-6 pt-4">
                 <div class="d-inline">
                     <label>Deal Name:</label>
                     <span> Deal 1</span>
@@ -75,42 +83,45 @@
                 </div>
 
         </div>
-        <div class="col-md-12 col-lg-12" wire:ignore>
-            <div class="row">
+        <div class="col-md-12 col-lg-12" >
+            <div class="row" >
 
 
             <div class="col-md-6 col-lg-6">
+                {{--@error('deal.data.additional_tenant_name') <span class="error">{{ $message }}</span> @enderror--}}
                     <label>Additional Tenants ?</label>
                     <select class="form-control" name="deal_additional_tenants" id="deal_additional_tenants" wire:model="deal.checks.additional_tenant" onchange="hideShow(this.value,'.deal_additional_tenant_div')">
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
 
                     </select>
             </div>
-            <div class="col-md-6 col-lg-6 deal_additional_tenant_div d-none">
-                <div class="d-inline">
-                    @error('deal.data.additional_tenant_name') <span class="error">{{ $message }}</span> @enderror
-                    <label>Name</label>
-                   <input class="form-control" type="text" name="deal_additional_tenant_name" value="" wire:model="deal.data.additional_tenant_name">
-                </div>
 
+                    <div class="col-md-6 col-lg-6">
+                        @if($deal['checks']['additional_tenant'])
+                            @error('deal.data.additional_tenant_name') <span class="error alert-danger">{{ $message }}</span> @enderror
+                        @endif
+                        <div class="deal_additional_tenant_div {{$deal['checks']['additional_tenant'] ? '':'d-none'}}">
+                            <label>Name</label>
+                           <input class="form-control" type="text" name="deal_additional_tenant_name" value="" wire:model="deal.data.additional_tenant_name">
+                        </div>
+                     </div>
             </div>
-            </div>
-
         </div>
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>$500 Welcome Down Payment ?</label>
                     <select class="form-control" name="deal_welcome_bonus" wire:model="deal.data.welcome_bonus">
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                 </div>
-
             </div>
             <div class="col-md-6 col-lg-6">
-                @error('name') <span class="error">{{ $message }}</span> @enderror
-                <div class="d-inline">
+                @error('deal.data.mortgage_type') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
                     <label>Mortgage Type ?</label>
                     <select class="form-control" name="deal_mortgage_type" wire:model="deal.data.mortgage_type">
                         <option value="0">Select</option>
@@ -124,7 +135,9 @@
 
             </div>
             <div class="col-md-6 col-lg-6">
-                <div class="d-inline">
+                @error('deal.data.rental_verification') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
                     <label>Rental Verification</label>
                     <input class="form-control" type="text" name="deal_rental_verification" value="" wire:model="deal.data.rental_verification">
                 </div>
@@ -134,18 +147,15 @@
                 <div class="d-inline">
                     <label>Deal Save?</label>
                     <select class="form-control" name="deal_save" wire:model="deal.checks.save" wire:click="deal_save">
-                        <option value="no" >No</option>
-                        <option value="yes" >Yes</option>
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                 </div>
 
             </div>
         </div>
 
-
-
-    </div>
-    {{--<div class="border"></div>--}}
 
     <div class="row pl-2 item_checklist_peropert_info_div">
         <div class="col-md-12 col-lg-12 bg-info">
@@ -157,8 +167,9 @@
                 <div class="col-md-6 col-lg-6">
                     <label>New Construction</label>
                     <select class="form-control" name="item_checklist_new_construction" id="item_checklist_new_construction" onchange="hideShow(this.value,'.item_checklist_new_construction_input_div')">
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-6 col-lg-6 d-none item_checklist_new_construction_input_div" id="item_checklist_new_construction_input_div">
@@ -228,8 +239,9 @@
                 <div class="">
                         <label>HOA</label>
                         <select class="form-control" name="item_checklist_hoa" id="item_checklist_hoa" onchange="hideShow(this.value,'.item_checklist_hoa_div')">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
+                            @foreach(YesNoDropDown::getList() as $key => $val)
+                                <option value="{{$key}}">{{$val}}</option>
+                            @endforeach
                         </select>
                </div>
                 <div class="row item_checklist_hoa_div d-none">
@@ -279,8 +291,9 @@
             <div class="">
                 <label>Lender?</label>
                 <select class="form-control" name="item_checklist_lender" id="item_checklist_lender" onchange="hideShow(this.value,'.item_checklist_lender_name_div')">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
+                    @foreach(YesNoDropDown::getList() as $key => $val)
+                        <option value="{{$key}}">{{$val}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -312,8 +325,9 @@
             <div class="col-md-6">
                 <label>Option?</label>
                 <select class="form-control" name="item_checklist_lender" id="item_checklist_option" onchange="hideShow(this.value,'.item_checklist_option_list_div')">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
+                    @foreach(YesNoDropDown::getList() as $key => $val)
+                        <option value="{{$key}}">{{$val}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-6 col-lg-6 item_checklist_option_list_div d-none">
@@ -439,8 +453,9 @@
                 <div class="col-md-6 col-lg-6">
                     <label>Warranty paid by seller</label>
                     <select class="form-control" name="item_checklist_warranty_paid_by_seller" id="item_checklist_warranty_paid_by_seller" onchange="hideShow(this.value,'.item_checklist_option_list_div')">
-                        <option value="no">No</option>
-                        <option value="yes">Yes</option>
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -487,8 +502,9 @@
                     <div class="">
                         <label>Septic inspection</label>
                         <select class="form-control" name="item_checklist_septic_inspection" id="item_checklist_septic_inspection">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
+                            @foreach(YesNoDropDown::getList() as $key => $val)
+                                <option value="{{$key}}">{{$val}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -533,7 +549,8 @@
         </div>
 
     </div>
-
+    {{--<button  class="btn btn-info" type="submit">Book House</button>--}}
+{{--</form>--}}
 
 
     <div class="col-md-12 border-bottom pt-4">
@@ -545,11 +562,12 @@
             <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/cancelled')}}">Cancel Purchase</a>
             <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/dropouts')}}">Cancel Client</a>
             <button  class="btn btn-info" type="submit" wire:click="book_house">Book House</button>
+
         </div>
 
 
     </div>
-
+</div>
 
 
 @push('scripts')
