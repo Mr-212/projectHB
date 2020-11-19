@@ -7,35 +7,54 @@ use Livewire\Component;
 class ItemChecklist extends Component
 {
     private $item_id;
-    public  $additional_tenant_name;
 
-    public $deal = [
+    public $client = [
         'checks' => [
             'additional_tenant' => '0',
             'save' => 'no'
         ],
          'data' => [
+             'applicant_name'=>'',
+             'applicant_email'=>'',
+             'applicant_phone'=>'',
+             'partner_name'=>'',
+             'partner_email'=>'',
+             'partner_phone'=>'',
+             'co_applicant_name'=>'',
+             'co_applicant_email'=>'',
+             'co_applicant_phone'=>'',
              'additional_tenant_name' => '',
              'mortgage_type' => '',
              'welcome_bonus' => '1',
-             'rental_verification' =>''
 
          ]
     ];
     protected $rules = [
-        'deal.data.additional_tenant_name' => 'required|string',
-        'deal.data.mortgage_type' => 'required|not_in:0',
-        'deal.data.rental_verification' => 'required',
+        'client.data.additional_tenant_name' => 'required|string',
+        'client.data.mortgage_type' => 'required|not_in:0',
+        'client.data.rental_verification' => 'required',
 
     ];
 
     protected $validationAttributes = [
-        'deal.data.additional_tenant_name' => 'Additional Tenant Name',
-        'deal.data.mortgage_type' => 'Mortgage Type',
-        'deal.data.rental_verification' => 'Rental Verification',
+        'client.data.additional_tenant_name' => 'Additional Tenant Name',
+        'client.data.mortgage_type' => 'Mortgage Type',
+        'client.data.rental_verification' => 'Rental Verification',
     ];
 
-    public $item_checklist = [''];
+    public $item_checklist = [
+        'checks' => [
+            'additional_tenant' => '0',
+            'save' => 'no'
+        ],
+        'data' => [
+            'additional_tenant_name' => '',
+            'mortgage_type' => '',
+            'welcome_bonus' => '1',
+            'rental_verification' =>''
+
+        ]
+    ];
 
     public function mount($item_id){
         $this->item_id = $item_id;
@@ -44,8 +63,8 @@ class ItemChecklist extends Component
 
     public function hydrate(){
 
-        if($this->deal['checks']['additional_tenant'] == 'no') {
-            $this->deal['data']['additional_tenant_name'] = '';
+        if($this->client['checks']['additional_tenant'] == 'no') {
+            $this->client['data']['additional_tenant_name'] = '';
         }
 
     }
@@ -69,5 +88,9 @@ class ItemChecklist extends Component
     public function book_house(){
         $this->validate($this->rules);
 
+    }
+
+    public function before_closing(){
+        dd($this->client['data']);
     }
 }

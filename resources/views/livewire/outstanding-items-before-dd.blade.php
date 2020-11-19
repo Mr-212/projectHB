@@ -32,97 +32,121 @@
                 </tr>
                 </thead>
                 <tbody wire:ignore>
-                <tr>
-                    <td><input type="checkbox" name="1" value="1"/>&nbsp;</td>
-                    <td id="item_checked_at" wire:model="item_checked_at"></td>
-                    <td>Deal1</td>
-                    <td>112030444745</td>
-                    <td>john@example.com</td>
-                    <td>Arax</td>
-                    <td>arax@example.com</td>
-                    <td>Patner1</td>
-                    <td>3658587496</td>
-                    <td>partner1@example.com</td>
-                    <td>partner1@example.com</td>
-                    <td>FHA</td>
-                    <td><a class="btn btn-info btn-md">Assignee1</a></td>
-                    <td>
-                        <textarea class="" value="{{$add_comment}}" ></textarea>
-                    </td>
-                </tr>
+                @if($clients)
+                    @foreach($clients as $client)
+                    <tr>
+                        <th></th>
+                        <td><input type="checkbox" name="1" value="{{$client->id}}"/>&nbsp;</td>
+                        <th class="w-8">Item Checked AT</th>
+                        <th>{{$client->applicant_name}}</th>
+                        <th>{{$client->applicant_phone}}</th>
+                        <th>{{$client->applicant_email}}</th>
+                        <th>{{$client->co_applicant_name}}</th>
+                        <th>{{$client->co_applicant_phone}}</th>
+                        <th>{{$client->co_applicant_email}}</th>
+                        <th>{{$client->partner_name}}</th>
+                        <th>{{$client->partner_phone}}</th>
+                        <th>{{$client->partner_email}}</th>
+                        <th>{{$client->mortgage_type}}</th>
+                        <th>Assignee</th>
+                        <th>Comment</th>
+                    </tr>
+                @endforeach
+                @endif
+                {{--<tr>--}}
+                    {{--{{dd(\Auth::user()->currentTeam)}}--}}
+                    {{--@if (\Auth::user()->hasTeamPermission(\Auth::user()->currentTeam, 'write'))--}}
+                    {{--<td><input type="checkbox" name="1" value="1"/>&nbsp;</td>--}}
+                    {{--@endif--}}
+                    {{--<td id="item_checked_at" wire:model="item_checked_at"></td>--}}
+                    {{--<td>Deal1</td>--}}
+                    {{--<td>112030444745</td>--}}
+                    {{--<td>john@example.com</td>--}}
+                    {{--<td>Arax</td>--}}
+                    {{--<td>arax@example.com</td>--}}
+                    {{--<td>Patner1</td>--}}
+                    {{--<td>3658587496</td>--}}
+                    {{--<td>partner1@example.com</td>--}}
+                    {{--<td>partner1@example.com</td>--}}
+                    {{--<td>FHA</td>--}}
+                    {{--<td><a class="btn btn-info btn-md">Assignee1</a></td>--}}
+                    {{--<td>--}}
+                        {{--<textarea class="" value="{{$add_comment}}" ></textarea>--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
 
-                <tr>
-                    <td><input type="checkbox" name="name1" value="2" />&nbsp;</td>
-                    <td id="item_checked_at" wire:model="item_checked_at"></td>
-                    <td>Deal2</td>
-                    <td>212030127745</td>
-                    <td>allan@example.com</td>
-                    <td>john</td>
-                    <td>john@example.com</td>
-                    <td>Patner2</td>
-                    <td>3658587496</td>
-                    <td>partner2@example.com</td>
-                    <td>partner2@example.com</td>
-                    <td>VA</td>
-                    <td><a class="btn btn-info btn-md">Assignee2</a></td>
-                    <td>
-                        <textarea class="" value="{{$add_comment}}" ></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="name1" value="3"/>&nbsp;</td>
-                    <td id="item_checked_at" wire:model="item_checked_at"></td>
-                    <td>Deal3</td>
-                    <td>312030127745</td>
-                    <td>allan@example.com</td>
-                    <td>john</td>
-                    <td>john@example.com</td>
-                    <td>Patner3</td>
-                    <td>3658587496</td>
-                    <td>partner3@example.com</td>
-                    <td>partner3@example.com</td>
-                    <td>VA</td>
-                    <td><a class="btn btn-info btn-md">Assignee3</a></td>
-                    <td>
-                        <textarea class="" value="{{$add_comment}}" ></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="name1" />&nbsp;</td>
-                    <td id="item_checked_at" wire:model="item_checked_at"></td>
-                    <td>Deal4</td>
-                    <td>412030127745</td>
-                    <td>allan@example.com</td>
-                    <td>john</td>
-                    <td>john@example.com</td>
-                    <td>Patner4</td>
-                    <td>3658587496</td>
-                    <td>partner4@example.com</td>
-                    <td>partner4@example.com</td>
-                    <td>VA</td>
-                    <td><a class="btn btn-info btn-md">Assignee4</a></td>
-                    <td>
-                        <textarea class="" value="{{$add_comment}}"  ></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="name1" />&nbsp;</td>
-                    <td id="item_checked_at" wire:model="item_checked_at"></td>
-                    <td>Deal5</td>
-                    <td>512030127745</td>
-                    <td>allan@example.com</td>
-                    <td>john</td>
-                    <td>john@example.com</td>
-                    <td>Patner5</td>
-                    <td>3658587496</td>
-                    <td>partner5@example.com</td>
-                    <td>partner5@example.com</td>
-                    <td>VA</td>
-                    <td><a class="btn btn-info btn-md">Assignee5</a></td>
-                    <td>
-                        <textarea class="" value="{{$add_comment}}"  ></textarea>
-                    </td>
-                </tr>
+                {{--<tr>--}}
+                    {{--<td><input type="checkbox" name="name1" value="2" />&nbsp;</td>--}}
+                    {{--<td id="item_checked_at" wire:model="item_checked_at"></td>--}}
+                    {{--<td>Deal2</td>--}}
+                    {{--<td>212030127745</td>--}}
+                    {{--<td>allan@example.com</td>--}}
+                    {{--<td>john</td>--}}
+                    {{--<td>john@example.com</td>--}}
+                    {{--<td>Patner2</td>--}}
+                    {{--<td>3658587496</td>--}}
+                    {{--<td>partner2@example.com</td>--}}
+                    {{--<td>partner2@example.com</td>--}}
+                    {{--<td>VA</td>--}}
+                    {{--<td><a class="btn btn-info btn-md">Assignee2</a></td>--}}
+                    {{--<td>--}}
+                        {{--<textarea class="" value="{{$add_comment}}" ></textarea>--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
+                {{--<tr>--}}
+                    {{--<td><input type="checkbox" name="name1" value="3"/>&nbsp;</td>--}}
+                    {{--<td id="item_checked_at" wire:model="item_checked_at"></td>--}}
+                    {{--<td>Deal3</td>--}}
+                    {{--<td>312030127745</td>--}}
+                    {{--<td>allan@example.com</td>--}}
+                    {{--<td>john</td>--}}
+                    {{--<td>john@example.com</td>--}}
+                    {{--<td>Patner3</td>--}}
+                    {{--<td>3658587496</td>--}}
+                    {{--<td>partner3@example.com</td>--}}
+                    {{--<td>partner3@example.com</td>--}}
+                    {{--<td>VA</td>--}}
+                    {{--<td><a class="btn btn-info btn-md">Assignee3</a></td>--}}
+                    {{--<td>--}}
+                        {{--<textarea class="" value="{{$add_comment}}" ></textarea>--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
+                {{--<tr>--}}
+                    {{--<td><input type="checkbox" name="name1" />&nbsp;</td>--}}
+                    {{--<td id="item_checked_at" wire:model="item_checked_at"></td>--}}
+                    {{--<td>Deal4</td>--}}
+                    {{--<td>412030127745</td>--}}
+                    {{--<td>allan@example.com</td>--}}
+                    {{--<td>john</td>--}}
+                    {{--<td>john@example.com</td>--}}
+                    {{--<td>Patner4</td>--}}
+                    {{--<td>3658587496</td>--}}
+                    {{--<td>partner4@example.com</td>--}}
+                    {{--<td>partner4@example.com</td>--}}
+                    {{--<td>VA</td>--}}
+                    {{--<td><a class="btn btn-info btn-md">Assignee4</a></td>--}}
+                    {{--<td>--}}
+                        {{--<textarea class="" value="{{$add_comment}}"  ></textarea>--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
+                {{--<tr>--}}
+                    {{--<td><input type="checkbox" name="name1" />&nbsp;</td>--}}
+                    {{--<td id="item_checked_at" wire:model="item_checked_at"></td>--}}
+                    {{--<td>Deal5</td>--}}
+                    {{--<td>512030127745</td>--}}
+                    {{--<td>allan@example.com</td>--}}
+                    {{--<td>john</td>--}}
+                    {{--<td>john@example.com</td>--}}
+                    {{--<td>Patner5</td>--}}
+                    {{--<td>3658587496</td>--}}
+                    {{--<td>partner5@example.com</td>--}}
+                    {{--<td>partner5@example.com</td>--}}
+                    {{--<td>VA</td>--}}
+                    {{--<td><a class="btn btn-info btn-md">Assignee5</a></td>--}}
+                    {{--<td>--}}
+                        {{--<textarea class="" value="{{$add_comment}}"  ></textarea>--}}
+                    {{--</td>--}}
+                {{--</tr>--}}
 
 
                 </tbody>

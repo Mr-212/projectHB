@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Client;
 use Livewire\Component;
 
 class OutstandingItemsBeforeDd extends Component
@@ -16,7 +17,8 @@ class OutstandingItemsBeforeDd extends Component
     }
     public function render()
     {
-        return view('livewire.outstanding-items-before-dd')
+        $clients = Client::all();
+        return view('livewire.outstanding-items-before-dd',compact('clients'))
             ->extends('layouts.app');
     }
 

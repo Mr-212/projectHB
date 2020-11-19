@@ -23,63 +23,63 @@
         <div class="col-md-6 col-lg-6 pt-4">
                 <div class="d-inline">
                     <label>Deal Name:</label>
-                    <span> Deal 1</span>
+                    <span wire:model="client.data.applicant_name"> Deal 1</span>
                 </div>
 
             </div>
             <div class="col-md-6 col-lg-6 pt-4">
                 <div class="d-inline">
                     <label>Partner Name:</label>
-                    <span> Partner1</span>
+                    <span wire:model="client.data.partner_name"> Partner1</span>
                 </div>
 
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Applicant Phone:</label>
-                    <span> 032789563</span>
+                    <span wire:model="client.data.applicant_phone"> 032789563</span>
                 </div>
 
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Partner Phone:</label>
-                    <span> 5556987452</span>
+                    <span wire:model="client.data.partner_phone"> 5556987452</span>
                 </div>
 
             </div>
         <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Applicant Email:</label>
-                    <span> abc@yahoo.com</span>
+                    <span wire:model="client.data.applicant_email"> abc@yahoo.com</span>
                 </div>
 
         </div>
         <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Partner Email:</label>
-                    <span> partner@yahoo.com</span>
+                    <span wire:model="client.data.partner_email"> partner@yahoo.com</span>
                 </div>
 
         </div>
         <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Co-Applicant Name:</label>
-                    <span> JOHN</span>
+                    <span wire:model="client.data.co_applicant_name"> JOHN</span>
                 </div>
 
         </div>
         <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Co-Applicant Phone:</label>
-                    <span> 123456789</span>
+                    <span wire:model="client.data.co_applicant_phone"> 123456789</span>
                 </div>
 
         </div>
         <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Co-Applicant Email:</label>
-                    <span> co-app@yahoo.com</span>
+                    <span wire:model="client.data.co_applicant_email"> co-app@yahoo.com</span>
                 </div>
 
         </div>
@@ -90,7 +90,7 @@
             <div class="col-md-6 col-lg-6">
                 {{--@error('deal.data.additional_tenant_name') <span class="error">{{ $message }}</span> @enderror--}}
                     <label>Additional Tenants ?</label>
-                    <select class="form-control" name="deal_additional_tenants" id="deal_additional_tenants" wire:model="deal.checks.additional_tenant" onchange="hideShow(this.value,'.deal_additional_tenant_div')">
+                    <select class="form-control" name="deal_additional_tenants" id="deal_additional_tenants" wire:model="client.checks.additional_tenant" onchange="hideShow(this.value,'.deal_additional_tenant_div')">
                         @foreach(YesNoDropDown::getList() as $key => $val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
@@ -99,12 +99,12 @@
             </div>
 
                     <div class="col-md-6 col-lg-6">
-                        @if($deal['checks']['additional_tenant'])
-                            @error('deal.data.additional_tenant_name') <span class="error alert-danger">{{ $message }}</span> @enderror
+                        @if($client['checks']['additional_tenant'])
+                            @error('client.data.additional_tenant_name') <span class="error alert-danger">{{ $message }}</span> @enderror
                         @endif
-                        <div class="deal_additional_tenant_div {{$deal['checks']['additional_tenant'] ? '':'d-none'}}">
+                        <div class="deal_additional_tenant_div {{$client['checks']['additional_tenant'] ? '':'d-none'}}">
                             <label>Name</label>
-                           <input class="form-control" type="text" name="deal_additional_tenant_name" value="" wire:model="deal.data.additional_tenant_name">
+                           <input class="form-control" type="text" name="deal_additional_tenant_name" value="" wire:model="client.data.additional_tenant_name">
                         </div>
                      </div>
             </div>
@@ -112,7 +112,7 @@
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>$500 Welcome Down Payment ?</label>
-                    <select class="form-control" name="deal_welcome_bonus" wire:model="deal.data.welcome_bonus">
+                    <select class="form-control" name="deal_welcome_bonus" wire:model="client.data.welcome_bonus">
                         @foreach(YesNoDropDown::getList() as $key => $val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
@@ -120,10 +120,10 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
-                @error('deal.data.mortgage_type') <span class="error alert-danger">{{ $message }}</span> @enderror
+                @error('client.data.mortgage_type') <span class="error alert-danger">{{ $message }}</span> @enderror
                 <div class="">
                     <label>Mortgage Type ?</label>
-                    <select class="form-control" name="deal_mortgage_type" wire:model="deal.data.mortgage_type">
+                    <select class="form-control" name="deal_mortgage_type" wire:model="client.data.mortgage_type">
                         <option value="0">Select</option>
                         <option value="fha">FHA</option>
                         <option value="va">VA</option>
@@ -135,18 +135,21 @@
 
             </div>
             <div class="col-md-6 col-lg-6">
-                @error('deal.data.rental_verification') <span class="error alert-danger">{{ $message }}</span> @enderror
+                @error('client.data.rental_verification') <span class="error alert-danger">{{ $message }}</span> @enderror
 
                 <div class="">
                     <label>Rental Verification</label>
-                    <input class="form-control" type="text" name="deal_rental_verification" value="" wire:model="deal.data.rental_verification">
-                </div>
+                    <select class="form-control" name="deal_save" wire:model="client.data.rental_verification">
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
+                    </select>                </div>
 
             </div>
             <div class="col-md-6 col-lg-6">
                 <div class="d-inline">
                     <label>Deal Save?</label>
-                    <select class="form-control" name="deal_save" wire:model="deal.checks.save" wire:click="deal_save">
+                    <select class="form-control" name="deal_save" wire:model="client.checks.save" wire:click="deal_save">
                         @foreach(YesNoDropDown::getList() as $key => $val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
@@ -196,13 +199,13 @@
         <div class="col-md-6 col-lg-6">
             <div class="d-inline">
                 <label>Property City</label>
-                <span><input  class="form-control" type="text" name="property_city" value=""></span>
+                <input  class="form-control" type="text" name="property_city" value="">
             </div>
         </div>
         <div class="col-md-6 col-lg-6">
             <div class="d-inline">
                 <label>Property Zip</label>
-                <span><input  class="form-control" type="text" name="property_zip" value=""></span>
+                <input  class="form-control" type="text" name="property_zip" value="">
             </div>
         </div>
 
@@ -223,7 +226,7 @@
         <div class="col-md-6 col-lg-6">
             <div class="d-inline">
                 <label>Closing Credit General</label>
-                <span><input  class="form-control" type="number" name="closing_credit" value=""></span>
+                <input  class="form-control" type="number" name="closing_credit" value="">
 
             </div>
         </div>
@@ -558,7 +561,7 @@
 
     <div class="col-md-12 pt-4">
         <div class="float-right">
-            <a  class="btn btn-warning  mr-2" type="submit" href="{{url('/items/outstanding/before_dd')}}">Before Closing</a>
+            <a  class="btn btn-warning  mr-2" type="submit" wire:click="before_closing">Before Closing</a>
             <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/cancelled')}}">Cancel Purchase</a>
             <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/dropouts')}}">Cancel Client</a>
             <button  class="btn btn-info" type="submit" wire:click="book_house">Book House</button>
