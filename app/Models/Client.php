@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\Dropdowns\StageConstant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -58,9 +59,17 @@ class Client extends Model
 //            $this->created_by = Auth::id();
 //        });
 //
-//        self::updating(function (){
-//            $this->updated_by = Auth::id();
-//        });
+        self::updating(function ($model){
+            $model->updated_by = Auth::id();
+        });
 
+    }
+
+    public function scopeBeforeDD($query){
+        return $query->where('stage', StageConstant::BEFORE_DUE_DILIGENCE);
+    }
+
+    public function scopeBeforeDDExpire($query){
+        return $query->where('stage', StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
     }
 }

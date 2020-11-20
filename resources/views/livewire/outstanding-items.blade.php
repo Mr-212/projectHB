@@ -10,49 +10,57 @@
     </div>
 
     <!-- Content Row -->
-    <div class="row">
-        <div class="col-md-12 overflow-auto">
-            <table class="table table-hover ">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th class="w-8">Item Checked AT</th>
-                    <th>Deal Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Co-applicant</th>
-                    <th>Co-app phone</th>
-                    <th>Co-app email</th>
-                    <th>Partner name</th>
-                    <th>Partner phone</th>
-                    <th>Partner email</th>
-                    <th>Mortgage Type</th>
-                    <th>Assignee</th>
-                    <th>Comment</th>
-                </tr>
-                </thead>
-                <tbody wire:ignore>
-                @if($clients)
-                    @foreach($clients as $client)
-                    <tr>
-                        <th></th>
-                        <td><input type="checkbox" name="1" value="{{$client->id}}"/>&nbsp;</td>
-                        <th class="w-8">Item Checked AT</th>
-                        <th>{{$client->applicant_name}}</th>
-                        <th>{{$client->applicant_phone}}</th>
-                        <th>{{$client->applicant_email}}</th>
-                        <th>{{$client->co_applicant_name}}</th>
-                        <th>{{$client->co_applicant_phone}}</th>
-                        <th>{{$client->co_applicant_email}}</th>
-                        <th>{{$client->partner_name}}</th>
-                        <th>{{$client->partner_phone}}</th>
-                        <th>{{$client->partner_email}}</th>
-                        <th>{{$client->mortgage_type}}</th>
-                        <th>Assignee</th>
-                        <th>Comment</th>
-                    </tr>
-                @endforeach
-                @endif
+    {{--<div class="row">--}}
+        @if($item_type == 'before_dd')
+            <livewire:outstanding-items-before-due-diligence-table />
+        @else
+            <livewire:outstanding-items-before-expire-table />
+        @endif
+    {{--</div>--}}
+    {{--<div class="row">--}}
+        {{----}}
+        {{--<div class="col-md-12 overflow-auto">--}}
+            {{--<table class="table table-hover ">--}}
+                {{--<thead>--}}
+                {{--<tr>--}}
+                    {{--<th></th>--}}
+                    {{--<th class="w-8">Item Checked AT</th>--}}
+                    {{--<th>Deal Name</th>--}}
+                    {{--<th>Phone</th>--}}
+                    {{--<th>Email</th>--}}
+                    {{--<th>Co-applicant</th>--}}
+                    {{--<th>Co-app phone</th>--}}
+                    {{--<th>Co-app email</th>--}}
+                    {{--<th>Partner name</th>--}}
+                    {{--<th>Partner phone</th>--}}
+                    {{--<th>Partner email</th>--}}
+                    {{--<th>Mortgage Type</th>--}}
+                    {{--<th>Assignee</th>--}}
+                    {{--<th>Comment</th>--}}
+                {{--</tr>--}}
+                {{--</thead>--}}
+                {{--<tbody wire:ignore>--}}
+                {{--@if($clients)--}}
+                    {{--@foreach($clients as $client)--}}
+                    {{--<tr>--}}
+                        {{--<th></th>--}}
+                        {{--<td><input type="checkbox" name="1" value="{{$client->id}}"/>&nbsp;</td>--}}
+                        {{--<th class="w-8">Item Checked AT</th>--}}
+                        {{--<th>{{$client->applicant_name}}</th>--}}
+                        {{--<th>{{$client->applicant_phone}}</th>--}}
+                        {{--<th>{{$client->applicant_email}}</th>--}}
+                        {{--<th>{{$client->co_applicant_name}}</th>--}}
+                        {{--<th>{{$client->co_applicant_phone}}</th>--}}
+                        {{--<th>{{$client->co_applicant_email}}</th>--}}
+                        {{--<th>{{$client->partner_name}}</th>--}}
+                        {{--<th>{{$client->partner_phone}}</th>--}}
+                        {{--<th>{{$client->partner_email}}</th>--}}
+                        {{--<th>{{$client->mortgage_type}}</th>--}}
+                        {{--<th>Assignee</th>--}}
+                        {{--<th>Comment</th>--}}
+                    {{--</tr>--}}
+                {{--@endforeach--}}
+                {{--@endif--}}
                 {{--<tr>--}}
                     {{--{{dd(\Auth::user()->currentTeam)}}--}}
                     {{--@if (\Auth::user()->hasTeamPermission(\Auth::user()->currentTeam, 'write'))--}}
@@ -149,11 +157,11 @@
                 {{--</tr>--}}
 
 
-                </tbody>
-            </table>
-        </div>
+                {{--</tbody>--}}
+            {{--</table>--}}
+        {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
 </div>
 
 @push('scripts')

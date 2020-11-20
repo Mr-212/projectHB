@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Constants\Dropdowns\StageConstant;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,7 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-
+            'stage' => StageConstant::BEFORE_DUE_DILIGENCE,
             'applicant_name' => $this->faker->name,
             'applicant_email' => $this->faker->unique()->safeEmail,
             'applicant_phone' => $this->faker->unique()->phoneNumber,
@@ -32,6 +33,7 @@ class ClientFactory extends Factory
             'partner_name' => $this->faker->unique()->name,
             'partner_email' => $this->faker->unique()->email,
             'partner_phone' => $this->faker->unique()->phoneNumber,
+
             'created_by' => 1,
         ];
     }

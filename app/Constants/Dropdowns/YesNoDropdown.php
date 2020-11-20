@@ -7,17 +7,19 @@
  */
 
 namespace App\Constants\Dropdowns;
+use App\Constants\Base;
+use App\Constants\GeneralConstants;
 
 
 class YesNoDropdown extends Base
 {
 
 
-    const NO = 'No';
-    const YES = 'Yes';
+    const NO = 1;
+    const YES = 2;
 
     static $array = [
-        '0' => self::NO,
-        '1' => self::YES,
+        self::NO => GeneralConstants::NO,
+        self::YES => GeneralConstants::YES,
     ];
 }
