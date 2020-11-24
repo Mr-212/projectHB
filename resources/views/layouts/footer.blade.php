@@ -36,6 +36,6 @@
 <script src="{{$base_url}}/monster/assets/plugins/flot/jquery.flot.js"></script>
 <script src="{{$base_url}}/monster/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 <script src="{{$base_url}}/monster/monster-html/js/pages/dashboards/dashboard1.js"></script>
+@livewireScripts
 @stack('modals')
 @stack('scripts')
-@livewireScripts

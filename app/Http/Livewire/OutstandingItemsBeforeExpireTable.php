@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Constants\Dropdowns\MortgageTypeDropdown;
+use App\Constants\Dropdowns\YesNoDropdown;
 use App\Models\Client;
+use App\Models\User;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -34,8 +36,10 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
             Column::name('property_due_diligence_expire')
                 ->label('Due Diligence Expire'),
 
-            Column::name('updated_by')
-                ->label('Updated By'),
+
+            Column::callback(['updated_by'], function ($updated_by) {
+                return User::getUserNameByID($updated_by);
+            })->label('Updated By'),
 
             Column::name('applicant_name')
                 ->label('Applicant Name')
@@ -68,22 +72,23 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
             Column::name('additional_tenant_name')
                 ->label('Co applicant Phone'),
 
-            Column::name('welcome_down_payment')
-                ->label('Welcome Down Payment'),
+            Column::callback(['welcome_down_payment'], function ($welcome_down_payment_id) {
+                return YesNoDropdown::getValueByKey($welcome_down_payment_id);
+            })->label('Welcome Payment'),
 
             Column::callback(['mortgage_type_id'], function ($mortgage_type_id) {
-                return MortgageTypeDropdown::getKey($mortgage_type_id);
+                return MortgageTypeDropdown::getValueByKey($mortgage_type_id);
             })->label('Mortgage TYpe'),
 
 
             Column::name('rental_verification_check')
                 ->label('Rental Verification Check'),
+            Column::callback(['rental_verification_check'], function ($rental_verification_check) {
+                return YesNoDropdown::getValueByKey($rental_verification_check);
+            })->label('Rental Verification Check'),
 
             Column::name('property_new_construction_builder_name')
                 ->label('Builder Name'),
-
-
-
 
         ];
     }

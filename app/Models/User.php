@@ -61,12 +61,22 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+//        'full_name'
     ];
 
     public static function boot()
     {
         parent::boot();
         //self::bootUsesUuid();
+    }
+
+    public function getFullNameAttribute(){
+        return ucfirst($this->first_name). ' '.ucfirst($this->last_name);
+    }
+
+    public static function getUserNameByID($id){
+
+          return self::find($id)->full_name;
     }
 
 

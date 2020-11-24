@@ -15,8 +15,9 @@ class YesNoDropdown extends Base
 {
 
 
-    const NO = 1;
-    const YES = 2;
+    const NO = 0;
+    const YES = 1;
+
 
     static $array = [
         self::NO => GeneralConstants::NO,

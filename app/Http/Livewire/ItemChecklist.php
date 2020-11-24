@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Constants\Dropdowns\StageConstant;
 use App\Models\Client;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class ItemChecklist extends Component
@@ -41,11 +42,44 @@ class ItemChecklist extends Component
 //    ];
 
     protected $rules = [
-        'client.additional_tenant_name' => 'required|string',
-        'client.mortgage_type_id' => 'required|not_in:0',
         'client.additional_tenant_check' => '',
-        'client.rental_verification_check' => 'required',
-        'client.welcome_down_payment' => 'required',
+        'client.additional_tenant_name' => '',
+        'client.mortgage_type_id' => '',
+
+        'client.rental_verification_complete_check' => '',
+        'client.rental_verification_check' => '',
+//        'client.welcome_down_payment' => '',
+        'client.welcome_down_payment_complete_check' => '',
+//        'client.welcome_down_payment_complete_check_date' => '',
+
+        'client.property_new_construction_check' =>'',
+        "client.property_new_construction_builder_name" =>'',
+        "client.property_country" =>'required|string',
+        "client.property_state" =>'required|string',
+        "client.property_city" =>'required|string',
+        "client.property_zip" =>'required|integer',
+
+        "client.property_purchase_price" => 'required|integer',
+        "client.property_closing_cost" => 'required|integer',
+        "client.property_closing_credit_general" => '',
+
+        "client.property_hoa_check" => '',
+        "client.property_hoa_name" => '',
+        "client.property_hoa_phone" => '',
+
+        "client.property_repair_request_check" => '',
+        "client.property_repair_request_item_names" => '',
+
+        "client.property_lender_check" => '',
+        "client.property_lender_name" => '',
+
+        "client.property_closing_date_complete_check" => '',
+        "client.property_closing_date" => '',
+
+        "client.property_due_diligence_expire_complete_check" => '',
+        "client.property_due_diligence_expire" => '',
+
+
 
     ];
 //
@@ -70,7 +104,9 @@ class ItemChecklist extends Component
     ];
 
     public function mount($client_id){
+
         $this->client = Client::find($this->client_id);
+        //dd($this->client);
         $this->client_id = $client_id;
 
     }
@@ -109,8 +145,24 @@ class ItemChecklist extends Component
     }
 
     public function before_closing(){
+
+
+//        dd('here');
         $this->validate($this->rules);
         $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
         $this->client->save();
+    }
+
+    public function setCheckListValueAndDate($check,$checkDate = null){
+//        $checkDate = $check.'_date';
+//        dd($check);
+        if($this->client->$check) {
+            $this->client->$check = 1 ;
+
+//            $this->client->$checkDate = Carbon::now()->toDateTimeString();
+        }else{
+            $this->client->$check = 0 ;
+        }
+
     }
 }

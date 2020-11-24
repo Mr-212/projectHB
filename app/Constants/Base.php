@@ -19,7 +19,7 @@ class Base
         return static::$array;
     }
 
-    public static function getKey($val){
+    public static function getValueByKey($val){
 
         return array_search($val ,array_flip(static::$array));
     }

@@ -23,6 +23,7 @@ class Client extends Model
         'additional_tenant_check',
         'additional_tenant_name',
         'welcome_down_payment',
+        'welcome_down_payment_complete_check',
         'mortgage_type',
         'mortgage_type_id',
         'rental_verification_check',
@@ -44,12 +45,30 @@ class Client extends Model
         'property_lender_name',
         'property_closing_date',
         'property_due_diligence_expire',
+        'additional_tenant',
 
         'created_by',
         'updated_by',
         'deleted_by',
         ];
 
+    protected $casts = [
+        'additional_tenant' => 'array',
+        'property_closing_date' =>'date:Y-m-d',
+        'property_due_diligence_expire' =>'date:Y-m-d',
+    ];
+    protected $attributes = [
+//        'additional_tenant' => [
+//            "is_completed",
+//            "created_by",
+//            "comment"
+//        ],
+
+//        'additional_tenant' => '{
+//            "theme": "minimalist",
+//            "comment": "light"
+//        }'
+    ];
 
     public static function boot()
     {
@@ -71,5 +90,10 @@ class Client extends Model
 
     public function scopeBeforeDDExpire($query){
         return $query->where('stage', StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+    }
+
+    public function last_updated_by()
+    {
+        return $this->hasOne(User::class,'updated_by','id');
     }
 }
