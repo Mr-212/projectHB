@@ -64,6 +64,8 @@ class User extends Authenticatable
 //        'full_name'
     ];
 
+
+
     public static function boot()
     {
         parent::boot();
