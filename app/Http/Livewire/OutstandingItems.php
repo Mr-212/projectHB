@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Client;
 use Database\Seeders\CreateClientSeeder;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
 
 class OutstandingItems extends Component
