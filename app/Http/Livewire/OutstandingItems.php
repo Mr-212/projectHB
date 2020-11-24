@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Client;
+use Database\Seeders\CreateClientSeeder;
 use Livewire\Component;
 
 class OutstandingItems extends Component
@@ -19,7 +20,10 @@ class OutstandingItems extends Component
     }
     public function render()
     {
-        $clients = Client::all();
+        $clients = Client::limit(5)->get();
+        if(empty($clients) && env('APP_ENV') == 'development'){
+            Artisan::call("db:seed", ['--class' => CreateClientSeeder::class]);
+        }
         return view('livewire.outstanding-items',compact('clients'))
             ->extends('layouts.app');
     }
