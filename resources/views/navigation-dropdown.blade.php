@@ -56,7 +56,7 @@
                         @endif
 
                         <div class="border-t border-gray-100"></div>
-                        @if(Laravel\Jetstream\Jetstream::findRole('admin'))
+
                         <!-- Team Management -->
                         @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                             <div class="block px-4 py-2 text-xs text-gray-400">
@@ -87,7 +87,6 @@
                             @endforeach
                             @endcan
                             <div class="border-t border-gray-100"></div>
-                        @endif
                         @endif
 
                         <!-- Authentication -->
@@ -159,8 +158,7 @@
                         {{ __('Logout') }}
                     </x-jet-responsive-nav-link>
                 </form>
-                <!-- Team Management -->
-                @if( Laravel\Jetstream\Jetstream::findRole('admin'))
+
 
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="border-t border-gray-200"></div>
@@ -188,7 +186,6 @@
                     @foreach (Auth::user()->allTeams() as $team)
                         <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
                     @endforeach
-                @endif
                 @endif
             </div>
         </div>
