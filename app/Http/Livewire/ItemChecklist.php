@@ -48,7 +48,7 @@ class ItemChecklist extends Component
 
         'client.rental_verification_complete_check' => '',
         'client.rental_verification_check' => '',
-//        'client.welcome_down_payment' => '',
+        'client.welcome_down_payment' => '',
         'client.welcome_down_payment_complete_check' => '',
 //        'client.welcome_down_payment_complete_check_date' => '',
 
