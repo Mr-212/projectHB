@@ -81,8 +81,6 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
             })->label('Mortgage TYpe'),
 
 
-            Column::name('rental_verification_check')
-                ->label('Rental Verification Check'),
             Column::callback(['rental_verification_check'], function ($rental_verification_check) {
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
