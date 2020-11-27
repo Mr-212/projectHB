@@ -151,7 +151,7 @@ class ItemChecklist extends Component
         $this->validate($this->rules);
         $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
         if($this->client->save()){
-            return $this->redirect('items/outstanding/after_dd');
+            return $this->redirect('/items/outstanding/after_dd');
         };
     }
 
