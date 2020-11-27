@@ -150,7 +150,9 @@ class ItemChecklist extends Component
 //        dd('here');
         $this->validate($this->rules);
         $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-        $this->client->save();
+        if($this->client->save()){
+            return $this->redirect('items/outstanding/after_dd');
+        };
     }
 
     public function setCheckListValueAndDate($check,$checkDate = null){
