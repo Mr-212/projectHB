@@ -13,27 +13,6 @@ class ItemChecklist extends Component
     public  $client_id;
 
 
-//    public $client = [
-//        'checks' => [
-//            'additional_tenant' => '0',
-//            'save' => 'no'
-//        ],
-//         'data' => [
-//             'applicant_name'=>'',
-//             'applicant_email'=>'',
-//             'applicant_phone'=>'',
-//             'partner_name'=>'',
-//             'partner_email'=>'',
-//             'partner_phone'=>'',
-//             'co_applicant_name'=>'',
-//             'co_applicant_email'=>'',
-//             'co_applicant_phone'=>'',
-//             'additional_tenant_name' => '',
-//             'mortgage_type' => '',
-//             'welcome_bonus' => '1',
-//
-//         ]
-//    ];
 //    protected $rules = [
 //        'client.data.additional_tenant_name' => 'required|string',
 //        'client.data.mortgage_type' => 'required|not_in:0',
@@ -45,6 +24,8 @@ class ItemChecklist extends Component
         'client.additional_tenant_check' => '',
         'client.additional_tenant_name' => '',
         'client.mortgage_type_id' => '',
+
+        'client.additional_tenant->name' => '',
 
         'client.rental_verification_complete_check' => '',
         'client.rental_verification_check' => '',
@@ -79,6 +60,16 @@ class ItemChecklist extends Component
         "client.property_due_diligence_expire_complete_check" => '',
         "client.property_due_diligence_expire" => '',
 
+        "client.due_diligence_rent" =>'',
+        "client.due_diligence_option_payment_check" =>'',
+        "client.due_diligence_option_payment_3_month" =>'',
+        "client.due_diligence_option_payment_6_month" =>'',
+        "client.due_diligence_option_payment_12_month" =>'',
+        "client.due_diligence_option_payment_date" =>'',
+
+        "client.due_diligence_inspection_check" =>'',
+        "client.due_diligence_inspection_check_date" =>'',
+
 
 
     ];
@@ -94,12 +85,12 @@ class ItemChecklist extends Component
             'additional_tenant' => '0',
             'save' => 'no'
         ],
+
         'data' => [
             'additional_tenant_name' => '',
             'mortgage_type' => '',
             'welcome_bonus' => '1',
             'rental_verification' =>''
-
         ]
     ];
 
@@ -156,8 +147,6 @@ class ItemChecklist extends Component
     }
 
     public function setCheckListValueAndDate($check,$checkDate = null){
-//        $checkDate = $check.'_date';
-//        dd($check);
         if($this->client->$check) {
             $this->client->$check = 1 ;
 
@@ -165,6 +154,32 @@ class ItemChecklist extends Component
         }else{
             $this->client->$check = 0 ;
         }
+
+    }
+
+    public function payment_option($values){
+         $options_array = [
+             1 =>  'due_diligence_option_payment_3_month',
+             2 =>  'due_diligence_option_payment_6_month',
+             3 =>  'due_diligence_option_payment_12_month',
+             ];
+          $calculated_payment = $this->client->property_purchase_price + $this->client->property_pclosing_cost + $this->client->prooerty_closing_credit_general;
+            foreach ($options_array as $k => $v){
+                if(array_key_exists($k,array_flip($values))){
+                    if($k == 1)
+                        $this->client->$v = round($calculated_payment * 1.03,2);
+                    if($k == 2)
+                        $this->client->$v = round($calculated_payment * 1.06,2);
+                    if($k == 3)
+                        $this->client->$v = round($calculated_payment * 1.1,2);
+                    //$this->client->$v = 1;
+
+                }else{
+                    $this->client->$v = null;
+                }
+
+
+            }
 
     }
 }

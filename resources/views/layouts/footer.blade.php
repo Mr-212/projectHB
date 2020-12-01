@@ -36,6 +36,8 @@
 <script src="{{$base_url}}/monster/assets/plugins/flot/jquery.flot.js"></script>
 <script src="{{$base_url}}/monster/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 <script src="{{$base_url}}/monster/monster-html/js/pages/dashboards/dashboard1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 @livewireScripts
 @stack('modals')
 @stack('scripts')

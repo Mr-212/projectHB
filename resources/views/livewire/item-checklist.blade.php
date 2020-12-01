@@ -339,38 +339,62 @@
         <div class="col-md-6 col-lg-6 pt-2">
             <div class="">
                 <label>Rent</label>
-                $<input  class="form-control" type="number" name="rent" value="10" />
+                $<input  class="form-control" type="number" name="rent" wire:model="client.due_diligence_rent" />
             </div>
         </div>
         <div class="col-md-6 col-lg-6 mt-2">
             <div class="">
                 <label>Option Payment Date</label>
-                <input  class="form-control" type="date" name="item_checklist_option_payment_date" value="" />
+                <input  class="form-control" type="date" name="item_checklist_option_payment_date" value="" wire:model="client.due_diligence_option_payment_date" />
             </div>
         </div>
 
-        <div class="row col-md-12 col-lg-12 mt-2">
-            <div class="col-md-6">
-                <label>Option?</label>
-                <select class="form-control" name="item_checklist_lender" id="item_checklist_option" onchange="hideShow(this.value,'.item_checklist_option_list_div')">
-                    @foreach(YesNoDropDown::getList() as $key => $val)
-                        <option value="{{$key}}">{{$val}}</option>
-                    @endforeach
-                </select>
+        <div class="col-md-12 col-lg-12 mt-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Option?</label>
+                    <select class="form-control" name="item_checklist_lender" id="item_checklist_option" onchange="hideShow(this.value,'.item_checklist_option_list_div')" wire:model="client.due_diligence_option_payment_check">
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                {{--@if($client->due_diligence_option_payment_check)--}}
+                <div class="col-md-6 col-lg-6 item_checklist_option_list_div" wire:ignore>
+                    <label>Option?</label>
+                    <select class="select2 form-control" name="item_checklist_option_list" id="due_diligence_option" multiple="multiple" onchange="selectChange(this)">
+                    {{--<select class="select3 form-control" name="item_checklist_option_list" id="due_diligence_option" multiple="multiple" wire:click="payment_option">--}}
+                        <option value="">Select Option</option>
+                        @foreach(PaymentOptionDropdown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
             </div>
-            <div class="col-md-6 col-lg-6 item_checklist_option_list_div d-none">
-                <label>Option?</label>
-                <select class="form-control" name="item_checklist_option_list" id="item_checklist_option_list" >
-                    <option value="">Select Option</option>
-                    <option value="3_month_option">3 Month Option</option>
-                    <option value="6_month_option">6 Mont Option</option>
-                    <option value="12_month_option">12 Month Option</option>
-                </select>
+            <div class="row">
+                @if($client->due_diligence_option_payment_3_month)
+                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="option_1">
+                    <label>3 Month Payment Option</label>
+                    <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client.due_diligence_option_payment_3_month" readonly="readonly">
+                </div>
+                @endif
+                @if($client->due_diligence_option_payment_6_month)
+                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="option_2">
+                    <label>6 Month Payment Option</label>
+                    <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client.due_diligence_option_payment_6_month" readonly="readonly">
+                </div>
+                @endif
+                @if($client->due_diligence_option_payment_12_month)
+                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="option_3">
+                    <label>12 Month Payment Option</label>
+                    <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client.due_diligence_option_payment_12_month" readonly="readonly">
+                </div>
+                @endif
             </div>
-            <div class="col-md-6 col-lg-6 item_checklist_option_list_value_div d-none">
-                <label>Option Payment</label>
-                <input  class="form-control" type="number" name="item_checklist_option_list_value" value="">
-            </div>
+
+            {{--@endif--}}
+
 
         </div>
 
@@ -379,12 +403,12 @@
         <div class="row col-md-12 col-lg-12 no-gutters mb-2">
             <div class="col-md-6 col-lg-6">
                 <label>Inspection Date?</label>
-                <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')">
+                <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')" wire:model="client.due_diligence_inspection_check" wire:click="setCheckListValueAndDate('due_diligence_inspection_check','')" >
 
             </div>
-            <div class="row col-md-6 col-lg-6 item_checklist_option_list_inspection_date_div d-none">
+            <div class="row col-md-6 col-lg-6 item_checklist_option_list_inspection_date_div {{$client->due_diligence_inspection_check ?'':'d-none'}}" wire:ignore>
                 <label>Date</label>
-                <input  class="form-control" type="date" name="item_checklist_option_list_inspection_date" value="">
+                <input  class="form-control" type="date" name="item_checklist_option_list_inspection_date" value="" wire:model="client.due_diligence_inspection_check_date">
             </div>
         </div>
 
@@ -600,7 +624,34 @@
 
 
 @push('scripts')
-    <script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: '{{__('Select your option')}}',
+                allowClear: true
+            });
+        });
+
+        document.addEventListener("livewire:load", () => {
+
+            Livewire.hook('component.initialized', (el, component) => {
+                 //alert('here');
+                //$('.select2').select2();
+            })
+
+            Livewire.hook('message.processed', (message, component) => {
+               // alert('here');
+                //$('.select2').select2();
+            });
+            Livewire.hook('element.updated', (el, component) => {
+                //alert('here');
+            })
+        });
+    </script>
+
+
+    <script type="text/javascript">
 
         $(document).find('#deal_option_checkbox').click(function () {
             if($(this).is(':checked'))
@@ -632,6 +683,30 @@
                 $(div).removeClass('d-none');
             else
                 $(div).addClass('d-none');
+        }
+
+        function selectChange(_this) {
+
+           var option_div = '#option_';
+           var val = $(_this).val();
+           var option_array = [];
+
+           @this.payment_option(val);
+
+           // if(val){
+           //     $.each(val,function (i,j) {
+           //              var new_div = option_div+j;
+           //              option_array.push(new_div);
+           //     });
+           //     var slected_option_array = option_array.join(',');
+           //     $(slected_option_array).removeClass('d-none');
+           //     $('.due_diligence_option_list_value_div').not(slected_option_array).addClass('d-none');
+           //     $.each(option_array,function (j,i) {
+           //        $(i).val();
+           //     });
+           // }
+
+           //$('.')
         }
     </script>
 @endpush

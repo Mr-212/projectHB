@@ -33,7 +33,6 @@ class ClientFactory extends Factory
             'partner_name' => $this->faker->unique()->name,
             'partner_email' => $this->faker->unique()->email,
             'partner_phone' => $this->faker->unique()->phoneNumber,
-
             'created_by' => 1,
         ];
     }

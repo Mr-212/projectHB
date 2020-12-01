@@ -47,6 +47,17 @@ class Client extends Model
         'property_due_diligence_expire',
         'additional_tenant',
 
+        'due_diligence_rent',
+        'due_diligence_option_payment',
+        'due_diligence_option_payment_3_month',
+        'due_diligence_option_payment_6_month',
+        'due_diligence_option_payment_12_month',
+        'due_diligence_option_payment_date',
+        'due_diligence_inspection_check',
+        'due_diligence_inspection_check_date',
+
+
+
         'created_by',
         'updated_by',
         'deleted_by',
@@ -56,6 +67,7 @@ class Client extends Model
         'additional_tenant' => 'array',
         'property_closing_date' =>'date:Y-m-d',
         'property_due_diligence_expire' =>'date:Y-m-d',
+        'due_diligence_inspection_check_date' =>'date:Y-m-d',
     ];
     protected $attributes = [
 //        'additional_tenant' => [

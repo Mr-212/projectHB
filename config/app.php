@@ -233,6 +233,7 @@ return [
 //        custom dropdown classes
          'YesNoDropDown' => \App\Constants\Dropdowns\YesNoDropdown::class,
          'MortgageTypeDropdown' => \App\Constants\Dropdowns\MortgageTypeDropdown::class,
+         'PaymentOptionDropdown' => \App\Constants\Dropdowns\PaymentOptionDropdown::class,
 
     ],
 

@@ -29,4 +29,9 @@ class GeneralConstants
     const HOUSE_CANCELLED = 'Hose Cancelled';
     const DROPOUT_CLIENT = 'Dropout Client';
 
+    //PAYMENT OPTIONS
+    const PAYMENT_OPTION_3_MONTH  = '3 Month Option';
+    const PAYMENT_OPTION_6_MONTH  = '6 Month Option';
+    const PAYMENT_OPTION_12_MONTH = '12 Month Option';
+
 }
