@@ -362,7 +362,7 @@
                 {{--@if($client->due_diligence_option_payment_check)--}}
                 <div class="col-md-6 col-lg-6 item_checklist_option_list_div" wire:ignore>
                     <label>Option?</label>
-                    <select class="select2 form-control" name="item_checklist_option_list" id="due_diligence_option" multiple="multiple" onchange="selectChange(this)">
+                    <select class="form-control" name="item_checklist_option_list" id="due_diligence_option" multiple="multiple" onchange="selectChange(this)">
                     {{--<select class="select3 form-control" name="item_checklist_option_list" id="due_diligence_option" multiple="multiple" wire:click="payment_option">--}}
                         <option value="">Select Option</option>
                         @foreach(PaymentOptionDropdown::getList() as $key => $val)
@@ -374,19 +374,19 @@
             </div>
             <div class="row">
                 @if($client->due_diligence_option_payment_3_month)
-                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="option_1">
+                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_3_MONTH}}">
                     <label>3 Month Payment Option</label>
                     <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client.due_diligence_option_payment_3_month" readonly="readonly">
                 </div>
                 @endif
                 @if($client->due_diligence_option_payment_6_month)
-                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="option_2">
+                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_6_MONTH}}">
                     <label>6 Month Payment Option</label>
                     <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client.due_diligence_option_payment_6_month" readonly="readonly">
                 </div>
                 @endif
                 @if($client->due_diligence_option_payment_12_month)
-                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="option_3">
+                <div class="col-md-4 col-lg-4 due_diligence_option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_12_MONTH}}">
                     <label>12 Month Payment Option</label>
                     <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client.due_diligence_option_payment_12_month" readonly="readonly">
                 </div>
@@ -627,10 +627,13 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-            $('.select2').select2({
+            $('#due_diligence_option').select2({
                 placeholder: '{{__('Select your option')}}',
                 allowClear: true
             });
+            triggerPaymentOptions();
+
+
         });
 
         document.addEventListener("livewire:load", () => {
@@ -686,27 +689,18 @@
         }
 
         function selectChange(_this) {
-
-           var option_div = '#option_';
            var val = $(_this).val();
-           var option_array = [];
-
            @this.payment_option(val);
 
-           // if(val){
-           //     $.each(val,function (i,j) {
-           //              var new_div = option_div+j;
-           //              option_array.push(new_div);
-           //     });
-           //     var slected_option_array = option_array.join(',');
-           //     $(slected_option_array).removeClass('d-none');
-           //     $('.due_diligence_option_list_value_div').not(slected_option_array).addClass('d-none');
-           //     $.each(option_array,function (j,i) {
-           //        $(i).val();
-           //     });
-           // }
+        }
 
-           //$('.')
+        function triggerPaymentOptions() {
+            var values = [];
+            $('.due_diligence_option_list_value_div').each(function (j,i) {
+                 values.push($(i).attr('id'));
+            });
+            $('#due_diligence_option').val(values).trigger('change');
+            // $('#due_diligence_option').val()
         }
     </script>
 @endpush

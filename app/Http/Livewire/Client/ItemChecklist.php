@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Client;
 
 use App\Constants\Dropdowns\StageConstant;
 use App\Models\Client;
@@ -42,7 +42,7 @@ class ItemChecklist extends Component
 
         "client.property_purchase_price" => 'required|integer',
         "client.property_closing_cost" => 'required|integer',
-        "client.property_closing_credit_general" => '',
+        "client.property_closing_credit_general" => 'required',
 
         "client.property_hoa_check" => '',
         "client.property_hoa_name" => '',
@@ -97,7 +97,6 @@ class ItemChecklist extends Component
     public function mount($client_id){
 
         $this->client = Client::find($this->client_id);
-        //dd($this->client);
         $this->client_id = $client_id;
 
     }
@@ -116,7 +115,7 @@ class ItemChecklist extends Component
 
     public function render()
     {
-        return view('livewire.item-checklist')->extends('layouts.app');
+        return view('livewire.client.item-checklist')->extends('layouts.app');
     }
 
     public function save_book_purchase(){
@@ -137,8 +136,6 @@ class ItemChecklist extends Component
 
     public function before_closing(){
 
-
-//        dd('here');
         $this->validate($this->rules);
         $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
         if($this->client->save()){
@@ -150,7 +147,6 @@ class ItemChecklist extends Component
         if($this->client->$check) {
             $this->client->$check = 1 ;
 
-//            $this->client->$checkDate = Carbon::now()->toDateTimeString();
         }else{
             $this->client->$check = 0 ;
         }
@@ -162,7 +158,8 @@ class ItemChecklist extends Component
              1 =>  'due_diligence_option_payment_3_month',
              2 =>  'due_diligence_option_payment_6_month',
              3 =>  'due_diligence_option_payment_12_month',
-             ];
+         ];
+
           $calculated_payment = $this->client->property_purchase_price + $this->client->property_pclosing_cost + $this->client->prooerty_closing_credit_general;
             foreach ($options_array as $k => $v){
                 if(array_key_exists($k,array_flip($values))){
@@ -172,8 +169,6 @@ class ItemChecklist extends Component
                         $this->client->$v = round($calculated_payment * 1.06,2);
                     if($k == 3)
                         $this->client->$v = round($calculated_payment * 1.1,2);
-                    //$this->client->$v = 1;
-
                 }else{
                     $this->client->$v = null;
                 }

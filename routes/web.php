@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\OutstandingItems;
+use App\Http\Livewire\Client\OutstandingItems;
 use App\Contracts\Services\ZohoService;
-use App\Http\Livewire\ItemChecklist;
+use App\Http\Livewire\Client\ItemChecklist;
 use App\Http\Livewire\HouseSold;
 use App\Http\Livewire\HouseCancelled;
 use App\Http\Livewire\HouseDropout;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Livewire\Portfolio;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Livewire\OutstandingItemsBeforeDueDiligenceTable;
+use App\Http\Livewire\Client\ClientLogComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ Route::get('/', function () {
         return redirect('/items/outstanding/before_dd');
 });
 //Route::post('login', [AuthController::class,'login']);
-Route::middleware(['auth:sanctum', 'verified'])->group(function (){
+Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function (){
     Route::prefix('dashboard')->group(function(){
         Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
     });
@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
 //        Route::get('/outstanding/{type}', OutstandingItemsBeforeDueDiligence::class);
         Route::get('/outstanding/{type}', OutstandingItems::class);
         Route::get('/checklist/{client_id}', ItemChecklist::class);
+        Route::get('/log/{client_id}', ClientLogComponent::class);
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
     });
 

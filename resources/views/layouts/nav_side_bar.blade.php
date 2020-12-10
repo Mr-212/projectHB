@@ -21,12 +21,12 @@
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
                             <a href="{{url('/items/outstanding/before_dd')}}" class="sidebar-link">
-                                <i class="icon-drop"></i>
+                                <i class="fa fa-angle-double-left"></i>
                                 <span class="hide-menu"> Before DD </span></a>
                         </li>
                         <li class="sidebar-item">
                             <a href="{{url('/items/outstanding/after_dd')}}" class="sidebar-link">
-                                <i class="icon-drop"></i>
+                                <i class="fa fa-angle-double-right"></i>
                                 <span class="hide-menu"> Before Expire </span>
                             </a>
                         </li>
