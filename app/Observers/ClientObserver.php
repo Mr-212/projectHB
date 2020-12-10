@@ -36,10 +36,8 @@ class ClientObserver
      */
     public function updated(Client $client)
     {
+//        dd($client->getOriginal(),$client->getChanges());
         ClientLogs::create(['client_id'=> $client->id,'action_type' => 'client_update', 'original_data'=>$client->getOriginal(),'new_data' => $client->toArray(),'changes' => $client->getChanges(),'updated_by' => Auth::id()]);
-
-       // dd($client->getOriginal(),$client->getChanges());
-       // dd($client->getChanges());
     }
 
     /**

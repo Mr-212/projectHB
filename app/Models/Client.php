@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class Client extends Model
 {
+
     use HasFactory;
+//    protected $dateFormat = 'Y-m-d';
     protected $fillable = [
         'applicant_name',
         'applicant_email',
@@ -45,7 +47,7 @@ class Client extends Model
         'property_lender_name',
         'property_closing_date',
         'property_due_diligence_expire',
-        'additional_tenant',
+//        'additional_tenant',
 
         'due_diligence_rent',
         'due_diligence_option_payment',
@@ -64,10 +66,10 @@ class Client extends Model
         ];
 
     protected $casts = [
-        'additional_tenant' => 'array',
-        'property_closing_date' =>'date:Y-m-d',
-        'property_due_diligence_expire' =>'date:Y-m-d',
-        'due_diligence_inspection_check_date' =>'date:Y-m-d',
+//        'additional_tenant' => 'array',
+//        'property_closing_date' =>'datetime:Y-m-d',
+//        'property_due_diligence_expire' =>'datetime:Y-m-d H:i:s',
+//        'due_diligence_inspection_check_date' =>'datetime:Y-m-d',
     ];
     protected $attributes = [
 //        'additional_tenant' => [
@@ -80,6 +82,7 @@ class Client extends Model
 //            "theme": "minimalist",
 //            "comment": "light"
 //        }'
+//    'property_due_diligence_expire' =>'date:Y-m-d'
     ];
 
     public static function boot()

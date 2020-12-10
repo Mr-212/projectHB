@@ -25,7 +25,7 @@ class ItemChecklist extends Component
         'client.additional_tenant_name' => '',
         'client.mortgage_type_id' => '',
 
-        'client.additional_tenant->name' => '',
+//        'client.additional_tenant->name' => '',
 
         'client.rental_verification_complete_check' => '',
         'client.rental_verification_check' => '',
@@ -95,11 +95,12 @@ class ItemChecklist extends Component
     ];
 
     public function mount($client_id){
-
-        $this->client = Client::find($this->client_id);
         $this->client_id = $client_id;
+        $this->getClientProperty();
 
     }
+
+
 
 //    public function hydrate(){
 //
@@ -109,9 +110,10 @@ class ItemChecklist extends Component
 //
 //    }
 
-//    public function getClientProperty(){
-//        return $this->client = Client::find($this->client_id);
-//    }
+    public function getClientProperty(){
+        $this->client = Client::find($this->client_id);
+        //return $this->client = Client::find($this->client_id);
+    }
 
     public function render()
     {

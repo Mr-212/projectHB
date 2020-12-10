@@ -21,7 +21,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
     public function builder()
     {
 
-        return Client::query()->beforeDDExpire();
+        return Client::query()->beforeDDExpire()->orderBy('updated_at','desc');
     }
 
     public function columns()

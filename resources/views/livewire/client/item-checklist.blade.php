@@ -299,7 +299,7 @@
                 <input type="checkbox"  value="" wire:model="client.property_closing_date_complete_check"/>
                  <label>Closing Date</label>
                  @if(!$client->property_closing_date_complete_check)
-                     <input  class="form-control" type="date" name="closing_date" value="" wire:model="client.property_closing_date" />
+                     <input  class="form-control" type="date" name="closing_date" value="{{\Carbon\Carbon::parse($client->property_closing_date)->format('Y-m-d')}}" wire:model="client.property_closing_date" />
                  @endif
 
             </div>
