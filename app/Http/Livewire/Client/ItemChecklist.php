@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Client;
 
 use App\Constants\Dropdowns\StageConstant;
 use App\Models\Client;
+use App\Models\Support\Client\ClientItemCheckListVariables;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class ItemChecklist extends Component
@@ -12,27 +14,15 @@ class ItemChecklist extends Component
     public  $client;
     public  $client_id;
 
-
-//    protected $rules = [
-//        'client.data.additional_tenant_name' => 'required|string',
-//        'client.data.mortgage_type' => 'required|not_in:0',
-//        'client.data.rental_verification' => 'required',
-//
-//    ];
-
     protected $rules = [
         'client.additional_tenant_check' => '',
         'client.additional_tenant_name' => '',
         'client.mortgage_type_id' => '',
-
-//        'client.additional_tenant->name' => '',
-
         'client.rental_verification_complete_check' => '',
         'client.rental_verification_check' => '',
         'client.welcome_down_payment' => '',
         'client.welcome_down_payment_complete_check' => '',
 //        'client.welcome_down_payment_complete_check_date' => '',
-
         'client.property_new_construction_check' =>'',
         "client.property_new_construction_builder_name" =>'',
         "client.property_country" =>'required|string',
@@ -70,7 +60,37 @@ class ItemChecklist extends Component
         "client.due_diligence_inspection_check" =>'',
         "client.due_diligence_inspection_check_date" =>'',
 
+        'client.appraisal_value_check' => '',
+        'client.appraisal_value' => '',
 
+        'client.driver_license_applicant' => '',
+        'client.driver_license_co_applicant' => '',
+        'client.soc_sec_card_applicant' => '',
+        'client.soc_sec_card_co_applicant' => '',
+
+        'client.renter_insurance_check' => '',
+        'client.renter_insurance_company_name' => '',
+
+        'client.flood_certificate_check' => '',
+        'client.landloard_insurance_check' => '',
+
+        'client.warranty_check' => '',
+        'client.warranty_company_name' => '',
+
+        'client.warranty_paid_by_seller_check' => '',
+
+        'client.lease_check' => '',
+        'client.lease_expire_date' => '',
+
+        'client.termite_check' => '',
+        'client.termite_paid_by' => '',
+
+        'client.septic_inspection_check' => '',
+        'client.clear_now_rent_payment_enrollment_check' => '',
+        'client.prorated_rent_check' => '',
+        'client.prorated_rent' => '',
+        'client.other_check' => '',
+        'client.other_value' => '',
 
     ];
 //
@@ -80,23 +100,15 @@ class ItemChecklist extends Component
 //        'client.data.rental_verification' => 'Rental Verification',
 //    ];
 
-    public $item_checklist = [
-        'checks' => [
-            'additional_tenant' => '0',
-            'save' => 'no'
-        ],
 
-        'data' => [
-            'additional_tenant_name' => '',
-            'mortgage_type' => '',
-            'welcome_bonus' => '1',
-            'rental_verification' =>''
-        ]
-    ];
 
     public function mount($client_id){
         $this->client_id = $client_id;
+        //$this->rules = ClientItemCheckListVariables::getValidationRulesWithoutRequired();
         $this->getClientProperty();
+
+
+
 
     }
 
@@ -112,7 +124,7 @@ class ItemChecklist extends Component
 
     public function getClientProperty(){
         $this->client = Client::find($this->client_id);
-        //return $this->client = Client::find($this->client_id);
+
     }
 
     public function render()
@@ -125,10 +137,7 @@ class ItemChecklist extends Component
     }
 //
     public function deal_save(){
-        //$this->validate($this->rules,$this->additional_tenant_name);
 
-//        if($this->deal['checks']['save'] == 'yes')
-//            dd($this->deal);
     }
 
     public function book_house(){
@@ -137,7 +146,6 @@ class ItemChecklist extends Component
     }
 
     public function before_closing(){
-
         $this->validate($this->rules);
         $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
         if($this->client->save()){
@@ -145,7 +153,7 @@ class ItemChecklist extends Component
         };
     }
 
-    public function setCheckListValueAndDate($check,$checkDate = null){
+    public function setCheckListValueAndDate($check){
         if($this->client->$check) {
             $this->client->$check = 1 ;
 
@@ -156,12 +164,7 @@ class ItemChecklist extends Component
     }
 
     public function payment_option($values){
-         $options_array = [
-             1 =>  'due_diligence_option_payment_3_month',
-             2 =>  'due_diligence_option_payment_6_month',
-             3 =>  'due_diligence_option_payment_12_month',
-         ];
-
+         $options_array = $this->client->getPaymentOptionList();
           $calculated_payment = $this->client->property_purchase_price + $this->client->property_pclosing_cost + $this->client->prooerty_closing_credit_general;
             foreach ($options_array as $k => $v){
                 if(array_key_exists($k,array_flip($values))){

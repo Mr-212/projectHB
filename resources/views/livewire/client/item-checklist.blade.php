@@ -400,15 +400,19 @@
 
 
 
-        <div class="row col-md-12 col-lg-12 no-gutters mb-2">
-            <div class="col-md-6 col-lg-6">
-                <label>Inspection Date?</label>
-                <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')" wire:model="client.due_diligence_inspection_check" wire:click="setCheckListValueAndDate('due_diligence_inspection_check','')" >
+        <div class="col-md-12 col-lg-12 no-gutters mb-2">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label>Inspection Date?</label>
+                    <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')" wire:model="client.due_diligence_inspection_check" wire:click="setCheckListValueAndDate('due_diligence_inspection_check','')" >
 
+                </div>
             </div>
-            <div class="row col-md-6 col-lg-6 item_checklist_option_list_inspection_date_div {{$client->due_diligence_inspection_check ?'':'d-none'}}" wire:ignore>
-                <label>Date</label>
-                <input  class="form-control" type="date" name="item_checklist_option_list_inspection_date" value="" wire:model="client.due_diligence_inspection_check_date">
+            <div class="row">
+                <div class="col-md-6 col-lg-6 item_checklist_option_list_inspection_date_div {{$client->due_diligence_inspection_check ?'':'d-none'}}" wire:ignore>
+                    <label>Date</label>
+                    <input  class="form-control" type="date" name="item_checklist_option_list_inspection_date" value="" wire:model="client.due_diligence_inspection_check_date">
+                </div>
             </div>
         </div>
 
@@ -421,28 +425,32 @@
         </div>
         <div class="col-md-12 col-lg-12 mt-2">
             <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <label>Appraisal Value?</label>
-                <input  class="" type="checkbox" name="item_checklist_appraisal_value_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_appraisal_value_div')">
+                <div class="col-md-6 col-lg-6">
+                    <label>Appraisal Value?</label>
+                    <input  class="" type="checkbox" name="item_checklist_appraisal_value_checkbox" value=""  wire:model="client.appraisal_value_check">
 
+                </div>
             </div>
-            <div class=" col-md-6 col-lg-6 item_checklist_appraisal_value_div d-none">
-                <label>Value</label>
-                <input  class="form-control" type="number" name="item_checklist_appraisal_value" value="">
+            @if(!$client->appraisal_value_check)
+            <div class="row">
+                <div class=" col-md-6 col-lg-6 item_checklist_appraisal_value_div">
+                    <label>Value</label>
+                    <input  class="form-control" type="number" name="item_checklist_appraisal_value" value="" wire:model="client.appraisal_value">
+                </div>
             </div>
-            </div>
+            @endif
         </div>
         <div class="col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Driver license applicant</label>
-                    <input class="form-control" type="text" name="item_checklist_driver_license_applicant" value="">
+                    <input class="form-control" type="text" name="item_checklist_driver_license_applicant" value="" wire:model="client.driver_license_applicant">
                 </div>
 
 
             <div class="col-md-6 col-lg-6">
                 <label>Co Driver license applicant</label>
-                <input  class="form-control" type="text" name="item_checklist_co_driver_license_applicant" value="">
+                <input  class="form-control" type="text" name="item_checklist_co_driver_license_applicant" value="" wire:model="client.driver_license_co_applicant">
 
             </div>
             </div>
@@ -451,13 +459,13 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                      <label>Soc Sec card Applicant</label>
-                     <input class="form-control" type="text" name="item_checklist_soc_sec_card_applicant" value="">
+                     <input class="form-control" type="text" name="item_checklist_soc_sec_card_applicant" value="" wire:model="client.soc_sec_card_applicant">
                 </div>
 
             <div class="col-md-6 col-lg-6">
                 <div class="">
                     <label>Soc Sec card Co Applicant</label>
-                    <input  class="form-control" type="text" name="item_checklist_soc_sec_card_co_applicant" value="">
+                    <input  class="form-control" type="text" name="item_checklist_soc_sec_card_co_applicant" value="" wire:model="client.soc_sec_card_co_applicant">
                 </div>
             </div>
             </div>
@@ -466,24 +474,35 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Renters insurance?</label>
-                    <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_renters_insurance_div')">
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value=""  wire:model="client.renter_insurance_check">
                 </div>
-                <div class="col-md-6 col-lg-6 item_checklist_renters_insurance_div d-none">
+
+            </div>
+            @if(!$client->renter_insurance_check)
+            <div class="row">
+                <div class="col-md-6 col-lg-6 item_checklist_renters_insurance_div">
                     <label>Company</label>
-                    <input  class="form-control" type="text" name="item_checklist_renters_insurance_company" value="">
+                    <input  class="form-control" type="text" name="item_checklist_renters_insurance_company" value="" wire:model="client.renter_insurance_company_name">
                 </div>
             </div>
+            @endif
 
         </div>
-        <div class="col-md-12 col-lg-12 item_checklist_renters_insurance_div  d-none">
+        <div class="col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Flood Certificate</label>
-                    <input  class="form-control" type="text" name="item_checklist_renters_insurance" value="">
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client.flood_certificate_check">
                 </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+
                 <div class="col-md-6 col-lg-6">
                     <label>Landlord Insurance</label>
-                    <input  class="form-control" type="text" name="item_checklist_renters_insurance" value="">
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client.landloard_insurance_check">
                 </div>
             </div>
         </div>
@@ -491,20 +510,25 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Warranty?</label>
-                    <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="yes" onclick="hideShow(this.checked,'.item_checklist_warranty_div')">
+                    <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="" wire:model="client.warranty_check">
                 </div>
             </div>
-
-        </div>
-        <div class="col-md-12 col-lg-12 item_checklist_warranty_div d-none">
+            @if(!$client->warranty_check)
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Company Name</label>
-                    <input  class="form-control" type="text" name="item_checklist_warranty_company" value="">
+                    <input  class="form-control" type="text" name="item_checklist_warranty_company" value="" wire:model="client.warranty_company_name">
                 </div>
+            </div>
+            @endif
+
+        </div>
+        <div class="col-md-12 col-lg-12">
+        {{--<div class="col-md-12 col-lg-12 item_checklist_warranty_div d-none">--}}
+            <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Warranty paid by seller</label>
-                    <select class="form-control" name="item_checklist_warranty_paid_by_seller" id="item_checklist_warranty_paid_by_seller" onchange="hideShow(this.value,'.item_checklist_option_list_div')">
+                    <select class="form-control" name="item_checklist_warranty_paid_by_seller" id="item_checklist_warranty_paid_by_seller" wire:model="client.warranty_paid_by_seller_check">
                         @foreach(YesNoDropDown::getList() as $key => $val)
                             <option value="{{$key}}">{{$val}}</option>
                         @endforeach
@@ -516,15 +540,17 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Lease?</label>
-                    <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_lease_div')">
+                    <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" wire:model="client.lease_check">
                 </div>
             </div>
-            <div class="row item_checklist_lease_div d-none">
+            @if(!$client->lease_check)
+            <div class="row item_checklist_lease_div">
                 <div class="col-md-6 col-lg-6 ">
                     <label>Lease Expire</label>
-                    <input  class="form-control" type="date" name="item_checklist_lease_expire" value="">
+                    <input  class="form-control" type="date" name="item_checklist_lease_expire" value="" wire:model="client.lease_expire_date">
                 </div>
             </div>
+            @endif
         </div>
 
 
@@ -533,32 +559,46 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Termite ?</label>
-                    <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_termite_paid_by_div')">
+                    <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" wire:model="client.termite_check">
                 </div>
 
             </div>
+            @if(!$client->termite_check)
             <div class="row">
-                <div class="col-md-6 col-lg-6 item_checklist_termite_paid_by_div d-none">
+                <div class="col-md-6 col-lg-6 item_checklist_termite_paid_by_div">
                     <div class="">
                         <label>Paid BY</label>
-                        <select class="form-control" name="item_checklist_termite_paid_by" id="item_checklist_termite_paid_by">
-                            <option value="seller">Seller</option>
-                            <option value="dream">Dream</option>
+                        <select class="form-control" name="item_checklist_termite_paid_by" id="item_checklist_termite_paid_by" wire:model="client.termite_paid_by">
+                            <option value="0">Seller</option>
+                            <option value="1">Dream</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            @endif
 
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
                 <div class="col-md-6 col-lg-6">
-                    <div class="">
-                        <label>Septic inspection</label>
-                        <select class="form-control" name="item_checklist_septic_inspection" id="item_checklist_septic_inspection">
-                            @foreach(YesNoDropDown::getList() as $key => $val)
-                                <option value="{{$key}}">{{$val}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label>Septic inspection</label>
+                    <select class="form-control" name="item_checklist_septic_inspection" id="item_checklist_septic_inspection" wire:model="client.septic_inspection_check">
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div> </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label>Clear Now Rent/Payment Enrollment</label>
+                    <select class="form-control" name="item_checklist_septic_inspection" id="item_checklist_septic_inspection" wire:model="client.clear_now_rent_payment_enrollment_check">
+                        @foreach(YesNoDropDown::getList() as $key => $val)
+                            <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -566,18 +606,20 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Prorated Rent ?</label>
-                    <input  class="" type="checkbox" name="item_checklist_prorated_rent_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_prorated_rent_div')">
+                    <input  class="" type="checkbox" name="item_checklist_prorated_rent_checkbox" value="" wire:model="client.prorated_rent_check">
                 </div>
 
             </div>
+            @if(!$client->prorated_rent_check)
             <div class="row">
-                <div class="col-md-6 col-lg-6 item_checklist_prorated_rent_div d-none">
+                <div class="col-md-6 col-lg-6 item_checklist_prorated_rent_div ">
                     <div class="">
                         <label>Rent</label>
-                        <input  class="form-control" type="text" name="item_checklist_prorated_rent" value="">
+                        <input  class="form-control" type="number" name="item_checklist_prorated_rent" value="" wire:model="client.prorated_rent">
                     </div>
                 </div>
             </div>
+            @endif
 
         </div>
 
@@ -585,17 +627,19 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Other?</label>
-                    <input  class="" type="checkbox" name="item_checklist_other_checkbox" value="" onclick="hideShow(this.checked,'.item_checklist_other_input_div')">
+                    <input  class="" type="checkbox" name="item_checklist_other_checkbox" value="" wire:model="client.other_check">
                 </div>
             </div>
+            @if($client->other_check)
             <div class="row">
-                <div class="col-md-6 col-lg-6 item_checklist_other_input_div d-none">
+                <div class="col-md-6 col-lg-6 item_checklist_other_input_div">
                     <div class="">
                         <label>Other</label>
-                        <input  class="form-control" type="text" name="item_checklist_other" value="">
+                        <input  class="form-control" type="text" name="item_checklist_other" value="" wire:model="client.other_value">
                     </div>
                 </div>
             </div>
+            @endif
 
 
         </div>
@@ -610,10 +654,10 @@
 
     <div class="col-md-12 pt-4">
         <div class="float-right">
-            <a  class="btn btn-warning mr-2" type="submit" wire:click="before_closing">Before Closing</a>
-            <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/cancelled')}}">Cancel Purchase</a>
-            <a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/dropouts')}}">Cancel Client</a>
-            <a  class="btn btn-info" type="submit" wire:click="book_house">Book House</a>
+            <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
+            {{--<a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/cancelled')}}">Cancel Purchase</a>--}}
+            {{--<a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/dropouts')}}">Cancel Client</a>--}}
+            {{--<a  class="btn btn-info" type="submit" onclick="return book_house()" disabled>Book House</a>--}}
 
         </div>
 
@@ -702,5 +746,53 @@
             $('#due_diligence_option').val(values).trigger('change');
             // $('#due_diligence_option').val()
         }
+
+        function before_closing() {
+            bootbox.confirm({
+                message: 'Confirm Y/N',
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if(result){
+                        @this.before_closing();
+                    }
+                }
+            });
+
+
+        }
+
+        function book_house() {
+            bootbox.confirm({
+                message: 'Confirm Y/N',
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if(result){
+                        @this.book_house();
+                    }
+                }
+            });
+
+
+        }
+
+
     </script>
 @endpush

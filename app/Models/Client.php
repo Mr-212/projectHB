@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\Dropdowns\StageConstant;
+use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -110,5 +111,9 @@ class Client extends Model
     public function last_updated_by()
     {
         return $this->hasOne(User::class,'updated_by','id');
+    }
+
+    public function getPaymentOptionList(){
+        return ClientItemCheckListVariables::getPaymentOptionList();
     }
 }
