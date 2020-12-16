@@ -43,7 +43,7 @@ class Client extends Model
         'property_hoa_check',
         'property_hoa_name',
         'property_hoa_phone',
-        'property_repair_request',
+        'property_repair_request_check',
         'property_lender_check',
         'property_lender_name',
         'property_closing_date',
@@ -90,9 +90,9 @@ class Client extends Model
     {
         parent::boot();
 
-//        self::creating(function (){
-//            $this->created_by = Auth::id();
-//        });
+        self::creating(function ($model){
+            $model->created_by = Auth::id();
+        });
 //
         self::updating(function ($model){
             $model->updated_by = Auth::id();
@@ -106,6 +106,10 @@ class Client extends Model
 
     public function scopeBeforeDDExpire($query){
         return $query->where('stage', StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+    }
+
+    public function scopePortfolio($query){
+        return $query->where('stage', StageConstant::HOUSE_BOOKED)->orderBy('updated_at','desc');
     }
 
     public function last_updated_by()

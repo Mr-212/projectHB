@@ -11,7 +11,7 @@ return [
     | your application. This value affects component auto-discovery and
     | any Livewire file helper commands, like `artisan make:livewire`.
     |
-    | After changing this item, run: `php artisan livewire:discover`.
+    | After changing this client, run: `php artisan livewire:discover`.
     |
     */
 

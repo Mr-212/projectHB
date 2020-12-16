@@ -11,6 +11,9 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Livewire\Portfolio;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Livewire\Client\ClientLogComponent;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Livewire\Client\AddClientComponent;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,10 +54,15 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/outstanding/{type}', OutstandingItems::class);
         Route::get('/checklist/{client_id}', ItemChecklist::class);
         Route::get('/log/{client_id}', ClientLogComponent::class);
+        Route::get('/add/client', AddClientComponent::class);
+        Route::get('/client/add', ItemChecklist::class);
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
     });
 
-    Route::get('/portfolio',Portfolio::class);
+//    Route::get('/portfolio',PortfolioTable::class);
+    Route::prefix('portfolio')->group(function(){
+        Route::get('/', [ClientController::class,'portfolio']);
+    });
     Route::prefix('house')->group(function(){
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);
         Route::get('/sold', HouseSold::class);

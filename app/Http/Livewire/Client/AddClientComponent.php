@@ -7,7 +7,7 @@ use App\Models\Client;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Livewire\Component;
 
-class ItemChecklist extends Component
+class AddClientComponent extends Component
 {
     public  $client;
     public  $client_id;
@@ -40,8 +40,8 @@ class ItemChecklist extends Component
 
         "client.property_purchase_price" => 'integer',
         "client.property_closing_cost" => 'integer',
-        "client.property_closing_credit_general" => '',
-        "client.property_annual_property_tax" => '',
+        "client.property_closing_credit_general" => 'integer',
+        "client.property_annual_property_tax" => 'integer',
 
         "client.property_hoa_check" => '',
         "client.property_hoa_name" => '',
@@ -66,11 +66,6 @@ class ItemChecklist extends Component
         "client.due_diligence_option_payment_12_month" =>'',
         "client.due_diligence_option_payment_date" =>'',
 
-        "client.letter_of_commitment_signed" =>'',
-        "client.on_boarding_fee_payment_check" =>'',
-
-
-
         "client.due_diligence_inspection_check" =>'',
         "client.due_diligence_inspection_check_date" =>'',
 
@@ -86,7 +81,7 @@ class ItemChecklist extends Component
         'client.renter_insurance_company_name' => '',
 
         'client.flood_certificate_check' => '',
-        'client.landlord_insurance_check' => '',
+        'client.landload_insurance_check' => '',
 
         'client.warranty_check' => '',
         'client.warranty_company_name' => '',
@@ -116,14 +111,8 @@ class ItemChecklist extends Component
 
 
 
-    public function mount($client_id = null){
-        $this->client_id = $client_id;
-        //$this->rules = ClientItemCheckListVariables::getValidationRulesWithoutRequired();
+    public function mount(){
         $this->getClientProperty();
-
-
-
-
     }
 
 
@@ -137,16 +126,14 @@ class ItemChecklist extends Component
 //    }
 
     public function getClientProperty(){
-        if($this->client_id)
-            $this->client = Client::find($this->client_id);
-        else
-            $this->client = new Client();
+        $this->client = new Client();
+//        dd($this->client);
 
     }
 
     public function render()
     {
-        return view('livewire.client.item-checklist')->extends('layouts.app');
+        return view('livewire.client.add-client')->extends('layouts.app');
     }
 
     public function save_book_purchase(){
@@ -159,20 +146,19 @@ class ItemChecklist extends Component
 
     public function book_house(){
 
-        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
+        $this->validate($this->rules);
         $this->client->stage = StageConstant::HOUSE_BOOKED;
         if($this->client->save()){
             return $this->redirect('/items/outstanding/after_dd');
         };
     }
 
-    public function before_closing(){
-//        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
+    public function addClient(){
         $this->validate($this->rules);
-        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE;
         if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/after_dd');
+            return $this->redirect('/items/outstanding/before_dd');
         };
     }
 
@@ -203,20 +189,6 @@ class ItemChecklist extends Component
 
 
             }
-
-    }
-
-    public function addClient(){
-        $this->validate($this->rules);
-        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE;
-        if($this->client->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/before_dd');
-        };
-    }
-
-    public function house_book_validate(){
-        $this->validate($this->rules);
 
     }
 }

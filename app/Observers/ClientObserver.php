@@ -16,7 +16,8 @@ class ClientObserver
      */
     public function created(Client $client)
     {
-        //
+        ClientLogs::create(['client_id'=> $client->id,'action_type' => 'client_create', 'original_data'=>$client->getOriginal(),'new_data' => $client->toArray(),'changes' => $client->getChanges(),'updated_by' => Auth::id()]);
+
     }
 
     public function updating(Client $client)

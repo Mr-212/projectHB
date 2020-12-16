@@ -59,7 +59,7 @@ $.extend( DataTable.ext.classes, {
 	sFilterInput:  "form-control form-control-sm",
 	sLengthSelect: "custom-select custom-select-sm form-control form-control-sm",
 	sProcessing:   "dataTables_processing card",
-	sPageButton:   "paginate_button page-item"
+	sPageButton:   "paginate_button page-client"
 } );
 
 

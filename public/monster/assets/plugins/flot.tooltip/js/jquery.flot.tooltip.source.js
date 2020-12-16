@@ -279,8 +279,8 @@
     /**
      * core function, create tooltip content
      * @param  {string} content - template with tooltip content
-     * @param  {object} item - Flot item
-     * @return {string} real tooltip content for current item
+     * @param  {object} item - Flot client
+     * @return {string} real tooltip content for current client
      */
     FlotTooltip.prototype.stringFormat = function (content, item) {
 

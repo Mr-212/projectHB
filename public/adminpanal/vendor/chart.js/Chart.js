@@ -2210,7 +2210,7 @@ var helpers = {
 	 * is unknown or in none intensive code (not called often and small loopable). Else
 	 * it's preferable to use a regular for() loop and save extra function calls.
 	 * @param {object|Array} loopable - The object or array to be iterated.
-	 * @param {function} fn - The function to call for each item.
+	 * @param {function} fn - The function to call for each client.
 	 * @param {object} [thisArg] - The value of `this` provided for the call to `fn`.
 	 * @param {boolean} [reverse] - If true, iterates backward on the loopable.
 	 */
@@ -5370,7 +5370,7 @@ core_defaults._set('doughnut', {
 							lineWidth: style.borderWidth,
 							hidden: isNaN(data.datasets[0].data[i]) || meta.data[i].hidden,
 
-							// Extra data used for toggling the correct item
+							// Extra data used for toggling the correct client
 							index: i
 						};
 					});
@@ -6188,7 +6188,7 @@ core_defaults._set('polarArea', {
 							lineWidth: style.borderWidth,
 							hidden: isNaN(data.datasets[0].data[i]) || meta.data[i].hidden,
 
-							// Extra data used for toggling the correct item
+							// Extra data used for toggling the correct client
 							index: i
 						};
 					});
@@ -6706,7 +6706,7 @@ function getRelativePosition(e, chart) {
 /**
  * Helper function to traverse all of the visible elements in the chart
  * @param {Chart} chart - the chart
- * @param {function} handler - the callback to execute for each visible item
+ * @param {function} handler - the callback to execute for each visible client
  */
 function parseVisibleItems(chart, handler) {
 	var metasets = chart._getSortedVisibleDatasetMetas();
@@ -6852,7 +6852,7 @@ var core_interaction = {
 
 		/**
 		 * Returns items at the same index. If the options.intersect parameter is true, we only return items if we intersect something
-		 * If the options.intersect mode is false, we find the nearest item and return the items at the same index as that item
+		 * If the options.intersect mode is false, we find the nearest client and return the items at the same index as that client
 		 * @function Chart.Interaction.modes.index
 		 * @since v2.4.0
 		 * @param {Chart} chart - the chart we are returning items from
@@ -6864,7 +6864,7 @@ var core_interaction = {
 
 		/**
 		 * Returns items in the same dataset. If the options.intersect parameter is true, we only return items if we intersect something
-		 * If the options.intersect is false, we find the nearest item and return the items in that dataset
+		 * If the options.intersect is false, we find the nearest client and return the items in that dataset
 		 * @function Chart.Interaction.modes.dataset
 		 * @param {Chart} chart - the chart we are returning items from
 		 * @param {Event} e - the event we are find things at
@@ -7188,19 +7188,19 @@ core_defaults._set('global', {
 
 /**
  * @interface ILayoutItem
- * @prop {string} position - The position of the item in the chart layout. Possible values are
+ * @prop {string} position - The position of the client in the chart layout. Possible values are
  * 'left', 'top', 'right', 'bottom', and 'chartArea'
- * @prop {number} weight - The weight used to sort the item. Higher weights are further away from the chart area
- * @prop {boolean} fullWidth - if true, and the item is horizontal, then push vertical boxes down
- * @prop {function} isHorizontal - returns true if the layout item is horizontal (ie. top or bottom)
- * @prop {function} update - Takes two parameters: width and height. Returns size of item
+ * @prop {number} weight - The weight used to sort the client. Higher weights are further away from the chart area
+ * @prop {boolean} fullWidth - if true, and the client is horizontal, then push vertical boxes down
+ * @prop {function} isHorizontal - returns true if the layout client is horizontal (ie. top or bottom)
+ * @prop {function} update - Takes two parameters: width and height. Returns size of client
  * @prop {function} getPadding -  Returns an object with padding on the edges
- * @prop {number} width - Width of item. Must be valid after update()
- * @prop {number} height - Height of item. Must be valid after update()
- * @prop {number} left - Left edge of the item. Set by layout system and cannot be used in update
- * @prop {number} top - Top edge of the item. Set by layout system and cannot be used in update
- * @prop {number} right - Right edge of the item. Set by layout system and cannot be used in update
- * @prop {number} bottom - Bottom edge of the item. Set by layout system and cannot be used in update
+ * @prop {number} width - Width of client. Must be valid after update()
+ * @prop {number} height - Height of client. Must be valid after update()
+ * @prop {number} left - Left edge of the client. Set by layout system and cannot be used in update
+ * @prop {number} top - Top edge of the client. Set by layout system and cannot be used in update
+ * @prop {number} right - Right edge of the client. Set by layout system and cannot be used in update
+ * @prop {number} bottom - Bottom edge of the client. Set by layout system and cannot be used in update
  */
 
 // The layout service is very self explanatory.  It's responsible for the layout within a chart.
@@ -7213,14 +7213,14 @@ var core_layouts = {
 	 * Register a box to a chart.
 	 * A box is simply a reference to an object that requires layout. eg. Scales, Legend, Title.
 	 * @param {Chart} chart - the chart to use
-	 * @param {ILayoutItem} item - the item to add to be layed out
+	 * @param {ILayoutItem} item - the client to add to be layed out
 	 */
 	addBox: function(chart, item) {
 		if (!chart.boxes) {
 			chart.boxes = [];
 		}
 
-		// initialize item with default values
+		// initialize client with default values
 		item.fullWidth = item.fullWidth || false;
 		item.position = item.position || 'top';
 		item.weight = item.weight || 0;
@@ -7239,7 +7239,7 @@ var core_layouts = {
 	/**
 	 * Remove a layoutItem from a chart
 	 * @param {Chart} chart - the chart to remove the box from
-	 * @param {ILayoutItem} layoutItem - the item to remove from the layout
+	 * @param {ILayoutItem} layoutItem - the client to remove from the layout
 	 */
 	removeBox: function(chart, layoutItem) {
 		var index = chart.boxes ? chart.boxes.indexOf(layoutItem) : -1;
@@ -7249,10 +7249,10 @@ var core_layouts = {
 	},
 
 	/**
-	 * Sets (or updates) options on the given `item`.
-	 * @param {Chart} chart - the chart in which the item lives (or will be added to)
-	 * @param {ILayoutItem} item - the item to configure with the given options
-	 * @param {object} options - the new item options.
+	 * Sets (or updates) options on the given `client`.
+	 * @param {Chart} chart - the chart in which the client lives (or will be added to)
+	 * @param {ILayoutItem} item - the client to configure with the given options
+	 * @param {object} options - the new client options.
 	 */
 	configure: function(chart, item, options) {
 		var props = ['fullWidth', 'position', 'weight'];
@@ -7751,10 +7751,10 @@ var platform_dom$2 = {
 		// https://github.com/chartjs/Chart.js/issues/2807
 		var context = item && item.getContext && item.getContext('2d');
 
-		// `instanceof HTMLCanvasElement/CanvasRenderingContext2D` fails when the item is
+		// `instanceof HTMLCanvasElement/CanvasRenderingContext2D` fails when the client is
 		// inside an iframe or when running in a protected environment. We could guess the
 		// types from their toString() value but let's keep things flexible and assume it's
-		// a sufficient condition if the item has a context2D which has item as `canvas`.
+		// a sufficient condition if the client has a context2D which has client as `canvas`.
 		// https://github.com/chartjs/Chart.js/issues/3887
 		// https://github.com/chartjs/Chart.js/issues/4102
 		// https://github.com/chartjs/Chart.js/issues/4152
@@ -7876,7 +7876,7 @@ var platform = helpers$1.extend({
 	/**
 	 * Called at chart construction time, returns a context2d instance implementing
 	 * the [W3C Canvas 2D Context API standard]{@link https://www.w3.org/TR/2dcontext/}.
-	 * @param {*} item - The native item from which to acquire context (platform specific)
+	 * @param {*} client - The native client from which to acquire context (platform specific)
 	 * @param {object} options - The chart options
 	 * @returns {CanvasRenderingContext2D} context2d instance
 	 */
@@ -8247,7 +8247,7 @@ var positioners = {
 	},
 
 	/**
-	 * Gets the tooltip position nearest of the item nearest to the event position
+	 * Gets the tooltip position nearest of the client nearest to the event position
 	 * @function Chart.Tooltip.positioners.nearest
 	 * @param elements {Chart.Element[]} the tooltip elements
 	 * @param eventPosition {object} the position of the event in canvas coordinates
@@ -8314,9 +8314,9 @@ function splitNewlines(str) {
 
 
 /**
- * Private helper to create a tooltip item model
- * @param element - the chart element (point, arc, bar) to create the tooltip item for
- * @return new tooltip item
+ * Private helper to create a tooltip client model
+ * @param element - the chart element (point, arc, bar) to create the tooltip client for
+ * @return new tooltip client
  */
 function createTooltipItem(element) {
 	var xScale = element._xScale;
@@ -9345,11 +9345,11 @@ helpers$1.extend(Chart.prototype, /** @lends Chart */ {
 		});
 
 		if (!context || !canvas) {
-			// The given item is not a compatible context2d element, let's return before finalizing
+			// The given client is not a compatible context2d element, let's return before finalizing
 			// the chart initialization but after setting basic chart / controller properties that
 			// can help to figure out that the chart is not valid (e.g chart.canvas !== null);
 			// https://github.com/chartjs/Chart.js/issues/2807
-			console.error("Failed to create chart: can't acquire context from the given item");
+			console.error("Failed to create chart: can't acquire context from the given client");
 			return;
 		}
 
@@ -14065,7 +14065,7 @@ function lookup(table, key, value) {
 		i1 = table[mid];
 
 		if (!i0) {
-			// given value is outside table (before first item)
+			// given value is outside table (before first client)
 			return {lo: null, hi: i1};
 		} else if (i1[key] < value) {
 			lo = mid + 1;
@@ -14076,7 +14076,7 @@ function lookup(table, key, value) {
 		}
 	}
 
-	// given value is outside table (after last item)
+	// given value is outside table (after last client)
 	return {lo: i1, hi: null};
 }
 
@@ -15158,7 +15158,7 @@ core_defaults._set('global', {
 			// text : text to display
 			// fillStyle : fill of coloured box
 			// strokeStyle: stroke of coloured box
-			// hidden : if this legend item refers to a hidden item
+			// hidden : if this legend client refers to a hidden client
 			// lineCap : cap style for line
 			// lineDash
 			// lineDashOffset :

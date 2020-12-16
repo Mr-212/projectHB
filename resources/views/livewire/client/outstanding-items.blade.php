@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="float-right">
-                        <button class="btn btn-info">Add Client</button>
+                        <a class="btn btn-info" href="{{url('items/client/add')}}">Add Client</a>
                     </div>
 
                 </div>
@@ -19,6 +19,27 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-12">
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @elseif(session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        </div>
+    </div>
+
 
     <!-- Content Row -->
     {{--<div class="row">--}}
