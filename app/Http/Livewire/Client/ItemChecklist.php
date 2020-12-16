@@ -11,6 +11,7 @@ class ItemChecklist extends Component
 {
     public  $client;
     public  $client_id;
+    public  $title;
 
     protected $rules = [
         'client.applicant_name'=>'required|string',
@@ -137,10 +138,14 @@ class ItemChecklist extends Component
 //    }
 
     public function getClientProperty(){
-        if($this->client_id)
+        if($this->client_id) {
+            $this->title = 'Item Checklist (Pre Closing)';
             $this->client = Client::find($this->client_id);
-        else
+        }
+        else {
+            $this->title = 'Add Client Info';
             $this->client = new Client();
+        }
 
     }
 

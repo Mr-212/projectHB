@@ -2,7 +2,8 @@
     {{-- Do your work, then step back. --}}
     <div class="row pl-2">
         <div class="col-md-12">
-            <h3 class="text-black-50">Item Checklist (Pre Closing)</h3>
+            {{--<h3 class="text-black-50">Item Checklist (Pre Closing)</h3>--}}
+            <h3 class="text-black-50">{{$title}}</h3>
         </div>
 
     </div>
