@@ -18,7 +18,7 @@
 <script>
     function before_closing() {
         bootbox.confirm({
-            message: 'Confirm Y/N',
+            message: 'Are you sure to move applicant to Before Closing section ?',
             buttons: {
                 confirm: {
                     label: 'Yes',
@@ -39,7 +39,7 @@
 
     function book_house() {
         bootbox.confirm({
-            message: 'Confirm Y/N',
+            message: 'Are you sure to move applicant to Book House ?',
             buttons: {
                 confirm: {
                     label: 'Yes',
@@ -60,7 +60,7 @@
 
     function addclient() {
         bootbox.confirm({
-            message: 'Confirm Y/N',
+            message: 'Are you sure to add applicant as new client ?',
             buttons: {
                 confirm: {
                     label: 'Yes',
@@ -83,7 +83,7 @@
 
     function cancel_house() {
         bootbox.confirm({
-            message: 'Confirm Y/N',
+            message: 'Are you sure to move applicant to cancelled houses and clear all fields except clint info ?',
             buttons: {
                 confirm: {
                     label: 'Yes',
