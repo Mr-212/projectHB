@@ -56,6 +56,14 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/log/{client_id}', ClientLogComponent::class);
         Route::get('/add/client', AddClientComponent::class);
         Route::get('/client/add', ItemChecklist::class);
+
+//        Route::prefix('/house')->group(function(){
+////        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);
+//            Route::get('/sold', HouseSold::class);
+//            Route::get('/cancelled', HouseCancelled::class);
+//            Route::get('/dropouts', HouseDropout::class);
+////        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
+//        });
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
     });
 
@@ -63,10 +71,10 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
     Route::prefix('portfolio')->group(function(){
         Route::get('/', [ClientController::class,'portfolio']);
     });
-    Route::prefix('house')->group(function(){
+    Route::prefix('/house')->group(function(){
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);
         Route::get('/sold', HouseSold::class);
-        Route::get('/cancelled', HouseCancelled::class);
+        Route::get('/cancelled',  [ClientController::class,'get_house_by_type']);
         Route::get('/dropouts', HouseDropout::class);
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
     });

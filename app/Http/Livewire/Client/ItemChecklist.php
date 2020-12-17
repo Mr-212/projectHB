@@ -12,6 +12,19 @@ class ItemChecklist extends Component
     public  $client;
     public  $client_id;
     public  $title;
+    public  $exceptArray = [
+        'id',
+        'applicant_name',
+        'applicant_email' ,
+        'applicant_phone' ,
+        'partner_name',
+        'partner_email' ,
+        'partner_phone' ,
+        'co_applicant_name' ,
+        'co_applicant_email' ,
+        'co_applicant_phone',
+//        'stage',
+        ];
 
     protected $rules = [
         'client.applicant_name'=>'required|string',
@@ -191,21 +204,36 @@ class ItemChecklist extends Component
 
     }
 
+//    public function payment_option($values){
+//         $options_array = $this->client->getPaymentOptionList();
+//          $calculated_payment = $this->client->property_purchase_price + $this->client->property_pclosing_cost + $this->client->prooerty_closing_credit_general;
+//            foreach ($options_array as $k => $v){
+//                if(array_key_exists($k,array_flip($values))){
+//                    if($k == 1)
+//                        $this->client->$v = round($calculated_payment * 1.03,2);
+//                    if($k == 2)
+//                        $this->client->$v = round($calculated_payment * 1.06,2);
+//                    if($k == 3)
+//                        $this->client->$v = round($calculated_payment * 1.1,2);
+//                }else{
+//                    $this->client->$v = null;
+//                }
+//
+//
+//            }
+//
+//    }
     public function payment_option($values){
          $options_array = $this->client->getPaymentOptionList();
           $calculated_payment = $this->client->property_purchase_price + $this->client->property_pclosing_cost + $this->client->prooerty_closing_credit_general;
             foreach ($options_array as $k => $v){
+                $key = $v['key'];
                 if(array_key_exists($k,array_flip($values))){
-                    if($k == 1)
-                        $this->client->$v = round($calculated_payment * 1.03,2);
-                    if($k == 2)
-                        $this->client->$v = round($calculated_payment * 1.06,2);
-                    if($k == 3)
-                        $this->client->$v = round($calculated_payment * 1.1,2);
-                }else{
-                    $this->client->$v = null;
+                        $this->client->$key = round($calculated_payment * ($v['formula']),2);
                 }
-
+                else{
+                    $this->client->$key = null;
+                }
 
             }
 
@@ -223,5 +251,23 @@ class ItemChecklist extends Component
     public function house_book_validate(){
         $this->validate($this->rules);
 
+    }
+
+    public function cancel_house(){
+        $reset = array_diff_key($this->client->getAttributes(),array_flip($this->exceptArray));
+        if($reset){
+            foreach ($reset as $k=> $v){
+                $reset[$k] = null;
+            }
+        }
+        //dd($reset);
+
+        $reset['stage'] = StageConstant::HOUSE_CANCELLED;
+        //dd($reset,$this->client->id,$this->client->update($reset));
+//        $this->client->stage = StageConstant::HOUSE_CANCELLED;
+        if($this->client->update($reset)){
+            session()->flash('success', 'Item successfully updated.');
+            return $this->redirect('/house/cancelled');
+        };
     }
 }

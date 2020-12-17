@@ -11,4 +11,11 @@ class ClientController extends Controller
 //        dd('here');
         return view('client.portfolio');
     }
+
+    public function get_house_by_type(Request $request){
+//        dd($request->all());
+
+        return view('client.house.house');
+
+    }
 }

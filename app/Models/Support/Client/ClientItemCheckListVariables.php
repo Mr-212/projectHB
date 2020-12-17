@@ -11,11 +11,18 @@ namespace App\Models\Support\Client;
 
 class ClientItemCheckListVariables
 {
-    public static function getPaymentOptionList(){
+    public static function getPaymentOptionList1(){
         return [
             1 =>  'due_diligence_option_payment_3_month',
             2 =>  'due_diligence_option_payment_6_month',
             3 =>  'due_diligence_option_payment_12_month',
+        ];
+    }
+    public static function getPaymentOptionList(){
+        return [
+            1 =>  ['key' => 'due_diligence_option_payment_3_month' ,   'formula' => 1.03 ],
+            2 =>  ['key' => 'due_diligence_option_payment_6_month' ,   'formula' => 1.06 ],
+            3 =>  ['key' => 'due_diligence_option_payment_12_month',   'formula' => 1.10 ],
         ];
     }
 

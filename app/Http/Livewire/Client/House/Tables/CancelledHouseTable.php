@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Client\Tables;
+namespace App\Http\Livewire\Client\House\Tables;
 
 use App\Models\Client;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -9,19 +9,18 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use App\Constants\StageConstant;
 
-class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
+class CancelledHouseTable extends LivewireDatatable
 {
 //    public $model = Client::class;
 
     public function builder()
     {
-        return Client::query()->beforeDD();
+        return Client::query()->CancelledHouse();
     }
 
     public function columns()
     {
         return [
-//            Column::checkbox(),
             Column::callback(['id'], function ($id) {
                 return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['id' => $id]);
             }),
