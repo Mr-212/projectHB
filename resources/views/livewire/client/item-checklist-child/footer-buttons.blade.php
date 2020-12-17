@@ -1,4 +1,4 @@
-<div class="col-md-12 pt-4">
+<div class="col-md-12 pt-4 pb-lg-5" >
     <div class="float-right">
         @if(!$client_id)
             <a  class="btn btn-warning mr-2" type="submit" onclick="return addclient()">Add</a>

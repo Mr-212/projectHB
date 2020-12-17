@@ -24,7 +24,7 @@
         @error('client.applicant_phone') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
-            <label>Applicant Phone:</label>
+            <label>Applicant Phone:(special character not allowed)</label>
             <input type="text" class="form-control"  wire:model="client.applicant_phone">
         </div>
 
@@ -33,7 +33,7 @@
         @error('client.partner_phone') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
-            <label>Partner Phone:</label>
+            <label>Partner Phone:(special character not allowed)</label>
             <input type="text" class="form-control"  wire:model="client.partner_phone">
         </div>
 
@@ -69,7 +69,7 @@
         @error('client.co_applicant_phone') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
-            <label>Co-Applicant Phone:</label>
+            <label>Co-Applicant Phone:(special character not allowed)</label>
             <input type="text" class="form-control"  wire:model="client.co_applicant_phone">
         </div>
 

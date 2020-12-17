@@ -76,19 +76,19 @@ class ClientItemCheckListVariables
             "client.property_due_diligence_expire" => 'required',
 
             "client.due_diligence_rent" =>'required',
-            "client.due_diligence_option_payment_check" =>'required',
+            "client.due_diligence_option_payment_check" =>'',
             "client.due_diligence_option_payment_3_month" =>'',
             "client.due_diligence_option_payment_6_month" =>'',
             "client.due_diligence_option_payment_12_month" =>'',
             "client.due_diligence_option_payment_date" =>'required',
 
-            "client.letter_of_commitment_signed" =>'required',
-            "client.on_boarding_fee_payment_check" =>'required',
+            "client.letter_of_commitment_signed" =>'',
+            "client.on_boarding_fee_payment_check" =>'',
 
             "client.due_diligence_inspection_check" =>'',
             "client.due_diligence_inspection_check_date" =>'',
 
-            'client.appraisal_value_check' => 'required',
+            'client.appraisal_value_check' => '',
             'client.appraisal_value' => '',
 
             'client.driver_license_applicant' => '',
