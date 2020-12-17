@@ -38,13 +38,13 @@ class ClientItemCheckListVariables
             'client.co_applicant_email' =>'',
             'client.co_applicant_phone' =>'integer',
 
-            'client.additional_tenant_check' => 'required',
+            'client.additional_tenant_check' => '',
             'client.additional_tenant_name' => '',
             'client.mortgage_type_id' => 'required',
             'client.rental_verification_complete_check' => 'required',
             'client.rental_verification_check' => '',
             'client.welcome_down_payment' => '',
-            'client.welcome_down_payment_complete_check' => 'required',
+            'client.welcome_down_payment_complete_check' => '',
 
 
             'client.property_new_construction_check' =>'',

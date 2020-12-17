@@ -123,7 +123,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        {{--@error('client.mortgage_type') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('client.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror
         <div class="">
             <label>Mortgage Type ?</label>
             <select class="form-control" name="deal_mortgage_type" wire:model="client.mortgage_type_id" wire:ignore>
@@ -136,7 +136,7 @@
 
     </div>
     <div class="col-md-6 col-lg-6" >
-        {{--@error('client.rental_verification_check') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('client.rental_verification_complete_check') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <input type="checkbox"  value="" wire:model="client.rental_verification_complete_check" wire:click="setCheckListValueAndDate('rental_verification_complete_check','')" />

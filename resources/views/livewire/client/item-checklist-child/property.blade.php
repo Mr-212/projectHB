@@ -57,7 +57,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        @error('client.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror
+        @error('client.property_purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <label>Purchase Price</label>
@@ -137,7 +137,7 @@
             <input type="checkbox"  value="" wire:model="client.property_closing_date_complete_check"/>
             <label>Closing Date</label>
             @if(!$client->property_closing_date_complete_check)
-                <input  class="form-control" type="date" name="closing_date" value="{{\Carbon\Carbon::parse($client->property_closing_date)->format('Y-m-d')}}" wire:model="client.property_closing_date" />
+                <input  class="form-control" type="date" name="closing_date" value="" wire:model="client.property_closing_date" />
             @endif
 
         </div>
