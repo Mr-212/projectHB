@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Client;
 
-use App\Constants\Dropdowns\StageConstant;
+use App\Constants\StageConstant;
 use App\Models\Client;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Livewire\Component;

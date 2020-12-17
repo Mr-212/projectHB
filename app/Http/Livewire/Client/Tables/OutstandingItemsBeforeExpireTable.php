@@ -9,6 +9,7 @@ use App\Models\User;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
+use App\Constants\StageConstant;
 class OutstandingItemsBeforeExpireTable extends LivewireDatatable
 {
 
@@ -32,9 +33,15 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['id' => $id]);
             }),
 
+
             NumberColumn::name('id')
                 ->defaultSort('id')
                 ->label('ID'),
+
+            Column::callback('stage',function($stage){
+                return StageConstant::getValueByKey($stage);
+            })->label('Stage'),
+
             Column::name('property_closing_date')
                 ->label('Closing Date'),
 

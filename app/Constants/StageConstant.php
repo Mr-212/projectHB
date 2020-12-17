@@ -5,12 +5,7 @@
  * Date: 11/12/20
  * Time: 6:13 PM
  */
-
-namespace App\Constants\Dropdowns;
-use App\Constants\Base;
-use App\Constants\GeneralConstants;
-
-
+namespace App\Constants;
 class StageConstant extends Base
 {
 

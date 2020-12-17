@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Client\Tables;
 
+use App\Constants\StageConstant;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -30,6 +31,11 @@ class PortfolioTable extends LivewireDatatable
             NumberColumn::name('id')
                 ->defaultSort('id')
                 ->label('ID'),
+
+            Column::callback('stage',function($stage){
+                return StageConstant::getValueByKey($stage);
+            })->label('Stage'),
+
             Column::name('property_closing_date')
                 ->label('Closing Date'),
 

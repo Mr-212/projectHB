@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Constants\Dropdowns\StageConstant;
+use App\Constants\StageConstant;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
