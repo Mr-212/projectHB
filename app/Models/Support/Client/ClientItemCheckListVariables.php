@@ -70,10 +70,10 @@ class ClientItemCheckListVariables
             "client.property_lender_name" => '',
 
             "client.property_closing_date_complete_check" => 'required',
-            "client.property_closing_date" => 'required',
+            "client.property_closing_date" => '',
 
             "client.property_due_diligence_expire_complete_check" => 'required',
-            "client.property_due_diligence_expire" => 'required',
+            "client.property_due_diligence_expire" => '',
 
             "client.due_diligence_rent" =>'required',
             "client.due_diligence_option_payment_check" =>'',
