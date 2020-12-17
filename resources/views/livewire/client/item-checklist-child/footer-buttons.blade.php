@@ -83,7 +83,7 @@
 
     function cancel_house() {
         bootbox.confirm({
-            message: 'Are you sure to move applicant to cancelled houses and clear all fields except clint info ?',
+            message: 'Are you sure to move applicant to cancelled houses and clear all fields except client info ?',
             buttons: {
                 confirm: {
                     label: 'Yes',
