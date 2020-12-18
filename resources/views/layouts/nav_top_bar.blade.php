@@ -2,35 +2,17 @@
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <!-- ============================================================== -->
         <!-- End Logo -->
-        <div class="navbar-header" data-logobg="skin6">
-            <!-- ============================================================== -->
-            <!-- Logo -->
-            <!-- ============================================================== -->
-            <a class="navbar-brand justify-content-center" href="index.html">
-                <!-- Logo icon -->
-                <b class="logo-icon">
-                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                    <!-- Dark Logo icon -->
-                    <img src="https://dreamamerica.com/assets/images/logo.png" alt="homepage" class="dark-logo" />
+        {{--<div class="navbar-header" data-logobg="skin6">--}}
+            {{--<a class="navbar-brand justify-content-center" href="index.html">--}}
+                {{--<b class="logo-icon">--}}
+                    {{--<img src="https://dreamamerica.com/assets/images/logo.png" alt="homepage" class="dark-logo" />--}}
+                {{--</b>--}}
 
-                </b>
-                <!--End Logo icon -->
-                <!-- Logo text -->
-                {{--<span class="logo-text">--}}
-                            {{--<!-- dark Logo text -->--}}
-                            {{--<img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />--}}
-
-                {{--</span>--}}
-            </a>
-            <!-- ============================================================== -->
-            <!-- End Logo -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
-            <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-               href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-        </div>
+            {{--</a>--}}
+         {{----}}
+            {{--<a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"--}}
+               {{--href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>--}}
+        {{--</div>--}}
         <!-- ============================================================== -->
         <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
             <ul class="navbar-nav d-none d-md-block d-lg-none">

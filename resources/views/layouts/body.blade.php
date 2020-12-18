@@ -12,12 +12,13 @@
      data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
 
     <!-- Sidebar -->
-@include('layouts.nav_top_bar')
+{{--@include('layouts.nav_top_bar')--}}
 @include('layouts.nav_side_bar')
 <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
     <div class="page-wrapper">
+    @include('layouts.nav_top_bar')
 
         <!-- Main Content -->
 

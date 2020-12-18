@@ -32,6 +32,7 @@
     <!-- Favicon icon -->
     <!-- Custom CSS -->
 <link href="{{$base_url}}/monster/monster-html/css/style.min.css" rel="stylesheet">
+<link href="{{$base_url}}/css/application/layout.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

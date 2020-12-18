@@ -1,9 +1,31 @@
-<aside class="left-sidebar" data-sidebarbg="skin6">
-    <!-- Sidebar scroll-->
+
+<aside class="left-sidebar  position-fixed" data-sidebarbg="skin6" style="padding-top:0px !important;">
+
+    <header class="topbar" data-navbarbg="skin6">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <a class="navbar-brand justify-content-center" href="index.html">
+                <b class="logo-icon">
+                    <img src="https://dreamamerica.com/assets/images/logo.png" alt="homepage" class="dark-logo" />
+                </b>
+
+            </a>
+
+            <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+               href="javascript:void(0)"><i class="ti-menu ti-close"></i>
+            </a>
+        </nav>
+    </header>
+
+    {{--</a>--}}
     <div class="scroll-sidebar">
+
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
+
             <ul id="sidebarnav">
+                <li>
+
+                </li>
                 <!-- User Profile-->
                 {{--<li class="sidebar-client">--}}
                     {{--<a class="sidebar-link waves-effect waves-dark sidebar-link"--}}

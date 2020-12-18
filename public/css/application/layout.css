@@ -1,0 +1,13 @@
+
+.left-sidebar > .topbar{
+    background: linear-gradient(to right, #0178BC 100%, #00bdda 100%);
+
+}
+.left-sidebar .navbar-brand{
+    margin: 0px;
+}
+
+.left-sidebar .dark-logo{
+    background: white ;
+    padding: 3px 10px 3px ;
+}
