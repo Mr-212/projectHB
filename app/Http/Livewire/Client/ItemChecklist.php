@@ -270,4 +270,15 @@ class ItemChecklist extends Component
             return $this->redirect('/house/cancelled');
         };
     }
+
+    public function cancel_client(){
+
+        $this->client->stage = StageConstant::DROPOUT_CLIENT;
+        if($this->client->save()){
+            session()->flash('success', 'Item successfully updated.');
+            return $this->redirect('/house/dropout');
+        };
+    }
+
+
 }

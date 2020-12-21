@@ -5,7 +5,7 @@
         @else
             <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
             <a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_house()">Cancel House</a>
-            {{--<a  class="btn btn-danger  mr-2" type="submit" href="{{url('/house/dropouts')}}">Cancel Client</a>--}}
+            <a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client()">Cancel Client</a>
             {{--<div  wire:poll="house_book_validate">--}}
             <a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>
             {{--</div>--}}
@@ -97,6 +97,27 @@
             callback: function (result) {
                 if(result){
                     @this.cancel_house();
+                }
+            }
+        });
+    }
+
+    function cancel_client() {
+        bootbox.confirm({
+            message: 'Are you sure to move applicant to cancelled clients?',
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    @this.cancel_client();
                 }
             }
         });
