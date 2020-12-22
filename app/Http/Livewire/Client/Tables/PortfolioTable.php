@@ -29,7 +29,7 @@ class PortfolioTable extends LivewireDatatable
             }),
 
             NumberColumn::name('id')
-                ->defaultSort('id')
+                ->defaultSort('desc')
                 ->label('ID'),
 
             Column::callback('stage',function($stage){

@@ -49,7 +49,7 @@
                         <li class="sidebar-item">
                             <a href="{{url('/items/outstanding/after_dd')}}" class="sidebar-link">
                                 <i class="fa fa-angle-double-right"></i>
-                                <span class="hide-menu"> Before Expire </span>
+                                <span class="hide-menu"> Before Closing </span>
                             </a>
                         </li>
 

@@ -159,13 +159,16 @@ class Client extends Model
     }
 
     public function scopePortfolio($query){
-        return $query->where('stage', StageConstant::HOUSE_BOOKED)->orderBy('updated_at','desc');
+        return $query->where('stage', StageConstant::HOUSE_BOOKED);
+//            ->orderBy('updated_at','desc');
     }
     public function scopeCancelledHouse($query){
-        return $query->where('stage', StageConstant::HOUSE_CANCELLED)->orderBy('updated_at','desc');
+        return $query->where('stage', StageConstant::HOUSE_CANCELLED);
+//            ->orderBy('updated_at','desc');
     }
     public function scopeDropoutClient($query){
-        return $query->where('stage', StageConstant::DROPOUT_CLIENT)->orderBy('updated_at','desc');
+        return $query->where('stage', StageConstant::DROPOUT_CLIENT);
+//            ->orderBy('updated_at','desc');
     }
 
     public function last_updated_by()

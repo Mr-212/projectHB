@@ -24,7 +24,7 @@ class GeneralConstants
 
     //stage constants
     const BEFORE_DUE_DILIGENCE = 'Before Due Diligence';
-    const BEFORE_DUE_DILIGENCE_EXPIRE = 'Before Due Diligence Expire';
+    const BEFORE_DUE_DILIGENCE_EXPIRE = 'Before Due Diligence Close';
     const HOUSE_BOOKED = 'House Booked';
     const HOUSE_CANCELLED = 'Hose Cancelled';
     const DROPOUT_CLIENT = 'Dropout Client';
