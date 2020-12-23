@@ -10,9 +10,12 @@
         {{--@endforeach--}}
     {{--</div>--}}
     {{--<form wire:submit.prevent="book_house">--}}
-
-    @include('livewire.client.item-checklist-child.client')
-    @include('livewire.client.item-checklist-child.property')
+    @livewire('client.item-checklist.client-component',['client_id' => $client_id])
+    @livewire('client.item-checklist.client-property-component',['client_id' => $client_id])
+    {{--<livewire:client.client-item-checklist.client />--}}
+    {{--@include('livewire.client.item-checklist-child.client')--}}
+    {{--@include('livewire.client.item-checklist-child.property')--}}
+    {{--@include('livewire.client.item-checklist-child.property1')--}}
     @include('livewire.client.item-checklist-child.due-diligence')
     @include('livewire.client.item-checklist-child.pre-closing')
 

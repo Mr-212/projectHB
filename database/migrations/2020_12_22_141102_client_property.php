@@ -20,6 +20,7 @@ class ClientProperty extends Migration
             $table->timestamp('deal_save_check_date')->nullable();
 
 
+            $table->string('house_number_and_street')->nullable();
             $table->string('county')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
@@ -33,16 +34,16 @@ class ClientProperty extends Migration
             $table->unsignedInteger('closing_credit_general')->nullable();
             $table->unsignedInteger('annual_property_tax')->nullable();
 
-            $table->boolean('hoa_check')->default(0);
+            $table->boolean('hoa_check')->nullable()->nullable()->default(0);
             $table->string('hoa_name')->nullable();
             $table->string('hoa_phone')->nullable();
             $table->unsignedInteger('hoa_annual_fee')->nullable();
 
             $table->timestamp('closing_date')->nullable();
-            $table->timestamp('due_diligence_expire')->nullable();
+            $table->timestamp('due_diligence_expire_date')->nullable();
 
-            $table->boolean('property_repair_request')->default(0);
-            $table->boolean('lender_check')->default(0);
+            $table->boolean('property_repair_request')->nullable()->default(0);
+            $table->boolean('lender_check')->nullable()->default(0);
             $table->string('lender_name')->nullable();
 
             $table->unsignedInteger('created_by')->nullable();

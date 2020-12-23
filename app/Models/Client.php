@@ -12,7 +12,6 @@ class Client extends Model
 {
 
     use HasFactory;
-//    protected $dateFormat = 'Y-m-d';
     protected $fillable = [
 
         'applicant_name',
@@ -148,6 +147,10 @@ class Client extends Model
             $model->updated_by = Auth::id();
         });
 
+    }
+
+    public function property(){
+        return $this->belongsTo(ClientProperty::class);
     }
 
     public function scopeBeforeDD($query){
