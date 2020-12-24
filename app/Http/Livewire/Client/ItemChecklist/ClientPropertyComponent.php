@@ -13,6 +13,7 @@ class ClientPropertyComponent extends Component
     public  $client ,$client_property;
     public  $client_id;
     public  $title;
+    public  $component_type = 'client_property';
 
     protected $listeners = ['before_closing'];
     public  $exceptArray = [
@@ -73,23 +74,33 @@ class ClientPropertyComponent extends Component
 
     public function mount($client_id = null){
         $this->client_id = $client_id;
-        //$this->rules = ClientItemCheckListVariables::getValidationRulesWithoutRequired();
         $this->getClientProperty();
-
-
-
+        $this->update_client_pre_closing();
 
     }
 
 
+    public function hydrate(){
+        $this->update_client_pre_closing();
 
-//    public function hydrate(){
-//
-//        if($this->client['checks']['additional_tenant'] == 'no') {
-//            $this->client['data']['additional_tenant_name'] = '';
+//        if($this->client_property->isDirty('closing_cost')) {
+//            $this->emit('set_property_info','closing_cost' ,$this->client_property->closing_cost);
 //        }
-//
-//    }
+//        if($this->client_property->isDirty('purchase_price')) {
+//            $this->emit('set_property_info','purchase_price' ,$this->client_property->purchase_price);
+//        }
+//        if($this->client_property->isDirty('closing_credit_general')) {
+//            $this->emit('set_property_info','closing_credit_general' ,$this->client_property->closing_credit_general);
+//        }
+
+    }
+
+    public function update_client_pre_closing(){
+            $this->emit('set_property_info','closing_cost' ,$this->client_property->closing_cost);
+            $this->emit('set_property_info','purchase_price' ,$this->client_property->purchase_price);
+            $this->emit('set_property_info','closing_credit_general' ,$this->client_property->closing_credit_general);
+
+    }
 
     public function getClientProperty(){
         if($this->client_id) {
@@ -107,7 +118,7 @@ class ClientPropertyComponent extends Component
 
     public function render()
     {
-        return view('livewire.client.item-checklist-child.property1');
+        return view('livewire.client.item-checklist.property1');
     }
 
     public function save_book_purchase(){
@@ -127,16 +138,20 @@ class ClientPropertyComponent extends Component
         };
     }
 
-    public function before_closing(){
-//        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
-        $this->validate($this->rules);
+    public function before_closing($type){
+        $return = false;
+        if($type == $this->component_type) {
+            $this->validate($this->rules);
 //        $this->client_property->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-        $this->client_property->client_id = $this->client_id;
-        if($this->client_property->save()){
+            $this->client_property->client_id = $this->client_id;
+            if ($this->client_property->save()) {
 //            $this->client->property->updatOrCreate(['client_id' =>$this->client_id],$this->client->property);
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/after_dd');
-        };
+                session()->flash('success', 'Item successfully updated.');
+                //return $this->redirect('/items/outstanding/after_dd');
+                $return = true;
+            };
+        }
+        return $return;
     }
 
     public function setCheckListValueAndDate($check){

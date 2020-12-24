@@ -4,17 +4,24 @@ namespace App\Http\Livewire\Client\ItemChecklist;
 
 use App\Constants\StageConstant;
 use App\Models\Client;
+use App\Models\ClientPreClosingChecklist;
 use App\Models\ClientProperty;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Livewire\Component;
 
 class ClientPreClosingComponent extends Component
 {
-    public  $client ,$client_property;
+    public  $client;
+    public  $component_type = 'client_pre_closing';
+    public  $property_info = [
+        'purchase_price' => 0,
+        'closing_cost'   => 0,
+        'closing_credit_general' => 0,
+    ];
     public  $client_id;
     public  $title;
 
-    protected $listeners = ['before_closing'];
+    protected $listeners = ['before_closing','set_property_info'];
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -30,51 +37,57 @@ class ClientPreClosingComponent extends Component
     ];
 
     protected $rules = [
-        "client.due_diligence_rent" =>'',
-        "client.due_diligence_option_payment_check" =>'',
-        "client.due_diligence_option_payment_3_month" =>'',
-        "client.due_diligence_option_payment_6_month" =>'',
-        "client.due_diligence_option_payment_12_month" =>'',
-        "client.due_diligence_option_payment_date" =>'',
+        "client.rent" =>'',
+        "client.payment_option_3_month" =>'',
+        "client.payment_option_6_month" =>'',
+        "client.payment_option_12_month" =>'',
 
-        "client.letter_of_commitment_signed" =>'',
-        "client.on_boarding_fee_payment_check" =>'',
+        "client.payment_option_date" =>'',
+        "client.payment_option_date_checked" =>'',
 
+        "client.letter_of_commitment_checked" =>'',
+        "client.on_boarding_fee_payment_checked" =>'',
 
-
-        "client.due_diligence_inspection_check" =>'',
-        "client.due_diligence_inspection_check_date" =>'',
-
-        'client.appraisal_value_check' => '',
-        'client.appraisal_value' => '',
-
-        'client.driver_license_applicant' => '',
-        'client.driver_license_co_applicant' => '',
-        'client.soc_sec_card_applicant' => '',
-        'client.soc_sec_card_co_applicant' => '',
-
-        'client.renter_insurance_check' => '',
-        'client.renter_insurance_company_name' => '',
-
-        'client.flood_certificate_check' => '',
-        'client.landlord_insurance_check' => '',
-
-        'client.warranty_check' => '',
-        'client.warranty_company_name' => '',
-
-        'client.warranty_paid_by_seller_check' => '',
-
-        'client.lease_check' => '',
-        'client.lease_expire_date' => '',
-
-        'client.termite_check' => '',
+        "client.inspection_checked" =>'',
+//        "client.inspection_check_date" =>'',
+        'client.termite_checked' => '',
         'client.termite_paid_by' => '',
 
-        'client.septic_inspection_check' => '',
-        'client.clear_now_rent_payment_enrollment_check' => '',
-        'client.prorated_rent_check' => '',
-        'client.prorated_rent' => '',
-        'client.other_check' => '',
+        'client.septic_inspection_checked' => '',
+
+        'client.repair_credit_checked' => '',
+        'client.repair_credit' => '',
+
+        'client.appraisal_value_checked' => '',
+        'client.appraisal_value' => '',
+
+        'client.driver_license_applicant_checked' => '',
+        'client.driver_license_co_applicant_checked' => '',
+        'client.soc_sec_card_applicant_checked' => '',
+        'client.soc_sec_card_co_applicant_checked' => '',
+
+        'client.renter_insurance_checked' => '',
+        'client.renter_insurance_name' => '',
+
+        'client.flood_certificate_checked' => '',
+
+        'client.landlord_insurance_checked' => '',
+
+        'client.warranty_checked' => '',
+        'client.warranty_company_name' => '',
+        'client.warranty_paid_by_seller_checked' => '',
+
+
+        'client.lease_signed_checked' => '',
+        'client.lease_expire_checked' => '',
+        'client.lease_expire_date' => '',
+
+//        'client.clear_now_rent_payment_enrollment_check' => '',
+//        'client.prorated_rent_check' => '',
+//        'client.prorated_rent' => '',
+
+        'client.option_checked' => '',
+        'client.other_checked' => '',
         'client.other_value' => '',
     ];
 //
@@ -89,7 +102,6 @@ class ClientPreClosingComponent extends Component
     ];
 
 
-
     public function mount($client_id = null){
         $this->client_id = $client_id;
         //$this->rules = ClientItemCheckListVariables::getValidationRulesWithoutRequired();
@@ -100,33 +112,23 @@ class ClientPreClosingComponent extends Component
 
     }
 
-
-
-//    public function hydrate(){
-//
-//        if($this->client['checks']['additional_tenant'] == 'no') {
-//            $this->client['data']['additional_tenant_name'] = '';
-//        }
-//
-//    }
-
     public function getClientProperty(){
         if($this->client_id) {
             $this->title = 'Item Checklist (Pre Closing)';
-            $this->client_property = ClientProperty::whereClientId($this->client_id)->first();
-            if(!$this->client_property)
-                $this->client_property = new ClientProperty();
+            $this->client = ClientPreClosingChecklist::whereClientId($this->client_id)->first();
+            if(!$this->client)
+                $this->client = new ClientPreClosingChecklist();
         }
         else {
             $this->title = 'Add Client Info';
-            $this->client_property = new ClientProperty();
+            $this->client = new ClientPreClosingChecklist();
         }
 
     }
 
     public function render()
     {
-        return view('livewire.client.item-checklist-child.property1');
+        return view('livewire.client.item-checklist.pre-closing.master')->extends('layouts.app');
     }
 
     public function save_book_purchase(){
@@ -134,6 +136,27 @@ class ClientPreClosingComponent extends Component
     }
 //
     public function deal_save(){
+
+    }
+
+    public function set_property_info($key,$val){
+            $this->property_info[$key] = $val;
+
+    }
+
+    public function payment_option($values){
+        $options_array = ClientItemCheckListVariables::getPaymentOptionList();
+        $calculated_payment = $this->property_info['purchase_price'] + $this->property_info['closing_cost'] + $this->property_info['closing_credit_general'];
+        foreach ($options_array as $k => $v){
+            $key = $v['key'];
+            if(array_key_exists($k,array_flip($values))){
+                $this->client->$key = round($calculated_payment * ($v['formula']),2);
+            }
+            else{
+                $this->client->$key = null;
+            }
+
+        }
 
     }
 
@@ -146,16 +169,22 @@ class ClientPreClosingComponent extends Component
         };
     }
 
-    public function before_closing(){
+    public function before_closing($type){
+        $return = false;
+        if($type == $this->component_type) {
+
 //        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
-        $this->validate($this->rules);
+            $this->validate($this->rules);
 //        $this->client_property->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-        $this->client_property->client_id = $this->client_id;
-        if($this->client_property->save()){
+            $this->client->client_id = $this->client_id;
+            if ($this->client->save()) {
 //            $this->client->property->updatOrCreate(['client_id' =>$this->client_id],$this->client->property);
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/after_dd');
-        };
+                session()->flash('success', 'Item successfully updated.');
+//            return $this->redirect('/items/outstanding/after_dd');
+                $return = true;
+            };
+        }
+        return $return;
     }
 
     public function setCheckListValueAndDate($check){

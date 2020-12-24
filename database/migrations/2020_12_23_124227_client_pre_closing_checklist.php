@@ -60,9 +60,25 @@ class ClientPreClosingChecklist extends Migration
             $table->unsignedInteger('letter_of_commitment_checked_by')->nullable();
             $table->timestamp('letter_of_commitment_checked_at')->nullable();
 
+            $table->unsignedFloat('rent',10,2)->nullable();
+            $table->unsignedFloat('payment_option_3_month',10,2)->nullable();
+            $table->unsignedFloat('payment_option_6_month',10,2)->nullable();
+            $table->unsignedFloat('payment_option_12_month',10,2)->nullable();
+            $table->json('payment_option')->nullable();
+
             $table->boolean('on_boarding_fee_payment_checked')->nullable()->default(0);
             $table->unsignedInteger('on_boarding_fee_payment_checked_by')->nullable();
             $table->timestamp('on_boarding_fee_payment_checked_at')->nullable();
+
+
+            $table->boolean('payment_option_date_checked')->nullable()->default(0);
+            $table->string('payment_option_date')->nullable();
+            $table->unsignedInteger('payment_option_date_checked_by')->nullable();
+            $table->timestamp('payment_option_date_checked_at')->nullable();
+            $table->boolean('payment_option_additional_payment_checked')->nullable()->default(0);
+            $table->unsignedInteger('payment_option_additional_payment_checked_by')->nullable();
+            $table->timestamp('payment_option_additional_payment_checked_at')->nullable();
+
 
             $table->boolean('inspection_checked')->nullable()->default(0);
             $table->unsignedInteger('inspection_checked_by')->nullable();
@@ -120,19 +136,31 @@ class ClientPreClosingChecklist extends Migration
             $table->unsignedInteger('landlord_insurance_checked_by')->nullable();
             $table->unsignedInteger('landlord_insurance_checked_at')->nullable();
 
-            $table->boolean('warranty_check')->nullable()->default(0);
+            $table->boolean('warranty_checked')->nullable()->default(0);
+            $table->unsignedInteger('warranty_checked_by')->nullable();
+            $table->timestamp('warranty_checked_at')->nullable();
             $table->string('warranty_company_name')->nullable();
-            $table->boolean('warranty_paid_by_seller_check')->nullable()->default(0);
 
-            $table->boolean('lease_check')->nullable()->default(0);
-            $table->date('lease_expire_date')->nullable();
+            $table->boolean('warranty_paid_by_seller_checked')->nullable()->default(0);
 
-            $table->boolean('clear_now_rent_payment_enrollment_check')->nullable()->default(0);
+            $table->boolean('lease_signed_checked')->nullable()->default(0);
+            $table->unsignedInteger('lease_signed_checked_by')->nullable();
+            $table->unsignedInteger('lease_signed_checked_at')->nullable();
+            $table->boolean('lease_expire_checked')->nullable()->default(0);
+            $table->unsignedInteger('lease_expire_checked_by')->nullable();
+            $table->timestamp('lease_expire_checked_at')->nullable();
+            $table->timestamp('lease_expire_date')->nullable();
 
-            $table->boolean('prorated_rent_check')->nullable()->default(0);
-            $table->unsignedInteger('prorated_rent')->nullable();
+//            $table->boolean('clear_now_rent_payment_enrollment_check')->nullable()->default(0);
 
-            $table->boolean('other_check')->nullable()->default(0);
+//            $table->boolean('prorated_rent_check')->nullable()->default(0);
+//            $table->unsignedInteger('prorated_rent')->nullable();
+
+            $table->boolean('option_checked')->nullable()->default(0);
+            $table->unsignedInteger('option_checked_by')->nullable();
+            $table->timestamp('option_checked_at')->nullable();
+
+            $table->boolean('other_checked')->nullable()->default(0);
             $table->string('other_value')->nullable();
 
 

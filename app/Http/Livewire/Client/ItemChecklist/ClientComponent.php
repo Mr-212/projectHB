@@ -13,6 +13,7 @@ class ClientComponent extends Component
     public  $client ,$client_property;
     public  $client_id;
     public  $title;
+    public  $component_type = 'client';
 
     protected $listeners = ['before_closing'];
     public  $exceptArray = [
@@ -35,7 +36,7 @@ class ClientComponent extends Component
         'client.applicant_phone' =>'required',
         'client.partner_name' =>'string',
         'client.partner_email' =>'email',
-        'client.partner_phone' =>'integer',
+        'client.partner_phone' =>'',
         'client.co_applicant_name' =>'string',
         'client.co_applicant_email' =>'',
         'client.co_applicant_phone' =>'',
@@ -96,7 +97,7 @@ class ClientComponent extends Component
 
     public function render()
     {
-        return view('livewire.client.item-checklist-child.client');
+        return view('livewire.client.item-checklist.client');
     }
 
     public function save_book_purchase(){
@@ -116,15 +117,20 @@ class ClientComponent extends Component
         };
     }
 
-    public function before_closing(){
-//        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
-        $this->validate($this->rules);
-        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-        if($this->client->save()){
+    public function before_closing($type){
+        $return = false;
+        if($type == $this->component_type) {
+            $this->validate($this->rules);
+            $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            if ($this->client->save()) {
 //            $this->client->property->updatOrCreate(['client_id' =>$this->client_id],$this->client->property);
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/after_dd');
-        };
+                session()->flash('success', 'Item successfully updated.');
+                $return = true;
+                //return $this->redirect('/items/outstanding/after_dd');
+            };
+        }
+
+        return $return;
     }
 
     public function setCheckListValueAndDate($check){
@@ -173,7 +179,6 @@ class ClientComponent extends Component
     }
 
     public function cancel_client(){
-
         $this->client->stage = StageConstant::DROPOUT_CLIENT;
         if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');

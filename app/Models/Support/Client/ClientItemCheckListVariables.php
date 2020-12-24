@@ -20,9 +20,9 @@ class ClientItemCheckListVariables
     }
     public static function getPaymentOptionList(){
         return [
-            1 =>  ['key' => 'due_diligence_option_payment_3_month' ,   'formula' => 1.03 ],
-            2 =>  ['key' => 'due_diligence_option_payment_6_month' ,   'formula' => 1.06 ],
-            3 =>  ['key' => 'due_diligence_option_payment_12_month',   'formula' => 1.10 ],
+            1 =>  ['key' => 'payment_option_3_month' ,   'formula' => 1.03 ],
+            2 =>  ['key' => 'payment_option_6_month' ,   'formula' => 1.06 ],
+            3 =>  ['key' => 'payment_option_12_month',   'formula' => 1.10 ],
         ];
     }
 

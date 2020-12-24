@@ -12,6 +12,7 @@ class ItemChecklist extends Component
     public  $client ,$client_property;
     public  $client_id;
     public  $title;
+    protected $listeners = ['child_update'];
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -171,7 +172,7 @@ class ItemChecklist extends Component
 
     public function render()
     {
-        return view('livewire.client.item-checklist')->extends('layouts.app');
+        return view('livewire.client.item-checklist.master')->extends('layouts.app');
     }
 
     public function save_book_purchase(){
@@ -202,6 +203,19 @@ class ItemChecklist extends Component
 //            return $this->redirect('/items/outstanding/after_dd');
 //        };
 //    }
+  public function child_update($key,$value){
+
+  }
+    public function before_closing(){
+
+
+        dd($this->emit('before_closing','client'));
+//        die();
+        if($this->emit('before_closing','client') && $this->emit('before_closing','client_property') && $this->emit('before_closing','client_pre_closing')){
+            session()->flash('success', 'Item successfully updated.');
+           return $this->redirect('/items/outstanding/after_dd');
+        };
+    }
 
     public function setCheckListValueAndDate($check){
         if($this->client->$check) {
