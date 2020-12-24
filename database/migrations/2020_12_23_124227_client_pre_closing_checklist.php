@@ -60,10 +60,10 @@ class ClientPreClosingChecklist extends Migration
             $table->unsignedInteger('letter_of_commitment_checked_by')->nullable();
             $table->timestamp('letter_of_commitment_checked_at')->nullable();
 
-            $table->unsignedFloat('rent',10,2)->nullable();
-            $table->unsignedFloat('payment_option_3_month',10,2)->nullable();
-            $table->unsignedFloat('payment_option_6_month',10,2)->nullable();
-            $table->unsignedFloat('payment_option_12_month',10,2)->nullable();
+            $table->unsignedFloat('rent',15,2)->nullable();
+            $table->unsignedFloat('payment_option_3_month',15,2)->nullable();
+            $table->unsignedFloat('payment_option_6_month',15,2)->nullable();
+            $table->unsignedFloat('payment_option_12_month',15,2)->nullable();
             $table->json('payment_option')->nullable();
 
             $table->boolean('on_boarding_fee_payment_checked')->nullable()->default(0);

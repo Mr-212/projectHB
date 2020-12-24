@@ -25,4 +25,18 @@ class ClientController extends Controller
         return view('client.house.house',compact('type'));
 
     }
+
+    public function get_move_out_house(Request $request){
+
+        $type = StageConstant::DROPOUT_CLIENT;
+        return view('client.house.house',compact('type'));
+
+    }
+
+    public function get_evicted_house(Request $request){
+
+        $type = StageConstant::DROPOUT_CLIENT;
+        return view('client.house.house',compact('type'));
+
+    }
 }

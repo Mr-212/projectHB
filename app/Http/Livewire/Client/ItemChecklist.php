@@ -12,7 +12,12 @@ class ItemChecklist extends Component
     public  $client ,$client_property;
     public  $client_id;
     public  $title;
-    protected $listeners = ['child_update'];
+    protected $listeners = ['child_component_update'];
+    public $child_components = [
+        'client_updated' => false,
+        'property_updated' => false,
+        'pre_closing_updated'=> false
+    ];
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -194,7 +199,7 @@ class ItemChecklist extends Component
 
 //    public function before_closing(){
 ////        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
-//        dd($this->client);
+//        //dd($this->client);
 //        $this->validate($this->rules);
 //        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
 //        if($this->client->save()){
@@ -203,19 +208,22 @@ class ItemChecklist extends Component
 //            return $this->redirect('/items/outstanding/after_dd');
 //        };
 //    }
-  public function child_update($key,$value){
+  public function child_component_update($key,$value){
+       $this->child_components[$key] = $value;
+       //dd(in_array(false,$this->child_components));
+      if(!in_array(false,$this->child_components)){
+          session()->flash('success', 'Item successfully updated.');
+           return $this->redirect('/items/outstanding/after_dd');
+      }
 
   }
-    public function before_closing(){
-
-
-        dd($this->emit('before_closing','client'));
-//        die();
-        if($this->emit('before_closing','client') && $this->emit('before_closing','client_property') && $this->emit('before_closing','client_pre_closing')){
-            session()->flash('success', 'Item successfully updated.');
-           return $this->redirect('/items/outstanding/after_dd');
-        };
-    }
+//    public function before_closing(){
+//        $this->emit('before_closing');
+////        if($this->emit('before_closing','client') && $this->emit('before_closing','client_property') && $this->emit('before_closing','client_pre_closing')){
+////            session()->flash('success', 'Item successfully updated.');
+////           return $this->redirect('/items/outstanding/after_dd');
+////        };
+//    }
 
     public function setCheckListValueAndDate($check){
         if($this->client->$check) {

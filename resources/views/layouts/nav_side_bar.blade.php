@@ -81,6 +81,18 @@
                         <span class="hide-menu"> Drop Out Clients </span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a href="{{url('house/move_out')}}" class="sidebar-link">
+                        <i class="fa fa-minus"></i>
+                        <span class="hide-menu"> Move Out </span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{url('house/evicted')}}" class="sidebar-link">
+                        <i class="fa fa-minus"></i>
+                        <span class="hide-menu"> Evicted </span>
+                    </a>
+                </li>
 
                 {{--<li class="sidebar-client">--}}
                     {{--<a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">--}}

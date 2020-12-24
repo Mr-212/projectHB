@@ -15,7 +15,7 @@ class ClientPropertyComponent extends Component
     public  $title;
     public  $component_type = 'client_property';
 
-    protected $listeners = ['before_closing'];
+    protected $listeners = ['before_closing','book_house'];
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -75,23 +75,23 @@ class ClientPropertyComponent extends Component
     public function mount($client_id = null){
         $this->client_id = $client_id;
         $this->getClientProperty();
-        $this->update_client_pre_closing();
+//        $this->update_client_pre_closing();
 
     }
 
 
     public function hydrate(){
-        $this->update_client_pre_closing();
+        //$this->update_client_pre_closing();
 
-//        if($this->client_property->isDirty('closing_cost')) {
-//            $this->emit('set_property_info','closing_cost' ,$this->client_property->closing_cost);
-//        }
-//        if($this->client_property->isDirty('purchase_price')) {
-//            $this->emit('set_property_info','purchase_price' ,$this->client_property->purchase_price);
-//        }
-//        if($this->client_property->isDirty('closing_credit_general')) {
-//            $this->emit('set_property_info','closing_credit_general' ,$this->client_property->closing_credit_general);
-//        }
+        if($this->client_property->isDirty('closing_cost')) {
+            $this->emit('set_property_info','closing_cost' ,$this->client_property->closing_cost);
+        }
+        if($this->client_property->isDirty('purchase_price')) {
+            $this->emit('set_property_info','purchase_price' ,$this->client_property->purchase_price);
+        }
+        if($this->client_property->isDirty('closing_credit_general')) {
+            $this->emit('set_property_info','closing_credit_general' ,$this->client_property->closing_credit_general);
+        }
 
     }
 
@@ -131,18 +131,18 @@ class ClientPropertyComponent extends Component
 
     public function book_house(){
 
-        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
-        $this->client->stage = StageConstant::HOUSE_BOOKED;
-        if($this->client->save()){
-            return $this->redirect('/items/outstanding/after_dd');
+//        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
+        $this->validate();
+        $this->client_property->client_id = $this->client_id;
+        if($this->client_property->save()){
+//            return $this->redirect('/items/outstanding/after_dd');
         };
     }
 
-    public function before_closing($type){
+    public function before_closing(){
         $return = false;
-        if($type == $this->component_type) {
+
             $this->validate($this->rules);
-//        $this->client_property->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
             $this->client_property->client_id = $this->client_id;
             if ($this->client_property->save()) {
 //            $this->client->property->updatOrCreate(['client_id' =>$this->client_id],$this->client->property);
@@ -150,8 +150,7 @@ class ClientPropertyComponent extends Component
                 //return $this->redirect('/items/outstanding/after_dd');
                 $return = true;
             };
-        }
-        return $return;
+        $this->emit('child_component_update','property_updated',$return);
     }
 
     public function setCheckListValueAndDate($check){

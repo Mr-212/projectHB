@@ -15,7 +15,7 @@ class ClientComponent extends Component
     public  $title;
     public  $component_type = 'client';
 
-    protected $listeners = ['before_closing'];
+    protected $listeners = ['before_closing','book_house'];
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -110,16 +110,17 @@ class ClientComponent extends Component
 
     public function book_house(){
 
-        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
+//        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
+        $this->validate();
         $this->client->stage = StageConstant::HOUSE_BOOKED;
         if($this->client->save()){
-            return $this->redirect('/items/outstanding/after_dd');
+//            return $this->redirect('/items/outstanding/after_dd');
         };
     }
 
-    public function before_closing($type){
+    public function before_closing(){
         $return = false;
-        if($type == $this->component_type) {
+
             $this->validate($this->rules);
             $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
             if ($this->client->save()) {
@@ -128,9 +129,8 @@ class ClientComponent extends Component
                 $return = true;
                 //return $this->redirect('/items/outstanding/after_dd');
             };
-        }
 
-        return $return;
+        $this->emit('child_component_update','client_updated',$return);
     }
 
     public function setCheckListValueAndDate($check){

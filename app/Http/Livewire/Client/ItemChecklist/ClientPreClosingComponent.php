@@ -21,7 +21,7 @@ class ClientPreClosingComponent extends Component
     public  $client_id;
     public  $title;
 
-    protected $listeners = ['before_closing','set_property_info'];
+    protected $listeners = ['before_closing','set_property_info','book_house'];
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -128,7 +128,7 @@ class ClientPreClosingComponent extends Component
 
     public function render()
     {
-        return view('livewire.client.item-checklist.pre-closing.master')->extends('layouts.app');
+        return view('livewire.client.item-checklist.pre-closing.master');
     }
 
     public function save_book_purchase(){
@@ -147,6 +147,7 @@ class ClientPreClosingComponent extends Component
     public function payment_option($values){
         $options_array = ClientItemCheckListVariables::getPaymentOptionList();
         $calculated_payment = $this->property_info['purchase_price'] + $this->property_info['closing_cost'] + $this->property_info['closing_credit_general'];
+
         foreach ($options_array as $k => $v){
             $key = $v['key'];
             if(array_key_exists($k,array_flip($values))){
@@ -162,16 +163,17 @@ class ClientPreClosingComponent extends Component
 
     public function book_house(){
 
-        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
-        $this->client->stage = StageConstant::HOUSE_BOOKED;
+//        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
+        $this->validate();
+        $this->client->client_id = $this->client_id;
         if($this->client->save()){
-            return $this->redirect('/items/outstanding/after_dd');
+            return $this->redirect('/items/outstanding/portfolio');
         };
     }
 
-    public function before_closing($type){
+    public function before_closing(){
         $return = false;
-        if($type == $this->component_type) {
+
 
 //        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
             $this->validate($this->rules);
@@ -183,8 +185,8 @@ class ClientPreClosingComponent extends Component
 //            return $this->redirect('/items/outstanding/after_dd');
                 $return = true;
             };
-        }
-        return $return;
+
+        $this->emit('child_component_update','pre_closing_updated',$return);
     }
 
     public function setCheckListValueAndDate($check){

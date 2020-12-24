@@ -294,6 +294,10 @@
             triggerPaymentOptions();
         });
 
+        // $('#payment_options').on('change',function () {
+        // @this.payment_option($(this).val());
+        // })
+
     </script>
 
 
@@ -307,10 +311,11 @@
             else
                 $(div).addClass('d-none');
         }
-
+        //
         function selectChange(_this) {
             // alert(_this)
             var val = $(_this).val();
+            console.log(val);
            @this.payment_option(val);
 
         }

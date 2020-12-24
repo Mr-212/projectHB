@@ -31,8 +31,8 @@
             },
             callback: function (result) {
                 if(result){
-                 @this.before_closing();
-                    // Livewire.emit('before_closing')
+                 // @this.before_closing();
+                     Livewire.emit('before_closing')
                 }
             }
         });
@@ -53,7 +53,8 @@
             },
             callback: function (result) {
                 if(result){
-                 @this.book_house();
+                 // @this.book_house();
+                    Livewire.emit('book_house')
 
                 }
             }

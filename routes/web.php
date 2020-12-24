@@ -76,6 +76,8 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/sold', HouseSold::class);
         Route::get('/cancelled',  [ClientController::class,'get_cancelled_house']);
         Route::get('/dropout', [ClientController::class,'get_dropout_client']);
+        Route::get('/evicted', [ClientController::class,'get_evicted_house']);
+        Route::get('/move_out', [ClientController::class,'get_move_out_house']);
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
     });
 
