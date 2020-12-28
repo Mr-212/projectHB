@@ -15,6 +15,10 @@ class ClientProperty extends Model
     protected $fillable = [
 
         "client_id",
+        "deal_save_checked",
+        "deal_save_checked_at",
+        "deal_save_checked_by",
+
         "house_number_and_street",
         "county" ,
         "state" ,
@@ -48,11 +52,20 @@ class ClientProperty extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
+        'closing_date' =>'date:Y-m-d',
+        'due_diligence_expire_date' =>'date:Y-m-d',
 
     ];
     protected $attributes = [
 
     ];
+
+    public function __construct($client_id = null, array $attributes = array())
+    {
+        parent::__construct($attributes);
+
+        $this->client_id = $client_id;
+    }
 
     public static function boot()
     {

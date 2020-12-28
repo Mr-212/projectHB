@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class ClientPreClosingComponent extends Component
 {
-    public  $client;
+    public  $client_pre_closing;
     public  $component_type = 'client_pre_closing';
     public  $property_info = [
         'purchase_price' => 0,
@@ -37,64 +37,64 @@ class ClientPreClosingComponent extends Component
     ];
 
     protected $rules = [
-        "client.rent" =>'',
-        "client.payment_option_3_month" =>'',
-        "client.payment_option_6_month" =>'',
-        "client.payment_option_12_month" =>'',
+        "client_pre_closing.rent" =>'',
+        "client_pre_closing.payment_option_3_month" =>'',
+        "client_pre_closing.payment_option_6_month" =>'',
+        "client_pre_closing.payment_option_12_month" =>'',
 
-        "client.payment_option_date" =>'',
-        "client.payment_option_date_checked" =>'',
+        "client_pre_closing.payment_option_date" =>'',
+        "client_pre_closing.payment_option_date_checked" =>'',
 
-        "client.letter_of_commitment_checked" =>'',
-        "client.on_boarding_fee_payment_checked" =>'',
+        "client_pre_closing.letter_of_commitment_checked" =>'',
+        "client_pre_closing.on_boarding_fee_payment_checked" =>'',
 
-        "client.inspection_checked" =>'',
-//        "client.inspection_check_date" =>'',
-        'client.termite_checked' => '',
-        'client.termite_paid_by' => '',
+        "client_pre_closing.inspection_checked" =>'',
+//        "client_pre_closing.inspection_check_date" =>'',
+        'client_pre_closing.termite_checked' => '',
+        'client_pre_closing.termite_paid_by' => '',
 
-        'client.septic_inspection_checked' => '',
+        'client_pre_closing.septic_inspection_checked' => '',
 
-        'client.repair_credit_checked' => '',
-        'client.repair_credit' => '',
+        'client_pre_closing.repair_credit_checked' => '',
+        'client_pre_closing.repair_credit' => '',
 
-        'client.appraisal_value_checked' => '',
-        'client.appraisal_value' => '',
+        'client_pre_closing.appraisal_value_checked' => '',
+        'client_pre_closing.appraisal_value' => '',
 
-        'client.driver_license_applicant_checked' => '',
-        'client.driver_license_co_applicant_checked' => '',
-        'client.soc_sec_card_applicant_checked' => '',
-        'client.soc_sec_card_co_applicant_checked' => '',
+        'client_pre_closing.driver_license_applicant_checked' => '',
+        'client_pre_closing.driver_license_co_applicant_checked' => '',
+        'client_pre_closing.soc_sec_card_applicant_checked' => '',
+        'client_pre_closing.soc_sec_card_co_applicant_checked' => '',
 
-        'client.renter_insurance_checked' => '',
-        'client.renter_insurance_name' => '',
+        'client_pre_closing.renter_insurance_checked' => '',
+        'client_pre_closing.renter_insurance_name' => '',
 
-        'client.flood_certificate_checked' => '',
+        'client_pre_closing.flood_certificate_checked' => '',
 
-        'client.landlord_insurance_checked' => '',
+        'client_pre_closing.landlord_insurance_checked' => '',
 
-        'client.warranty_checked' => '',
-        'client.warranty_company_name' => '',
-        'client.warranty_paid_by_seller_checked' => '',
+        'client_pre_closing.warranty_checked' => '',
+        'client_pre_closing.warranty_company_name' => '',
+        'client_pre_closing.warranty_paid_by_seller_checked' => '',
 
 
-        'client.lease_signed_checked' => '',
-        'client.lease_expire_checked' => '',
-        'client.lease_expire_date' => '',
+        'client_pre_closing.lease_signed_checked' => '',
+        'client_pre_closing.lease_expire_checked' => '',
+        'client_pre_closing.lease_expire_date' => '',
 
-//        'client.clear_now_rent_payment_enrollment_check' => '',
-//        'client.prorated_rent_check' => '',
-//        'client.prorated_rent' => '',
+//        'client_pre_closing.clear_now_rent_payment_enrollment_check' => '',
+//        'client_pre_closing.prorated_rent_check' => '',
+//        'client_pre_closing.prorated_rent' => '',
 
-        'client.option_checked' => '',
-        'client.other_checked' => '',
-        'client.other_value' => '',
+        'client_pre_closing.option_checked' => '',
+        'client_pre_closing.other_checked' => '',
+        'client_pre_closing.other_value' => '',
     ];
 //
 //    protected $validationAttributes = [
-//        'client.data.additional_tenant_name' => 'Additional Tenant Name',
-//        'client.data.mortgage_type' => 'Mortgage Type',
-//        'client.data.rental_verification' => 'Rental Verification',
+//        'client_pre_closing.data.additional_tenant_name' => 'Additional Tenant Name',
+//        'client_pre_closing.data.mortgage_type' => 'Mortgage Type',
+//        'client_pre_closing.data.rental_verification' => 'Rental Verification',
 //    ];
 
     public $property_rules = [
@@ -128,7 +128,7 @@ class ClientPreClosingComponent extends Component
 
     public function render()
     {
-        return view('livewire.client.item-checklist.pre-closing.master');
+        return view('livewire.client_pre_closing.item-checklist.pre-closing.master');
     }
 
     public function save_book_purchase(){

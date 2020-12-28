@@ -3,12 +3,30 @@
         <h4 class="text-white pt-2">Property Information</h4>
 
     </div>
+
+    <div class="col-md-12 col-lg-12 pt-4">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client_property.deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Deal Save?</label>
+                    <span><input class="" type="checkbox" name="property_country" value="" wire:model="client_property.deal_save_checked"></span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
    <div class="col-md-6 col-lg-6" wire:ignore>
        <div class="">
            <label>Property house number and street</label>
            <span><input class="form-control" type="text" name="property_country" value="" wire:model="client_property.house_number_and_street"></span>
        </div>
    </div>
+
+
 
 
 

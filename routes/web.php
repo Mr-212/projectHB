@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Client\OutstandingItems;
 use App\Contracts\Services\ZohoService;
-use App\Http\Livewire\Client\ItemChecklist;
+use App\Http\Livewire\Client\ClientItemChecklist;
 use App\Http\Livewire\HouseSold;
 use App\Http\Livewire\HouseCancelled;
 use App\Http\Livewire\HouseDropout;
@@ -52,10 +52,10 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);
 //        Route::get('/outstanding/{type}', OutstandingItemsBeforeDueDiligence::class);
         Route::get('/outstanding/{type}', OutstandingItems::class);
-        Route::get('/checklist/{client_id}', ItemChecklist::class);
+        Route::get('/checklist/{client_id}', ClientItemChecklist::class);
         Route::get('/log/{client_id}', ClientLogComponent::class);
         Route::get('/add/client', AddClientComponent::class);
-        Route::get('/client/add', ItemChecklist::class);
+        Route::get('/client/add', ClientItemChecklist::class);
 
 //        Route::prefix('/house')->group(function(){
 ////        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);

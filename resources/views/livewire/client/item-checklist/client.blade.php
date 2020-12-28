@@ -3,8 +3,11 @@
         <h4 class="text-white pt-2">Client Info</h4>
 
     </div>
+    <div class="col-md-12 col-lg-12 pt-4">
 
-    <div class="col-md-6 col-lg-6 pt-4">
+    </div>
+
+    <div class="col-md-6 col-lg-6">
         @error('client.applicant_name') <span class="error alert-danger">{{ $message }}</span> @enderror
         <div class="">
             <label>Deal Name:</label>
@@ -12,14 +15,7 @@
         </div>
 
     </div>
-    <div class="col-md-6 col-lg-6 pt-4">
-        @error('client.partner_name') <span class="error alert-danger">{{ $message }}</span> @enderror
-        <div class="">
-            <label>Partner Name:</label>
-            <input type="text" class="form-control"  wire:model="client.partner_name">
-        </div>
 
-    </div>
     <div class="col-md-6 col-lg-6">
         @error('client.applicant_phone') <span class="error alert-danger">{{ $message }}</span> @enderror
 
@@ -29,33 +25,18 @@
         </div>
 
     </div>
-    <div class="col-md-6 col-lg-6">
-        @error('client.partner_phone') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Partner Phone:(special characters not allowed)</label>
-            <input type="text" class="form-control"  wire:model="client.partner_phone">
-        </div>
+<div class="col-md-6 col-lg-6">
+    @error('client.applicant_email') <span class="error alert-danger">{{ $message }}</span> @enderror
 
+    <div class="">
+        <label>Applicant Email:</label>
+        <input type="text" class="form-control"  wire:model="client.applicant_email">
     </div>
-    <div class="col-md-6 col-lg-6">
-        @error('client.applicant_email') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Applicant Email:</label>
-            <input type="text" class="form-control"  wire:model="client.applicant_email">
-        </div>
+</div>
 
-    </div>
-    <div class="col-md-6 col-lg-6">
-        @error('client.partner_email') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Partner Email:</label>
-            <input type="text" class="form-control"  wire:model="client.partner_email">
-        </div>
-
-    </div>
     <div class="col-md-6 col-lg-6">
         @error('client.co_applicant_name') <span class="error alert-danger">{{ $message }}</span> @enderror
 
@@ -82,6 +63,7 @@
         </div>
 
     </div>
+
     <div class="col-md-12 col-lg-12">
         <div class="row" >
 
@@ -107,47 +89,94 @@
         </div>
     </div>
 
+
+
+
+    <div class="col-md-12 col-lg-12">
+
+
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client.partner_name') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <label>Partner Name:</label>
+                    <input type="text" class="form-control"  wire:model="client.partner_name">
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-6">
+                @error('client.partner_phone') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Partner Phone:(special characters not allowed)</label>
+                    <input type="text" class="form-control"  wire:model="client.partner_phone">
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client.partner_email') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <label>Partner Email:</label>
+                    <input type="text" class="form-control"  wire:model="client.partner_email">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <label>Mortgage Type ?</label>
+                    <select class="form-control" name="deal_mortgage_type" wire:model="client.mortgage_type_id" wire:ignore>
+                        <option value="0">Select</option>
+                        @foreach(MortgageTypeDropdown::getList() as $key => $val)
+                            <option value="{{$key}}" >{{$val}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
     <div class="col-md-6 col-lg-6">
 
         <div class="">
             <input type="checkbox"  value="" wire:model="client.welcome_down_payment_complete_check" wire:click="setCheckListValueAndDate('welcome_down_payment_complete_check','')" >
             <label>$500 Welcome Payment ?</label>
 
-            @if(!$client->welcome_down_payment_complete_check)
-                <select class="form-control" name="deal_welcome_bonus" wire:model="client.welcome_down_payment" wire:ignore>
-                    @foreach(YesNoDropDown::getList() as $key => $val)
-                        <option value="{{$key}}">{{$val}}</option>
-                    @endforeach
-                </select>
-            @endif
+            {{--@if(!$client->welcome_down_payment_complete_check)--}}
+                {{--<select class="form-control" name="deal_welcome_bonus" wire:model="client.welcome_down_payment" wire:ignore>--}}
+                    {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
+                        {{--<option value="{{$key}}">{{$val}}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--@endif--}}
         </div>
     </div>
-    <div class="col-md-6 col-lg-6">
-        @error('client.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror
-        <div class="">
-            <label>Mortgage Type ?</label>
-            <select class="form-control" name="deal_mortgage_type" wire:model="client.mortgage_type_id" wire:ignore>
-                <option value="0">Select</option>
-                @foreach(MortgageTypeDropdown::getList() as $key => $val)
-                    <option value="{{$key}}" >{{$val}}</option>
-                @endforeach
-            </select>
-        </div>
 
-    </div>
     <div class="col-md-6 col-lg-6" >
         @error('client.rental_verification_complete_check') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <input type="checkbox"  value="" wire:model="client.rental_verification_complete_check" wire:click="setCheckListValueAndDate('rental_verification_complete_check','')" />
             <label>Rental Verification</label>
-            @if(!$client->rental_verification_complete_check)
-                <select class="form-control" name="deal_save" wire:model="client.rental_verification_check" wire:ignore>
-                    @foreach(YesNoDropDown::getList() as $key => $val)
-                        <option value="{{$key}}" {{$key == $client->rental_verification_check ? 'selected':''}}>{{$val}}</option>
-                    @endforeach
-                </select>
-            @endif
+            {{--@if(!$client->rental_verification_complete_check)--}}
+                {{--<select class="form-control" name="deal_save" wire:model="client.rental_verification_check" wire:ignore>--}}
+                    {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
+                        {{--<option value="{{$key}}" {{$key == $client->rental_verification_check ? 'selected':''}}>{{$val}}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--@endif--}}
         </div>
 
     </div>

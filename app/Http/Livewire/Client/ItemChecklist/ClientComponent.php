@@ -45,10 +45,38 @@ class ClientComponent extends Component
         'client.additional_tenant_name' => '',
         'client.mortgage_type_id' => '',
         'client.rental_verification_complete_check' => '',
-        'client.rental_verification_check' => '',
-        'client.welcome_down_payment' => '',
+//        'client.rental_verification_check' => '',
+//        'client.welcome_down_payment' => '',
         'client.welcome_down_payment_complete_check' => '',
+
+
         'client_property.house_number_and_street' =>'',
+
+        'client_property.new_construction_check' =>'',
+        "client_property.new_construction_builder" =>'',
+
+        "client_property.county" =>'string',
+        "client_property.state" =>'string',
+        "client_property.city" =>'string',
+        "client_property.zip" =>'string',
+
+        "client_property.purchase_price" => 'integer',
+        "client_property.closing_cost" => 'integer',
+        "client_property.closing_credit_general" => '',
+        "client_property.annual_property_tax" => '',
+
+        "client_property.hoa_check" => '',
+        "client_property.hoa_name" => '',
+        "client_property.hoa_phone" => '',
+//
+//        "client_property.repair_request_check" => '',
+//        "client_property.repair_request_item_names" => '',
+
+        "client_property.lender_check" => '',
+        "client_property.lender_name" => '',
+
+        "client_property.closing_date" => '',
+        "client_property.due_diligence_expire_date" => '',
     ];
 //
 //    protected $validationAttributes = [
@@ -87,6 +115,8 @@ class ClientComponent extends Component
         if($this->client_id) {
             $this->title = 'Item Checklist (Pre Closing)';
             $this->client = Client::find($this->client_id);
+            //dd($this->client->property);
+            $this->client_property = $this->client->property;
         }
         else {
             $this->title = 'Add Client Info';

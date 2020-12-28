@@ -150,7 +150,10 @@ class Client extends Model
     }
 
     public function property(){
-        return $this->belongsTo(ClientProperty::class);
+        return $this->belongsTo(ClientProperty::class,'id','client_id');
+    }
+    public function pre_closing(){
+        return $this->belongsTo(ClientPreClosingChecklist::class,'id','client_id');
     }
 
     public function scopeBeforeDD($query){

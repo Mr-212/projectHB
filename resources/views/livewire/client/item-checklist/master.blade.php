@@ -10,9 +10,12 @@
         {{--@endforeach--}}
     {{--</div>--}}
     {{--<form wire:submit.prevent="book_house">--}}
-    @livewire('client.item-checklist.client-component',['client_id' => $client_id])
-    @livewire('client.item-checklist.client-property-component',['client_id' => $client_id])
-    @livewire('client.item-checklist.client-pre-closing-component',['client_id' => $client_id])
+    {{--@livewire('client.item-checklist.client-component',['client_id' => $client_id])--}}
+    @include('livewire.client.item-checklist.client')
+    @include('livewire.client.item-checklist.property1')
+    @include('livewire.client.item-checklist.pre-closing.master')
+    {{--@livewire('client.item-checklist.client-property-component',['client_id' => $client_id])--}}
+    {{--@livewire('client.item-checklist.client-pre-closing-component',['client_id' => $client_id])--}}
     {{--<livewire:client.client-item-checklist.client />--}}
     {{--@include('livewire.client.item-checklist.client')--}}
     {{--@include('livewire.client.item-checklist.property')--}}
@@ -32,31 +35,31 @@
 @push('scripts')
     <script type="text/javascript">
 
-        {{--$(document).ready(function() {--}}
-            {{--$('#payment_options').select2({--}}
-                {{--placeholder: '{{__('Select your option')}}',--}}
-                {{--allowClear: true--}}
-            {{--});--}}
-            {{--triggerPaymentOptions();--}}
+        $(document).ready(function() {
+            $('#payment_options').select2({
+                placeholder: '{{__('Select your option')}}',
+                allowClear: true
+            });
+            triggerPaymentOptions();
 
 
-        {{--});--}}
+        });
 
-        {{--document.addEventListener("livewire:load", () => {--}}
+        document.addEventListener("livewire:load", () => {
 
-            {{--Livewire.hook('component.initialized', (el, component) => {--}}
-                 {{--//alert('here');--}}
-                {{--//$('.select2').select2();--}}
-            {{--})--}}
+            Livewire.hook('component.initialized', (el, component) => {
+                 //alert('here');
+                //$('.select2').select2();
+            })
 
-            {{--Livewire.hook('message.processed', (message, component) => {--}}
-               {{--// alert('here');--}}
-                {{--//$('.select2').select2();--}}
-            {{--});--}}
-            {{--Livewire.hook('element.updated', (el, component) => {--}}
-                {{--//alert('here');--}}
-            {{--})--}}
-        {{--});--}}
+            Livewire.hook('message.processed', (message, component) => {
+               // alert('here');
+                //$('.select2').select2();
+            });
+            Livewire.hook('element.updated', (el, component) => {
+                //alert('here');
+            })
+        });
     </script>
 
 
@@ -92,6 +95,23 @@
                 $(div).removeClass('d-none');
             else
                 $(div).addClass('d-none');
+        }
+
+        function selectChange(_this) {
+            // alert(_this)
+            var val = $(_this).val();
+            console.log(val);
+        @this.payment_option(val);
+
+        }
+
+        function triggerPaymentOptions() {
+            var values = [];
+            $('.option_list_value_div').each(function (j,i) {
+                values.push($(i).attr('id'));
+            });
+            $('#payment_options').val(values).trigger('change');
+            // $('#due_diligence_option').val()
         }
 
     </script>

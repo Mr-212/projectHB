@@ -81,6 +81,13 @@ class ClientPreClosingChecklist extends Model
 
     ];
 
+    public function __construct($client_id = null, array $attributes = array())
+    {
+        parent::__construct($attributes);
+
+        $this->client_id = $client_id;
+    }
+
     public static function boot()
     {
         parent::boot();

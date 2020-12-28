@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class ClientPropertyComponent extends Component
 {
-    public  $client ,$client_property;
+    public  $client ,$client_property,$pre_closing;
     public  $client_id;
     public  $title;
     public  $component_type = 'client_property';
@@ -58,6 +58,10 @@ class ClientPropertyComponent extends Component
 
         "client_property.closing_date" => '',
         "client_property.due_diligence_expire_date" => '',
+
+
+
+
     ];
 //
 //    protected $validationAttributes = [
