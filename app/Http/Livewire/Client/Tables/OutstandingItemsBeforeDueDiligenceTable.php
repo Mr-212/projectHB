@@ -11,7 +11,6 @@ use App\Constants\StageConstant;
 
 class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
 {
-//    public $model = Client::class;
 
     public function builder()
     {
