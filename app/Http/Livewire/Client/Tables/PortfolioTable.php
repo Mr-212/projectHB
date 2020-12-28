@@ -17,7 +17,7 @@ class PortfolioTable extends LivewireDatatable
     public function builder()
     {
 
-        return Client::query()->portfolio();
+        return Client::with('property','pre_closing')->portfolio();
     }
 
     public function columns()
@@ -36,10 +36,10 @@ class PortfolioTable extends LivewireDatatable
                 return StageConstant::getValueByKey($stage);
             })->label('Stage'),
 
-            Column::name('property_closing_date')
+            Column::name('property.closing_date')
                 ->label('Closing Date'),
 
-            Column::name('property_due_diligence_expire')
+            Column::name('property.due_diligence_expire_date')
                 ->label('Due Diligence Expire'),
 
 
@@ -91,64 +91,62 @@ class PortfolioTable extends LivewireDatatable
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
 
-            Column::name('property_new_construction_builder_name')
+            Column::name('property.new_construction_builder')
                 ->label('Builder Name'),
 
-            Column::name('property_purchase_price')
+            Column::name('property.purchase_price')
                 ->label('Purchase Price'),
 
-            Column::name('property_closing_cost')
+            Column::name('property.closing_cost')
                 ->label('Closing Cost'),
 
-            Column::name('property_closing_credit_general')
+            Column::name('property.closing_credit_general')
                 ->label('Closing Credit General'),
 
-            Column::callback(['property_hoa_check'], function ($hoa_check) {
+            Column::callback(['property.hoa_check'], function ($hoa_check) {
                 return YesNoDropdown::getValueByKey($hoa_check);
             })->label('HOA?'),
 
-            Column::name('property_hoa_name')
+            Column::name('property.hoa_name')
                 ->label('HOA Name'),
 
-            Column::name('property_hoa_phone')
+            Column::name('property.hoa_phone')
                 ->label('HOA PHone'),
 
-            Column::name('due_diligence_rent')
+            Column::name('pre_closing.rent')
                 ->label('Rent'),
 
-            Column::name('due_diligence_option_payment_3_month')
+            Column::name('pre_closing.payment_option_3_month')
                 ->label('3 Month Option'),
 
-            Column::name('due_diligence_option_payment_6_month')
+            Column::name('pre_closing.payment_option_6_month')
                 ->label('6 Month Option'),
 
-            Column::name('due_diligence_option_payment_12_month')
+            Column::name('pre_closing.payment_option_12_month')
                 ->label('12 Month Option'),
 
-            Column::name('due_diligence_option_payment_date')
+            Column::name('pre_closing.payment_option_date')
                 ->label('Option Payment Date'),
 
-            Column::name('due_diligence_inspection_check_date')
+            Column::name('pre_closing.inspection_checked')
                 ->label('Inspection Check'),
 
-            Column::name('appraisal_value')
+            Column::name('pre_closing.appraisal_value')
                 ->label('Appraisal Value'),
 
-            Column::name('renter_insurance_company_name')
+            Column::name('pre_closing.renter_insurance_name')
                 ->label('Renter Insurance'),
 
-            Column::name('warranty_company_name')
+            Column::name('pre_closing.warranty_company_name')
                 ->label('Warranty Company'),
 
-            Column::callback(['warranty_paid_by_seller_check'], function ($warranty_paid_by_seller_check) {
+            Column::callback(['pre_closing.warranty_paid_by_seller_checked'], function ($warranty_paid_by_seller_check) {
                 return YesNoDropdown::getValueByKey($warranty_paid_by_seller_check);
             })->label('Warranty Paid By Seller'),
 
-            Column::name('lease_expire_date')
+            Column::name('pre_closing.lease_expire_date')
                 ->label('Lease Expire'),
 
-            Column::name('prorated_rent')
-                ->label('Prorated Rent'),
 
         ];
     }

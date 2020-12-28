@@ -22,7 +22,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
     public function builder()
     {
 
-        return Client::query()->beforeDDExpire()->orderBy('updated_at','desc');
+        return Client::with('property','pre_closing')->beforeDDExpire();
     }
 
     public function columns()
@@ -42,10 +42,10 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 return StageConstant::getValueByKey($stage);
             })->label('Stage'),
 
-            Column::name('property_closing_date')
+            Column::name('property.closing_date')
                 ->label('Closing Date'),
 
-            Column::name('property_due_diligence_expire')
+            Column::name('property.due_diligence_expire_date')
                 ->label('Due Diligence Expire'),
 
 
@@ -97,8 +97,8 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
 
-            Column::name('property_new_construction_builder_name')
-                ->label('Builder Name'),
+//            Column::name('property_new_construction_builder_name')
+//                ->label('Builder Name'),
 
         ];
     }

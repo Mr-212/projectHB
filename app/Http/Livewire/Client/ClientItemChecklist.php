@@ -217,7 +217,7 @@ class ClientItemChecklist extends Component
         $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
         if($this->client->save() && $this->client_property->save() && $this->client_pre_closing->save()){
             session()->flash('success', 'Item successfully updated.');
-//            return $this->redirect('/items/outstanding/after_dd');
+            return $this->redirect('/items/outstanding/after_dd');
         };
     }
   public function child_component_update($key,$value){
