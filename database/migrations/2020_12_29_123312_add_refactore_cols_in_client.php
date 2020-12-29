@@ -21,7 +21,7 @@ class AddRefactoreColsInClient extends Migration
             if(Schema::hasColumn('clients','welcome_down_payment_complete_check_date'))
                 $table->renameColumn('welcome_down_payment_complete_check_date','welcome_payment_checked_updated_at');
             if(!Schema::hasColumn('clients','welcome_payment_checked_comment'))
-                $table->string('welcome_payment_checked_comment')->nullable()->after('welcome_payment_checked_updated_at');
+                $table->string('welcome_payment_checked_comment')->nullable()->after('welcome_down_payment_complete_check_date');
             if(Schema::hasColumn('clients','welcome_down_payment'))
                 $table->renameColumn('welcome_down_payment','welcome_payment');
 
