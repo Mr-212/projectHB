@@ -47,6 +47,11 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
             Column::name('property.due_diligence_expire_date')
                 ->label('Due Diligence Expire'),
 
+//            Column::name('property.is_deal_save_checked->updated_at')
+//                ->label('Deal Save updated by'),
+//            Column::name('property.is_deal_save_checked->is_checked')
+//                ->label('Deal Saved?'),
+
 
             Column::callback(['updated_by'], function ($updated_by) {
                 return User::getUserNameByID($updated_by);
@@ -83,7 +88,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
             Column::name('additional_tenant_name')
                 ->label('Co applicant Phone'),
 
-            Column::callback(['welcome_down_payment'], function ($welcome_down_payment_id) {
+            Column::callback(['welcome_payment'], function ($welcome_down_payment_id) {
                 return YesNoDropdown::getValueByKey($welcome_down_payment_id);
             })->label('Welcome Payment'),
 
@@ -92,7 +97,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
             })->label('Mortgage TYpe'),
 
 
-            Column::callback(['rental_verification_check'], function ($rental_verification_check) {
+            Column::callback(['rental_verification_checked'], function ($rental_verification_check) {
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
 

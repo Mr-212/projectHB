@@ -8,67 +8,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class ClientProperty extends Model
+class ClientAttrLogs extends Model
 {
+
     use HasFactory;
-
-    protected $table = 'client_property';
     protected $fillable = [
-
-        "client_id",
-        "deal_save_checked",
-        "deal_save_checked_at",
-        "deal_save_checked_by",
-        "deal_save_checked_comment",
-
-        "house_number_and_street",
-        "county" ,
-        "state" ,
-        "city" ,
-        "zip",
-        'new_construction_check',
-        "new_construction_builder_name",
-        "purchase_price" ,
-        "closing_cost" ,
-        "closing_credit_general" ,
-        "annual_property_tax" ,
-
-        "hoa_check" ,
-        "hoa_name" ,
-        "hoa_phone" ,
-
-        "repair_request_check" ,
-        "repair_request_item_names" ,
-
-        "lender_check" ,
-        "lender_name" ,
-
-        "closing_date" ,
-        "due_diligence_expire_date" ,
-
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'client_id',
+        'attribute',
+        'value',
+        'checked_at',
+        'comment',
+        'updated_by'
         ];
 
     protected $guarded = ['id'];
 
     protected $casts = [
-        'closing_date' => 'date:Y-m-d',
-        'due_diligence_expire_date' => 'date:Y-m-d',
-        'deal_save_checked_at' => 'date:Y-m-d',
-
+//        'additional_tenant' => 'array',
+//        'property_closing_date' =>'datetime:Y-m-d',
+//        'property_due_diligence_expire' =>'datetime:Y-m-d H:i:s',
+//        'due_diligence_inspection_check_date' =>'datetime:Y-m-d',
     ];
     protected $attributes = [
+//        'additional_tenant' => [
+//            "is_completed",
+//            "created_by",
+//            "comment"
+//        ],
 
-
+//        'additional_tenant' => '{
+//            "theme": "minimalist",
+//            "comment": "light"
+//        }'
+//    'property_due_diligence_expire' =>'date:Y-m-d'
     ];
-
-    public function __construct($client_id = null, array $attributes = array())
-    {
-        parent::__construct($attributes);
-        $this->client_id = $client_id;
-    }
 
     public static function boot()
     {
@@ -85,7 +58,10 @@ class ClientProperty extends Model
     }
 
     public function client(){
-        return $this->hasOne(Client::class,'client_id','id');
+        return $this->hasMany(Client::class,'client_id','id');
+    }
+    public function pre_closing(){
+        return $this->belongsTo(ClientPreClosingChecklist::class,'id','client_id');
     }
 
     public function scopeBeforeDD($query){

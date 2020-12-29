@@ -7,17 +7,48 @@
     <div class="col-md-12 col-lg-12 pt-4">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                @error('client_property.deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                @error('client_property.is_deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
 
                 <div class="">
                     <label>Deal Save?</label>
-                    <span><input class="" type="checkbox" name="property_country" value="" wire:model="client_property.deal_save_checked"></span>
+                    <span><input class="" type="checkbox" name="property_country" value="" wire:model="client_property.deal_save_checked" wire:click="markChecklist('client_property','deal_save_checked')"></span>
                 </div>
 
             </div>
+            @if(isset($client_property->deal_save_checked) && $client_property->deal_save_checked)
+            <div class="col-md-3 col-lg-3">
+                <div class="">
+                    <label>Checked At</label>
+                    <input type="date" class="form-control" wire:model="client_property.deal_save_checked_at" readonly="readonly">
+
+                </div>
+
+            </div>
+
+                <div class="col-md-3 col-lg-3">
+                    <label>Comment</label>
+                    <input type="text" class="form-control" placeholder="Add Comment" wire:model="client_property.deal_save_checked_comment">
+
+                </div>
+            @endif
         </div>
 
     </div>
+
+    {{--<div class="col-md-12 col-lg-12 pt-4">--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--@error('client_property.deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+
+                {{--<div class="">--}}
+                    {{--<label>Deal Save?</label>--}}
+                    {{--<span><input class="" type="checkbox" name="property_country" value="" wire:model="client_property.deal_save_checked"></span>--}}
+                {{--</div>--}}
+
+            {{--</div>--}}
+        {{--</div>--}}
+
+    {{--</div>--}}
 
    <div class="col-md-6 col-lg-6" wire:ignore>
        <div class="">

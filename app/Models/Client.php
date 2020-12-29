@@ -27,10 +27,12 @@ class Client extends Model
         'additional_tenant_check' ,
         'additional_tenant_name' ,
         'mortgage_type_id' ,
-        'rental_verification_complete_check',
-        'rental_verification_check',
-        'welcome_down_payment',
-        'welcome_down_payment_complete_check',
+        'rental_verification_checked',
+        'rental_verification_checked_at',
+//        'rental_verification_check',
+        'welcome_payment',
+        'welcome_payment_checked',
+        'welcome_payment_checked_at',
 
         'property_new_construction_check',
         "property_new_construction_builder_name",
@@ -116,10 +118,8 @@ class Client extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-//        'additional_tenant' => 'array',
-//        'property_closing_date' =>'datetime:Y-m-d',
-//        'property_due_diligence_expire' =>'datetime:Y-m-d H:i:s',
-//        'due_diligence_inspection_check_date' =>'datetime:Y-m-d',
+          'welcome_payment_checked_at' =>'date:Y-m-d',
+          'rental_verification_checked_at' =>'date:Y-m-d',
     ];
     protected $attributes = [
 //        'additional_tenant' => [

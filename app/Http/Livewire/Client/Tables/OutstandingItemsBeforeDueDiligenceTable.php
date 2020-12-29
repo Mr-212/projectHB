@@ -56,8 +56,6 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
 
             Column::name('co_applicant_email')
                 ->label('Co applicant Email'),
-
-
         ];
     }
 

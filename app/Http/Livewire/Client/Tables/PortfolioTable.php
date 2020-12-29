@@ -78,7 +78,7 @@ class PortfolioTable extends LivewireDatatable
             Column::name('additional_tenant_name')
                 ->label('Co applicant Phone'),
 
-            Column::callback(['welcome_down_payment'], function ($welcome_down_payment_id) {
+            Column::callback(['welcome_payment'], function ($welcome_down_payment_id) {
                 return YesNoDropdown::getValueByKey($welcome_down_payment_id);
             })->label('Welcome Payment'),
 
@@ -87,7 +87,7 @@ class PortfolioTable extends LivewireDatatable
             })->label('Mortgage TYpe'),
 
 
-            Column::callback(['rental_verification_check'], function ($rental_verification_check) {
+            Column::callback(['rental_verification_checked'], function ($rental_verification_check) {
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
 

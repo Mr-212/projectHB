@@ -11,13 +11,7 @@ namespace App\Models\Support\Client;
 
 class ClientItemCheckListVariables
 {
-    public static function getPaymentOptionList1(){
-        return [
-            1 =>  'due_diligence_option_payment_3_month',
-            2 =>  'due_diligence_option_payment_6_month',
-            3 =>  'due_diligence_option_payment_12_month',
-        ];
-    }
+
     public static function getPaymentOptionList(){
         return [
             1 =>  ['key' => 'payment_option_3_month' ,   'formula' => 1.03 ],
@@ -121,6 +115,18 @@ class ClientItemCheckListVariables
 
             'client.other_check' => '',
             'client.other_value' => '',
+        ];
+    }
+
+    public static function getItemsToBeChecked(){
+
+        return [
+            'client' =>[
+                'rental_verification_checked' =>[
+                    'rental_verification_checked_by',
+                    'rental_verification_checkedt_at'
+                ],
+            ],
         ];
     }
 }

@@ -148,47 +148,64 @@
 
     </div>
 
-    <div class="col-md-6 col-lg-6">
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="">
+                    <input type="checkbox"  value="" wire:model="client.welcome_payment_checked"  wire:click="markChecklist('client','welcome_payment_checked')">
+                    <label>$500 Welcome Payment ?</label>
 
-        <div class="">
-            <input type="checkbox"  value="" wire:model="client.welcome_down_payment_complete_check" wire:click="setCheckListValueAndDate('welcome_down_payment_complete_check','')" >
-            <label>$500 Welcome Payment ?</label>
+                </div>
+            </div>
 
-            {{--@if(!$client->welcome_down_payment_complete_check)--}}
-                {{--<select class="form-control" name="deal_welcome_bonus" wire:model="client.welcome_down_payment" wire:ignore>--}}
-                    {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
-                        {{--<option value="{{$key}}">{{$val}}</option>--}}
-                    {{--@endforeach--}}
-                {{--</select>--}}
-            {{--@endif--}}
-        </div>
-    </div>
+            @if($client->welcome_payment_checked)
+                <div class="col-md-3">
+                    <label>Checked AT</label>
+                    <input type="date" class="form-control" wire:model="client.welcome_payment_checked_at" readonly>
+                </div>
 
-    <div class="col-md-6 col-lg-6" >
-        @error('client.rental_verification_complete_check') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="col-md-3">
+                    <label>Comment</label>
+                    <input type="text" class="form-control" placeholder="Add Comment" wire:model="client.welcome_payment_checked_comment">
+                </div>
+            @endif
 
-        <div class="">
-            <input type="checkbox"  value="" wire:model="client.rental_verification_complete_check" wire:click="setCheckListValueAndDate('rental_verification_complete_check','')" />
-            <label>Rental Verification</label>
-            {{--@if(!$client->rental_verification_complete_check)--}}
-                {{--<select class="form-control" name="deal_save" wire:model="client.rental_verification_check" wire:ignore>--}}
-                    {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
-                        {{--<option value="{{$key}}" {{$key == $client->rental_verification_check ? 'selected':''}}>{{$val}}</option>--}}
-                    {{--@endforeach--}}
-                {{--</select>--}}
-            {{--@endif--}}
         </div>
 
     </div>
-    {{--<div class="col-md-6 col-lg-6">--}}
-    {{--<div class="d-inline">--}}
-    {{--<label>Deal Save?</label>--}}
-    {{--<select class="form-control" name="deal_save" >--}}
-    {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
-    {{--<option value="{{$key}}">{{$val}}</option>--}}
-    {{--@endforeach--}}
+
+    <div class="col-md-12 col-lg-12" >
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <input type="checkbox"  value="" wire:model="client.rental_verification_checked" wire:click="markChecklist('client','rental_verification_checked')" />
+                    <label>Rental Verification</label>
+
+                </div>
+            </div>
+
+        @if($client->rental_verification_checked)
+            <div class="col-md-3">
+                <label>Checked AT</label>
+                    <input type="date" class="form-control" wire:model="client.rental_verification_checked_at" readonly>
+            </div>
+
+           <div class="col-md-3">
+               <label>Comment</label>
+                    <input type="text" class="form-control" wire:model="client.rental_verification_checked_comment" placeholder="Add Comment">
+           </div>
+
+        @endif
+        </div>
+
+    </div>
+
+
+    {{--<select class="form-control" name="deal_save" wire:model="client.rental_verification_check" wire:ignore>--}}
+        {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
+            {{--<option value="{{$key}}" {{$key == $client->rental_verification_check ? 'selected':''}}>{{$val}}</option>--}}
+        {{--@endforeach--}}
     {{--</select>--}}
-    {{--</div>--}}
 
-    {{--</div>--}}
 </div>
