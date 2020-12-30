@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Client\ItemChecklist;
 
 use App\Constants\StageConstant;
 use App\Models\Client;
-use App\Models\ClientProperty;
+use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Livewire\Component;
 
@@ -109,13 +109,13 @@ class ClientPropertyComponent extends Component
     public function getClientProperty(){
         if($this->client_id) {
             $this->title = 'Item Checklist (Pre Closing)';
-            $this->client_property = ClientProperty::whereClientId($this->client_id)->first();
+            $this->client_property = Property::whereClientId($this->client_id)->first();
             if(!$this->client_property)
-                $this->client_property = new ClientProperty();
+                $this->client_property = new Property();
         }
         else {
             $this->title = 'Add Client Info';
-            $this->client_property = new ClientProperty();
+            $this->client_property = new Property();
         }
 
     }

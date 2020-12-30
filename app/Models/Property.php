@@ -6,28 +6,57 @@ use App\Constants\StageConstant;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Facades\Auth;
 
-class ClientProperty extends Model
+class Property extends Model
 {
+    use HasFactory;
 
-    protected $table = 'client_properties';
+    protected $table = 'properties';
     protected $fillable = [
 
         "client_id",
-        'property_id',
-        'pre_closing_checklist_id',
-        'status_id',
+        "deal_save_checked",
+        "deal_save_checked_at",
+        "deal_save_checked_by",
+        "deal_save_checked_comment",
+
+        "house_number_and_street",
+        "county" ,
+        "state" ,
+        "city" ,
+        "zip",
+        'new_construction_check',
+        "new_construction_builder_name",
+        "purchase_price" ,
+        "closing_cost" ,
+        "closing_credit_general" ,
+        "annual_property_tax" ,
+
+        "hoa_check" ,
+        "hoa_name" ,
+        "hoa_phone" ,
+
+        "repair_request_check" ,
+        "repair_request_item_names" ,
+
+        "lender_check" ,
+        "lender_name" ,
+
+        "closing_date" ,
+        "due_diligence_expire_date" ,
+
         'created_by',
         'updated_by',
+        'deleted_by',
         ];
 
+    protected $guarded = ['id'];
 
     protected $casts = [
-//        'closing_date' => 'date:Y-m-d',
-//        'due_diligence_expire_date' => 'date:Y-m-d',
-//        'deal_save_checked_at' => 'date:Y-m-d',
+        'closing_date' => 'date:Y-m-d',
+        'due_diligence_expire_date' => 'date:Y-m-d',
+        'deal_save_checked_at' => 'date:Y-m-d',
 
     ];
     protected $attributes = [
@@ -35,7 +64,11 @@ class ClientProperty extends Model
 
     ];
 
+    public function __construct($client_id = null, array $attributes = array())
+    {
+        parent::__construct($attributes);
 
+    }
 
     public static function boot()
     {
@@ -52,19 +85,7 @@ class ClientProperty extends Model
     }
 
     public function client(){
-        return $this->hasOne(Client::class,'id','client_id');
-    }
-
-    public function property(){
-        return $this->hasOne(Property::class,'id','property_id');
-    }
-
-    public function pre_closing_checklist(){
-        return $this->hasOne(ClientPreClosingChecklist::class,'id','pre_closing_checklist_id');
-    }
-
-    public function status(){
-        return StageConstant::getValueByKey($this->status_id);
+        return $this->hasOne(Client::class,'client_id','id');
     }
 
     public function scopeBeforeDD($query){

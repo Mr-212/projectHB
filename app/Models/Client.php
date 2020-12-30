@@ -149,9 +149,33 @@ class Client extends Model
 
     }
 
-    public function property(){
-        return $this->belongsTo(ClientProperty::class,'id','client_id');
+//    public function property(){
+//        return $this->belongsToMany(Property::class)->using(ClientProperty::class);
+//    }
+
+    public function property($status_id = null){
+            $query = $this->belongsToMany(Property::class,'client_properties','client_id','property_id');
+            if($status_id)
+               $query->wherePivot('status_id',$status_id);
+           return $query;
     }
+//    public function property($status_id = null){
+//            $query = $this->belongsToMany(Property::class);
+//            if($status_id)
+//               $query->wherePivot('status_id',$status_id);
+//           return $query;
+//    }
+//    public function property($status_id = null){
+//            $query = $this->belongsToMany(Property::class);
+//            if($status_id)
+//               $query->wherePivot('status_id',$status_id);
+//           return $query;
+//    }
+
+
+//    public function property(){
+//        return $this->belongsTo(Property::class,'id','client_id');
+//    }
     public function pre_closing(){
         return $this->belongsTo(ClientPreClosingChecklist::class,'id','client_id');
     }

@@ -5,21 +5,23 @@ use App\Constants\StageConstant;
 use App\Models\Client;
 use App\Models\ClientPreClosingChecklist;
 use App\Models\ClientProperty;
+use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ClientItemChecklist extends Component
 {
-    public  $client ,$client_property, $client_pre_closing;
-    public  $client_id;
+    public  $client ,$property, $client_pre_closing,$client_property;
+    public  $client_id,$property_id, $property_status,$client_property_id;
     public  $title;
 
     protected  $casts = [
-//        'client_property.closing_date' => 'date:m-d-y',
+//        'property.closing_date' => 'date:m-d-y',
 //        'closing_date' => 'date:m-d-y',
-//        'client_property.is_deal_save_checked' =>'object'
+//        'property.is_deal_save_checked' =>'object'
     ];
 
     protected $listeners = ['child_component_update'];
@@ -28,6 +30,7 @@ class ClientItemChecklist extends Component
         'property_updated' => false,
         'pre_closing_updated'=> false
     ];
+
     public  $exceptArray = [
         'id',
         'applicant_name',
@@ -71,39 +74,39 @@ class ClientItemChecklist extends Component
 
         //client property rules
 
-        "client_property.deal_save_checked" =>'',
-        "client_property.deal_save_checked_by" =>'',
-        "client_property.deal_save_checked_at" =>'',
-        "client_property.deal_save_checked_comment" =>'',
+        "property.deal_save_checked" =>'',
+        "property.deal_save_checked_by" =>'',
+        "property.deal_save_checked_at" =>'',
+        "property.deal_save_checked_comment" =>'',
 
 
 
-        'client_property.house_number_and_street' =>'',
-        'client_property.new_construction_check' =>'',
-        "client_property.new_construction_builder" =>'',
+        'property.house_number_and_street' =>'',
+        'property.new_construction_check' =>'',
+        "property.new_construction_builder" =>'',
 
-        "client_property.county" =>'string',
-        "client_property.state" =>'string',
-        "client_property.city" =>'string',
-        "client_property.zip" =>'string',
+        "property.county" =>'string',
+        "property.state" =>'string',
+        "property.city" =>'string',
+        "property.zip" =>'string',
 
-        "client_property.purchase_price" => 'integer',
-        "client_property.closing_cost" => 'integer',
-        "client_property.closing_credit_general" => '',
-        "client_property.annual_property_tax" => '',
+        "property.purchase_price" => 'integer',
+        "property.closing_cost" => 'integer',
+        "property.closing_credit_general" => '',
+        "property.annual_property_tax" => '',
 
-        "client_property.hoa_check" => '',
-        "client_property.hoa_name" => '',
-        "client_property.hoa_phone" => '',
+        "property.hoa_check" => '',
+        "property.hoa_name" => '',
+        "property.hoa_phone" => '',
 //
-//        "client_property.repair_request_check" => '',
-//        "client_property.repair_request_item_names" => '',
+//        "property.repair_request_check" => '',
+//        "property.repair_request_item_names" => '',
 
-        "client_property.lender_check" => '',
-        "client_property.lender_name" => '',
+        "property.lender_check" => '',
+        "property.lender_name" => '',
 
-        "client_property.closing_date" => '',
-        "client_property.due_diligence_expire_date" => '',
+        "property.closing_date" => '',
+        "property.due_diligence_expire_date" => '',
 
 
         //pre c;osing rules
@@ -169,8 +172,12 @@ class ClientItemChecklist extends Component
 //    ];
 
 
-    public function mount($client_id = null){
+    public function mount($client_id = null, $client_property_id = null, $property_status = null){
+
         $this->client_id = $client_id;
+        $this->client_property_id = $client_property_id;
+//        $this->property_id = $property_id;
+        $this->property_status = $property_status;
         $this->getClientProperty();
 
     }
@@ -179,34 +186,49 @@ class ClientItemChecklist extends Component
 
     public function hydrate(){
 
-//        if($this->client_property->isDirty('is_deal_save_checked')) {
-////          $this->client_property->is_deal_save_checked->updated_at = Carbon::now();
-////          dd($this->client_property->is_deal_save_checked->updated_at);
+//        if($this->property->isDirty('is_deal_save_checked')) {
+////          $this->property->is_deal_save_checked->updated_at = Carbon::now();
+////          dd($this->property->is_deal_save_checked->updated_at);
 //        }
     }
 
     public function updated(){
 
-        if($this->client_property->isDirty('is_deal_save_checked')) {
-//          $this->client_property->is_deal_save_checked->updated_at = Carbon::now();
-//         dd($this->client_property->is_deal_save_checked->updated_at);
+        if($this->property->isDirty('is_deal_save_checked')) {
+//          $this->property->is_deal_save_checked->updated_at = Carbon::now();
+//         dd($this->property->is_deal_save_checked->updated_at);
         }
     }
 
 
 
     public function getClientProperty(){
+        $this->title = 'Item Checklist (Pre Closing)';
+        if(empty($this->property_status))
+            $this->property_status =  StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+
         if($this->client_id) {
-            $this->title = 'Item Checklist (Pre Closing)';
-            $this->client = Client::with('property')->find($this->client_id);
-            $this->client_property= !empty($this->client->property) ? $this->client->property: new ClientProperty($this->client_id);
-            $this->client_pre_closing= !empty($this->client->pre_closing) ? $this->client->pre_closing: new ClientPreClosingChecklist($this->client_id);
-//            dd($this->client_property);
+            $this->client = Client::find($this->client_id);
+            $this->property = new Property();
+            $this->client_pre_closing = new ClientPreClosingChecklist();
+//            dd($this->property);
+        }
+        if($this->client_property_id){
+            $this->client_property = ClientProperty::find($this->client_property_id);
+            $this->client = $this->client_property->client;
+//            $this->client_id = $this->client->id;
+            $this->property = $this->client_property->property;
+            $this->client_pre_closing = $this->client_property->pre_closing_checklist;
+            if(!$this->property)
+                $this->property = new Property();
+            if(!$this->client_pre_closing)
+                $this->client_pre_closing = new ClientPreClosingChecklist();
+
         }
         else {
             $this->title = 'Add Client Info';
             $this->client = new Client();
-            $this->client_property = new ClientProperty();
+            $this->property = new Property();
             $this->client_pre_closing= new ClientPreClosingChecklist();
         }
 
@@ -236,15 +258,35 @@ class ClientItemChecklist extends Component
 
     public function before_closing(){
 //        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
-        //dd($this->client_property,$this->client_property->save());
+        //dd($this->property,$this->property->save());
         $this->validate($this->rules);
-        $this->client_property->client_id = $this->client_id;
-        $this->client_pre_closing->client_id = $this->client_id;
-        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-        if($this->client->save() && $this->client_property->save() && $this->client_pre_closing->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/after_dd');
-        };
+        try{
+//            $this->client_pre_closing->client_id = $this->client->id;
+            $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            DB::beginTransaction();
+            if($this->client->save() && $this->property->save() && $this->client_pre_closing->save()){
+
+                if($this->client_property ){
+                    //$this->client_property->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
+                    $this->client_property->property_id = $this->property->id;
+                    $this->client_property->client_id = $this->client->id;
+                    $this->client_property->pre_closing_checklist_id = $this->client_pre_closing->id;
+                    $this->client_property->status_id = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+                    DB::commit();
+                    session()->flash('success', 'Item successfully updated.');
+                }
+                else{
+                    $this->client->property()->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
+                    DB::commit();
+                    session()->flash('success', 'Item successfully updated.');
+                    // return $this->redirect('/items/outstanding/after_dd');
+                }
+            };
+        }catch (\Exception $e){
+            dd($e);
+            DB::rollBack();
+        }
+
     }
   public function child_component_update($key,$value){
        $this->child_components[$key] = $value;
@@ -256,7 +298,7 @@ class ClientItemChecklist extends Component
   }
 //    public function before_closing(){
 //        $this->emit('before_closing');
-////        if($this->emit('before_closing','client') && $this->emit('before_closing','client_property') && $this->emit('before_closing','client_pre_closing')){
+////        if($this->emit('before_closing','client') && $this->emit('before_closing','property') && $this->emit('before_closing','client_pre_closing')){
 ////            session()->flash('success', 'Item successfully updated.');
 ////           return $this->redirect('/items/outstanding/after_dd');
 ////        };
@@ -281,9 +323,9 @@ class ClientItemChecklist extends Component
             $this->$model->$checked_by = Auth::id() ;
             $this->$model->$checked_at = Carbon::now() ;
         }else{
-            $this->$model->$checked_by = $this->client_property->getOriginal($checked_by);
-            $this->$model->$checked_at = $this->client_property->getOriginal($checked_at);;
-            $this->$model->$comment = $this->client_property->getOriginal($comment);;
+            $this->$model->$checked_by = $this->property->getOriginal($checked_by);
+            $this->$model->$checked_at = $this->property->getOriginal($checked_at);;
+            $this->$model->$comment = $this->property->getOriginal($comment);;
         }
 //        dd($this->$model->$checked_by);
 
@@ -292,7 +334,7 @@ class ClientItemChecklist extends Component
 
     public function payment_option($values){
         $options_array = ClientItemCheckListVariables::getPaymentOptionList();
-        $calculated_payment = $this->client_property->pirchase_price + $this->client_property->closing_cost + $this->client_property->closing_credit_general;
+        $calculated_payment = $this->property->pirchase_price + $this->property->closing_cost + $this->property->closing_credit_general;
 
         foreach ($options_array as $k => $v){
             $key = $v['key'];

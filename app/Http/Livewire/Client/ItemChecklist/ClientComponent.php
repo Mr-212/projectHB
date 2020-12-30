@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Client\ItemChecklist;
 
 use App\Constants\StageConstant;
 use App\Models\Client;
-use App\Models\ClientProperty;
+use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Livewire\Component;
 

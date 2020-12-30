@@ -77,7 +77,7 @@ class User extends Authenticatable
     }
 
     public static function getUserNameByID($id){
-
+        if($id)
           return self::find($id)->full_name;
     }
 

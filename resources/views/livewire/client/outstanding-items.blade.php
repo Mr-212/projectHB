@@ -57,7 +57,7 @@
                 var now = new Date();
                 var dateString = now.toLocaleTimeString()+ ' '+ now.toLocaleDateString();
                 $(this).parent().siblings('#item_checked_at').text(dateString);
-                window.location.href = '/items/checklist/'+$(this).val();
+                //window.location.href = '/items/checklist/'+$(this).val();
 
             }
             else
