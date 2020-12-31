@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Livewire\Client;
 
-use App\Constants\StageConstant;
+use App\Constants\PropertyStageConstant;
 use App\Models\Client;
 use App\Models\ClientPreClosingChecklist;
 use App\Models\ClientProperty;
@@ -205,7 +205,7 @@ class ClientItemChecklist extends Component
     public function getClientProperty(){
         $this->title = 'Item Checklist (Pre Closing)';
         if(empty($this->property_status))
-            $this->property_status =  StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            $this->property_status =  PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
 
         if($this->client_id) {
             $this->client = Client::find($this->client_id);
@@ -250,7 +250,7 @@ class ClientItemChecklist extends Component
     public function book_house(){
 
         $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
-        $this->client->stage = StageConstant::HOUSE_BOOKED;
+        $this->client->stage = PropertyStageConstant::HOUSE_BOOKED;
         if($this->client->save()){
             return $this->redirect('/items/outstanding/after_dd');
         };
@@ -262,21 +262,21 @@ class ClientItemChecklist extends Component
         $this->validate($this->rules);
         try{
 //            $this->client_pre_closing->client_id = $this->client->id;
-            $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            $this->client->stage = PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
             DB::beginTransaction();
             if($this->client->save() && $this->property->save() && $this->client_pre_closing->save()){
 
                 if($this->client_property ){
-                    //$this->client_property->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
+                    //$this->client_property->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
                     $this->client_property->property_id = $this->property->id;
                     $this->client_property->client_id = $this->client->id;
                     $this->client_property->pre_closing_checklist_id = $this->client_pre_closing->id;
-                    $this->client_property->status_id = StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+                    $this->client_property->status_id = PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
                     DB::commit();
                     session()->flash('success', 'Item successfully updated.');
                 }
                 else{
-                    $this->client->property()->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => StageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
+                    $this->client->property()->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
                     DB::commit();
                     session()->flash('success', 'Item successfully updated.');
                     // return $this->redirect('/items/outstanding/after_dd');
@@ -367,7 +367,7 @@ class ClientItemChecklist extends Component
 
     public function addClient(){
         $this->validate($this->rules);
-        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE;
+        $this->client->stage = PropertyStageConstant::BEFORE_DUE_DILIGENCE;
         if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/items/outstanding/before_dd');
@@ -388,9 +388,9 @@ class ClientItemChecklist extends Component
         }
         //dd($reset);
 
-        $reset['stage'] = StageConstant::HOUSE_CANCELLED;
+        $reset['stage'] = PropertyStageConstant::HOUSE_CANCELLED;
         //dd($reset,$this->client->id,$this->client->update($reset));
-//        $this->client->stage = StageConstant::HOUSE_CANCELLED;
+//        $this->client->stage = PropertyStageConstant::HOUSE_CANCELLED;
         if($this->client->update($reset)){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/house/cancelled');
@@ -399,7 +399,7 @@ class ClientItemChecklist extends Component
 
     public function cancel_client(){
 
-        $this->client->stage = StageConstant::DROPOUT_CLIENT;
+        $this->client->stage = PropertyStageConstant::DROPOUT_CLIENT;
         if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/house/dropout');

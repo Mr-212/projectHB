@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Client\ItemChecklist;
 
-use App\Constants\StageConstant;
+use App\Constants\PropertyStageConstant;
 use App\Models\Client;
 use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
@@ -172,7 +172,7 @@ class ClientPropertyComponent extends Component
 
     public function addClient(){
         $this->validate($this->rules);
-        $this->client->stage = StageConstant::BEFORE_DUE_DILIGENCE;
+        $this->client->stage = PropertyStageConstant::BEFORE_DUE_DILIGENCE;
         if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/items/outstanding/before_dd');
@@ -193,9 +193,9 @@ class ClientPropertyComponent extends Component
         }
         //dd($reset);
 
-        $reset['stage'] = StageConstant::HOUSE_CANCELLED;
+        $reset['stage'] = PropertyStageConstant::HOUSE_CANCELLED;
         //dd($reset,$this->client->id,$this->client->update($reset));
-//        $this->client->stage = StageConstant::HOUSE_CANCELLED;
+//        $this->client->stage = PropertyStageConstant::HOUSE_CANCELLED;
         if($this->client->update($reset)){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/house/cancelled');
@@ -204,7 +204,7 @@ class ClientPropertyComponent extends Component
 
     public function cancel_client(){
 
-        $this->client->stage = StageConstant::DROPOUT_CLIENT;
+        $this->client->stage = PropertyStageConstant::DROPOUT_CLIENT;
         if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/house/dropout');

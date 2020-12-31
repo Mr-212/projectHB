@@ -22,12 +22,16 @@ class GeneralConstants
     const CONVENTIONAL = 'Conventional';
     const NON_QM = 'Non-QM';
 
-    //stage constants
+    //property stage constants
     const BEFORE_DUE_DILIGENCE = 'Before Due Diligence';
     const BEFORE_DUE_DILIGENCE_EXPIRE = 'Before Due Diligence Close';
     const HOUSE_BOOKED = 'House Booked';
     const HOUSE_CANCELLED = 'Hose Cancelled';
-    const DROPOUT_CLIENT = 'Dropout Client';
+    const HOUSE_SOLD = 'House Sold';
+
+    //client status constants
+    const CLIENT_ACTIVE = 'Active';
+    const CLIENT_DROPOUT = 'Dropout';
 
     //PAYMENT OPTIONS
     const PAYMENT_OPTION_3_MONTH  = '3 Month Option';

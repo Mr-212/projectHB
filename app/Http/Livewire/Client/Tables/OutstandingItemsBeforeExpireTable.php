@@ -10,7 +10,7 @@ use App\Models\User;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
-use App\Constants\StageConstant;
+use App\Constants\PropertyStageConstant;
 class OutstandingItemsBeforeExpireTable extends LivewireDatatable
 {
 
@@ -39,7 +39,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 ->label('ID'),
 
             Column::callback('status_id',function($stage){
-                return StageConstant::getValueByKey($stage);
+                return PropertyStageConstant::getValueByKey($stage);
             })->label('Stage'),
 
             Column::name('property.closing_date')

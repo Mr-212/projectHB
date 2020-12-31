@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Client\Tables;
 
-use App\Constants\StageConstant;
+use App\Constants\PropertyStageConstant;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -33,7 +33,7 @@ class PortfolioTable extends LivewireDatatable
                 ->label('ID'),
 
             Column::callback('stage',function($stage){
-                return StageConstant::getValueByKey($stage);
+                return PropertyStageConstant::getValueByKey($stage);
             })->label('Stage'),
 
             Column::name('property.closing_date')
