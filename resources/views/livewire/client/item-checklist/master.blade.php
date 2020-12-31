@@ -12,8 +12,11 @@
     {{--<form wire:submit.prevent="book_house">--}}
     {{--@livewire('client.item-checklist.client-component',['client_id' => $client_id])--}}
     @include('livewire.client.item-checklist.client')
+    @if($client_id)
     @include('livewire.client.item-checklist.property1')
     @include('livewire.client.item-checklist.pre-closing.master')
+    @endif
+
     {{--@livewire('client.item-checklist.client-property-component',['client_id' => $client_id])--}}
     {{--@livewire('client.item-checklist.client-pre-closing-component',['client_id' => $client_id])--}}
     {{--<livewire:client.client-item-checklist.client />--}}

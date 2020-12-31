@@ -2,20 +2,22 @@
 
 namespace App\Http\Livewire\Client\House\Tables;
 
+use App\Constants\ClientStatusConstant;
 use App\Models\Client;
+use App\Models\Property;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use App\Constants\PropertyStatusConstant;
 
-class CancelledHouseTable extends LivewireDatatable
+class VacantHouseTable extends LivewireDatatable
 {
 //    public $model = Client::class;
 
     public function builder()
     {
-        return Client::with('property')->CancelledHouse();
+        return Property::HouseVacant();
     }
 
     public function columns()
@@ -26,39 +28,30 @@ class CancelledHouseTable extends LivewireDatatable
 //            }),
 
             NumberColumn::name('id')
-                ->defaultSort('id')
+                ->defaultSort('desc')
                 ->label('ID'),
 
-            Column::callback('property.property_status_id',function($stage){
+            Column::callback('property_status_id',function($stage){
                 return PropertyStatusConstant::getValueByKey($stage);
-            })->label('Stage'),
+            })->label('Status'),
 
-            Column::name('property.house_number_and_street')
+
+            Column::name('house_number_and_street')
                 ->label('House Address')
                 ->filterable(),
 
-            Column::name('property.city')
+            Column::name('city')
                 ->label('City')
                 ->filterable(),
 
-            Column::name('property.state')
+            Column::name('state')
                 ->label('State'),
 
-            Column::name('property.county')
+            Column::name('county')
                 ->label('County'),
 
-            Column::name('property.zip')
+            Column::name('zip')
                 ->label('Zip'),
-
-//            Column::name('partner_phone')
-//                ->label('Partner Phone'),
-//
-//            Column::name('co_applicant_name')
-//                ->label('Co applicant Name'),
-//
-//            Column::name('co_applicant_email')
-//                ->label('Co applicant Email'),
-
 
         ];
     }

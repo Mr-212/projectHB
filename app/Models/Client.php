@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use App\Constants\PropertyStageConstant;
+use App\Constants\ClientStatusConstant;
+use App\Constants\PropertyStatusConstant;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class Client extends Model
 {
@@ -149,16 +151,16 @@ class Client extends Model
 
     }
 
-//    public function property(){
-//        return $this->belongsToMany(Property::class)->using(ClientProperty::class);
-//    }
-
-    public function property($status_id = null){
-            $query = $this->belongsToMany(Property::class,'client_properties','client_id','property_id');
-            if($status_id)
-               $query->wherePivot('status_id',$status_id);
-           return $query;
+    public function property(){
+        return $this->belongsTo(Property::class,'id','client_id');
     }
+
+//    public function property($status_id = null){
+//            $query = $this->belongsToMany(Property::class,'client_properties','client_id','property_id');
+//            if($status_id)
+//               $query->wherePivot('status_id',$status_id);
+//           return $query;
+//    }
 //    public function property($status_id = null){
 //            $query = $this->belongsToMany(Property::class);
 //            if($status_id)
@@ -181,23 +183,48 @@ class Client extends Model
     }
 
     public function scopeBeforeDD($query){
-        return $query->where('stage', PropertyStageConstant::BEFORE_DUE_DILIGENCE);
+//        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
+//        return $query->whereHas('property', function (Builder $builder){
+//            $builder->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
+//        });
+
+        return $query->whereHas('property', function (Builder $builder){
+            $builder->where('property_status_id', null);
+        });
     }
 
     public function scopeBeforeDDExpire($query){
-        return $query->where('stage', PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+
+        return $query->whereHas('property', function (Builder $builder){
+            $builder->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+        });
+
+//        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+    }
+
+    public function scopeWithoutProperty($query){
+
+        return $query->doesntHave('property');
+
+//        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
     }
 
     public function scopePortfolio($query){
-        return $query->where('stage', PropertyStageConstant::HOUSE_BOOKED);
-//            ->orderBy('updated_at','desc');
+
+        return $query->whereHas('property', function (Builder $builder){
+            $builder->where('property_status_id', PropertyStatusConstant::HOUSE_BOOKED);
+        });
+       // return $query->where('stage', PropertyStatusConstant::HOUSE_BOOKED);
     }
     public function scopeCancelledHouse($query){
-        return $query->where('stage', PropertyStageConstant::HOUSE_CANCELLED);
-//            ->orderBy('updated_at','desc');
+
+        return $query->whereHas('property', function (Builder $builder){
+            $builder->where('property_status_id', PropertyStatusConstant::HOUSE_CANCELLED);
+        });
+
     }
     public function scopeDropoutClient($query){
-        return $query->where('stage', PropertyStageConstant::DROPOUT_CLIENT);
+        return $query->where('status', ClientStatusConstant::CLIENT_DROPOUT);
 //            ->orderBy('updated_at','desc');
     }
 

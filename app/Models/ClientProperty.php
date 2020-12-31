@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Constants\PropertyStageConstant;
+use App\Constants\PropertyStatusConstant;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,27 +64,27 @@ class ClientProperty extends Model
     }
 
     public function status(){
-        return PropertyStageConstant::getValueByKey($this->status_id);
+        return PropertyStatusConstant::getValueByKey($this->status_id);
     }
 
     public function scopeBeforeDD($query){
-        return $query->where('stage', PropertyStageConstant::BEFORE_DUE_DILIGENCE);
+        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
     }
 
     public function scopeBeforeDDExpire($query){
-        return $query->where('stage', PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
     }
 
     public function scopePortfolio($query){
-        return $query->where('stage', PropertyStageConstant::HOUSE_BOOKED);
+        return $query->where('stage', PropertyStatusConstant::HOUSE_BOOKED);
 //            ->orderBy('updated_at','desc');
     }
     public function scopeCancelledHouse($query){
-        return $query->where('stage', PropertyStageConstant::HOUSE_CANCELLED);
+        return $query->where('stage', PropertyStatusConstant::HOUSE_CANCELLED);
 //            ->orderBy('updated_at','desc');
     }
     public function scopeDropoutClient($query){
-        return $query->where('stage', PropertyStageConstant::DROPOUT_CLIENT);
+        return $query->where('stage', PropertyStatusConstant::DROPOUT_CLIENT);
 //            ->orderBy('updated_at','desc');
     }
 

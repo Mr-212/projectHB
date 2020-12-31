@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire\Client\House\Tables;
 
+use App\Constants\ClientStatusConstant;
 use App\Models\Client;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
-use App\Constants\PropertyStageConstant;
+use App\Constants\PropertyStatusConstant;
 
 class DropoutClientTable extends LivewireDatatable
 {
@@ -15,22 +16,22 @@ class DropoutClientTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::query()->DropoutClient();
+        return Client::DropoutClient();
     }
 
     public function columns()
     {
         return [
             Column::callback(['id'], function ($id) {
-                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['id' => $id]);
+                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['client_id' => $id]);
             }),
 
             NumberColumn::name('id')
                 ->defaultSort('desc')
                 ->label('ID'),
 
-            Column::callback('stage',function($stage){
-                return PropertyStageConstant::getValueByKey($stage);
+            Column::callback('status',function($stage){
+                return ClientStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
             Column::name('applicant_name')

@@ -1,12 +1,14 @@
 <?php
 namespace App\Http\Livewire\Client;
 
-use App\Constants\PropertyStageConstant;
+use App\Constants\ClientStatusConstant;
+use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
 use App\Models\ClientPreClosingChecklist;
 use App\Models\ClientProperty;
 use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
+use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +19,7 @@ class ClientItemChecklist extends Component
     public  $client ,$property, $client_pre_closing,$client_property;
     public  $client_id,$property_id, $property_status,$client_property_id;
     public  $title;
+    protected  $client_property_pre_closing_handler = null;
 
     protected  $casts = [
 //        'property.closing_date' => 'date:m-d-y',
@@ -69,7 +72,6 @@ class ClientItemChecklist extends Component
         'client.welcome_payment_checked_by' => '',
         'client.welcome_payment_checked_at' => '',
         'client.welcome_payment_checked_comment' => '',
-
 
 
         //client property rules
@@ -175,6 +177,7 @@ class ClientItemChecklist extends Component
     public function mount($client_id = null, $client_property_id = null, $property_status = null){
 
         $this->client_id = $client_id;
+        $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id);
         $this->client_property_id = $client_property_id;
 //        $this->property_id = $property_id;
         $this->property_status = $property_status;
@@ -185,7 +188,7 @@ class ClientItemChecklist extends Component
 
 
     public function hydrate(){
-
+        $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id);
 //        if($this->property->isDirty('is_deal_save_checked')) {
 ////          $this->property->is_deal_save_checked->updated_at = Carbon::now();
 ////          dd($this->property->is_deal_save_checked->updated_at);
@@ -203,16 +206,18 @@ class ClientItemChecklist extends Component
 
 
     public function getClientProperty(){
-        $this->title = 'Item Checklist (Pre Closing)';
-        if(empty($this->property_status))
-            $this->property_status =  PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+        if($this->client_id)
+            $this->title = 'Item Checklist (Pre Closing)';
+        else
+            $this->title = 'Add Client Info';
+        $this->client = $this->client_property_pre_closing_handler->getClient();
+        $this->property = $this->client_property_pre_closing_handler->getProperty();
+        $this->client_pre_closing= $this->client_property_pre_closing_handler->getPreClosingList();
 
-        if($this->client_id) {
-            $this->client = Client::find($this->client_id);
-            $this->property = new Property();
-            $this->client_pre_closing = new ClientPreClosingChecklist();
-//            dd($this->property);
-        }
+    }
+
+
+    public function getClientPropertyByClientPropertyId(){
         if($this->client_property_id){
             $this->client_property = ClientProperty::find($this->client_property_id);
             $this->client = $this->client_property->client;
@@ -225,13 +230,6 @@ class ClientItemChecklist extends Component
                 $this->client_pre_closing = new ClientPreClosingChecklist();
 
         }
-        else {
-            $this->title = 'Add Client Info';
-            $this->client = new Client();
-            $this->property = new Property();
-            $this->client_pre_closing= new ClientPreClosingChecklist();
-        }
-
     }
 
     public function render()
@@ -250,8 +248,12 @@ class ClientItemChecklist extends Component
     public function book_house(){
 
         $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
-        $this->client->stage = PropertyStageConstant::HOUSE_BOOKED;
-        if($this->client->save()){
+        $this->property->property_status_id = PropertyStatusConstant::HOUSE_BOOKED;
+        $this->client_property_pre_closing_handler->setClient($this->client);
+        $this->client_property_pre_closing_handler->setProperty($this->property);
+        $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+
+        if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
             return $this->redirect('/items/outstanding/after_dd');
         };
     }
@@ -259,34 +261,48 @@ class ClientItemChecklist extends Component
     public function before_closing(){
 //        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
         //dd($this->property,$this->property->save());
-        $this->validate($this->rules);
-        try{
-//            $this->client_pre_closing->client_id = $this->client->id;
-            $this->client->stage = PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-            DB::beginTransaction();
-            if($this->client->save() && $this->property->save() && $this->client_pre_closing->save()){
 
-                if($this->client_property ){
-                    //$this->client_property->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
-                    $this->client_property->property_id = $this->property->id;
-                    $this->client_property->client_id = $this->client->id;
-                    $this->client_property->pre_closing_checklist_id = $this->client_pre_closing->id;
-                    $this->client_property->status_id = PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-                    DB::commit();
-                    session()->flash('success', 'Item successfully updated.');
-                }
-                else{
-                    $this->client->property()->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => PropertyStageConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
-                    DB::commit();
+        try{
+            $this->validate($this->rules);
+
+            $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
+            $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            $this->property->client_id = $this->client_id;
+//            $this->client_pre_closing->client_id = null;
+            $this->client_pre_closing->property_id = $this->property->id;
+
+            $this->client_property_pre_closing_handler->setClient($this->client);
+            $this->client_property_pre_closing_handler->setProperty($this->property);
+            $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+
+            if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
                     session()->flash('success', 'Item successfully updated.');
                     // return $this->redirect('/items/outstanding/after_dd');
-                }
             };
         }catch (\Exception $e){
             dd($e);
-            DB::rollBack();
         }
 
+    }
+
+    public function updateClientPropertyByPropertyClientId(){
+        //$this->client_property->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
+       $return = false;
+        if($this->client_property ) {
+            try {
+                $this->client_property->property_id = $this->property->id;
+                $this->client_property->client_id = $this->client->id;
+                $this->client_property->pre_closing_checklist_id = $this->client_pre_closing->id;
+                $this->client_property->status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+                $return = $this->client_property->save();
+            }catch (\Exception $e){
+                dd($e);
+            }
+
+        }
+
+        return $return;
     }
   public function child_component_update($key,$value){
        $this->child_components[$key] = $value;
@@ -367,8 +383,9 @@ class ClientItemChecklist extends Component
 
     public function addClient(){
         $this->validate($this->rules);
-        $this->client->stage = PropertyStageConstant::BEFORE_DUE_DILIGENCE;
-        if($this->client->save()){
+        $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
+        $this->client_property_pre_closing_handler->setClient($this->client);
+        if($this->client_property_pre_closing_handler->saveClient()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/items/outstanding/before_dd');
         };
@@ -380,30 +397,35 @@ class ClientItemChecklist extends Component
     }
 
     public function cancel_house(){
-        $reset = array_diff_key($this->client->getAttributes(),array_flip($this->exceptArray));
-        if($reset){
-            foreach ($reset as $k=> $v){
-                $reset[$k] = null;
-            }
-        }
+//        $reset = array_diff_key($this->client->getAttributes(),array_flip($this->exceptArray));
+//        if($reset){
+//            foreach ($reset as $k=> $v){
+//                $reset[$k] = null;
+//            }
+//        }
         //dd($reset);
 
-        $reset['stage'] = PropertyStageConstant::HOUSE_CANCELLED;
+        //$reset['stage'] = PropertyStatusConstant::HOUSE_CANCELLED;
         //dd($reset,$this->client->id,$this->client->update($reset));
-//        $this->client->stage = PropertyStageConstant::HOUSE_CANCELLED;
-        if($this->client->update($reset)){
+        $this->client_property_pre_closing_handler->setClient($this->client);
+        $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+        $this->property->property_status_id = PropertyStatusConstant::HOUSE_CANCELLED;
+        $this->client_property_pre_closing_handler->setProperty($this->property);
+//        if($this->client->update($reset)){
+        if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/house/cancelled');
         };
     }
 
     public function cancel_client(){
+        $this->client_property_pre_closing_handler->dropoutClient();
 
-        $this->client->stage = PropertyStageConstant::DROPOUT_CLIENT;
-        if($this->client->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/house/dropout');
-        };
+//        $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
+//        if($this->client->save()){
+//            session()->flash('success', 'Item successfully updated.');
+//            return $this->redirect('/house/dropout');
+//        };
     }
 
 

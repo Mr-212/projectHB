@@ -2,19 +2,20 @@
 
 namespace App\Http\Livewire\Client\Tables;
 
+use App\Constants\ClientStatusConstant;
 use App\Models\Client;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
-use App\Constants\PropertyStageConstant;
+use App\Constants\PropertyStatusConstant;
 
 class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
 {
 
     public function builder()
     {
-        return Client::query()->beforeDD();
+        return Client::WithoutProperty();
     }
 
     public function columns()
@@ -28,8 +29,8 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
             NumberColumn::name('id')
                 ->defaultSort('id')
                 ->label('ID'),
-            Column::callback('stage',function($stage){
-                return PropertyStageConstant::getValueByKey($stage);
+            Column::callback('status',function($stage){
+                return ClientStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
             Column::name('applicant_name')

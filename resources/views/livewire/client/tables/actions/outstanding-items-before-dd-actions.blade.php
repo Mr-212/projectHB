@@ -6,8 +6,11 @@
            if(isset($client_property_id)){
             $url =  url("/items/checklist/edit/{$client_property_id}");
             }
-            if(isset($client_id)){
-            $url =  url("/items/checklist/add/{$client_id}");
+          //  if(isset($client_id)){
+          //  $url =  url("/items/checklist/add/{$client_id}");
+          //  }
+            else{
+             $url =  url("/items/checklist/{$client_id}");
             }
 
     @endphp

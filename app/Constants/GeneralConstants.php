@@ -28,6 +28,8 @@ class GeneralConstants
     const HOUSE_BOOKED = 'House Booked';
     const HOUSE_CANCELLED = 'Hose Cancelled';
     const HOUSE_SOLD = 'House Sold';
+    const HOUSE_VACANT = 'House Vacant';
+    const HOUSE_EVICTED = 'House Evicted';
 
     //client status constants
     const CLIENT_ACTIVE = 'Active';

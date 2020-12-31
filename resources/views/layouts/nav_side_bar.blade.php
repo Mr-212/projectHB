@@ -87,10 +87,17 @@
                         <span class="hide-menu"> Move Out </span>
                     </a>
                 </li>
+                {{--<li class="sidebar-item">--}}
+                    {{--<a href="{{url('house/evicted')}}" class="sidebar-link">--}}
+                        {{--<i class="fa fa-minus"></i>--}}
+                        {{--<span class="hide-menu"> Evicted </span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+
                 <li class="sidebar-item">
-                    <a href="{{url('house/evicted')}}" class="sidebar-link">
+                    <a href="{{url('house/vacant')}}" class="sidebar-link">
                         <i class="fa fa-minus"></i>
-                        <span class="hide-menu"> Evicted </span>
+                        <span class="hide-menu"> Vacant Houses </span>
                     </a>
                 </li>
 
