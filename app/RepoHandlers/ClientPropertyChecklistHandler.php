@@ -32,15 +32,15 @@ class ClientPropertyChecklistHandler
 
 
     public function getClient(){
-       return  $this->client;
+       return  $this->client = $this->client ? : $this->property->client ?: new Client();
     }
 
     public function getProperty(){
-        return $this->property = $this->client->property ? $this->client->property : new Property();
+        return $this->property = $this->property ? : $this->client->property ? : new Property();
     }
 
     public function getPreClosingList(){
-        return $this->pre_closing = isset($this->property->pre_closing) ? $this->property->pre_closing : new ClientPreClosingChecklist();
+        return $this->pre_closing = $this->pre_closing ? : $this->property->pre_closing ? : new ClientPreClosingChecklist();
     }
 
     public function  setClient(CLient $client){

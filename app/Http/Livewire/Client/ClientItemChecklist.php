@@ -407,12 +407,14 @@ class ClientItemChecklist extends Component
 
         //$reset['stage'] = PropertyStatusConstant::HOUSE_CANCELLED;
         //dd($reset,$this->client->id,$this->client->update($reset));
-        $this->client_property_pre_closing_handler->setClient($this->client);
-        $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+        //$this->client_property_pre_closing_handler->setClient($this->client_property_pre_closing_handler->getClient());
+        //$this->client_property_pre_closing_handler->setPreClosingList($this->client_property_pre_closing_handler->getPreClosingList());
         $this->property->property_status_id = PropertyStatusConstant::HOUSE_CANCELLED;
         $this->client_property_pre_closing_handler->setProperty($this->property);
+//        dd($this->client_property_pre_closing_handler->getProperty($this->property));
 //        if($this->client->update($reset)){
-        if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
+//        if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
+        if($this->client_property_pre_closing_handler->getProperty($this->property)->save()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/house/cancelled');
         };
