@@ -23,24 +23,22 @@ class ClientPropertyChecklistHandler
 
     public function __construct($client_id = null, $property_id = null)
     {
-         $this->client = $client_id ? Client::find($client_id) : new Client();
-         $this->client_id = $client_id ? $client_id : null;
-
-//         $this->property_id = $property_id ? $property_id : null;
-//         $this->property = $property_id ? Property::find($property_id) : new Property();
+         $this->client = $client_id ? Client::find($client_id) : null;
+         $this->property = $property_id ? Property::find($property_id) : null;
     }
 
 
     public function getClient(){
-       return  $this->client = $this->client ? : $this->property->client ?: new Client();
+        return $this->client = $this->client ? : (!empty($this->property->client) ? $this->property->client: new Client());
+
     }
 
     public function getProperty(){
-        return $this->property = $this->property ? : $this->client->property ? : new Property();
+        return $this->property = $this->property ? : ($this->client->property ? : new Property());
     }
 
     public function getPreClosingList(){
-        return $this->pre_closing = $this->pre_closing ? : $this->property->pre_closing ? : new ClientPreClosingChecklist();
+        return $this->pre_closing = $this->pre_closing ? : ($this->property->pre_closing ? : new ClientPreClosingChecklist());
     }
 
     public function  setClient(CLient $client){
@@ -141,10 +139,8 @@ class ClientPropertyChecklistHandler
         }catch (\Exception $e){
 
         }
-
-
-       // dd($clone_property,$clone_pre_closing);
     }
+
 
 
 

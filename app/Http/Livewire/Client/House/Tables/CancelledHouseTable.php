@@ -21,9 +21,9 @@ class CancelledHouseTable extends LivewireDatatable
     public function columns()
     {
         return [
-//            Column::callback(['id'], function ($id) {
-//                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['client_id' => $id]);
-//            }),
+            Column::callback(['id'], function ($id) {
+                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['client_id' => $id]);
+            }),
 
             NumberColumn::name('id')
                 ->defaultSort('id')

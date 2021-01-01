@@ -85,7 +85,7 @@ class Property extends Model
     }
 
     public function client(){
-        return $this->hasOne(Client::class,'client_id','id');
+        return $this->hasOne(Client::class,'id','client_id');
     }
     public function pre_closing(){
         return $this->hasOne(ClientPreClosingChecklist::class,'property_id','id');

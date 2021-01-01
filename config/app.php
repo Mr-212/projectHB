@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Dreamamerica Home Booking'),
 
     /*
     |--------------------------------------------------------------------------
@@ -234,6 +234,7 @@ return [
          'YesNoDropDown' => \App\Constants\Dropdowns\YesNoDropdown::class,
          'MortgageTypeDropdown' => \App\Constants\Dropdowns\MortgageTypeDropdown::class,
          'PaymentOptionDropdown' => \App\Constants\Dropdowns\PaymentOptionDropdown::class,
+         'PropertyStatusConstant' => \App\Constants\PropertyStatusConstant::CLASS,
 
     ],
 
