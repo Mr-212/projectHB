@@ -25,6 +25,7 @@ class ClientPropertyChecklistHandler
     {
          $this->client = $client_id ? Client::find($client_id) : null;
          $this->property = $property_id ? Property::find($property_id) : null;
+//         dd($this->property);
     }
 
 

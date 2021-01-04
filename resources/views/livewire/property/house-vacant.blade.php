@@ -6,8 +6,14 @@
 
 
 
-@push('scripts')
-    <script type="text/javascript">
-    </script>
-@endpush
+{{--@push('scripts')--}}
+    {{--<script type="text/javascript">--}}
+        {{--$(document).ready(function () {--}}
+            {{--$('#property-update').on('click',function () {--}}
+               {{--livewire.emit('update_property_status','123');--}}
+
+            {{--})--}}
+        {{--})--}}
+    {{--</script>--}}
+{{--@endpush--}}
 

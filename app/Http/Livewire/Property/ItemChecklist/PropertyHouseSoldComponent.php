@@ -6,43 +6,34 @@ use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
 use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
+use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Livewire\Component;
 
 class PropertyHouseSoldComponent extends Component
 {
-    public  $client ,$client_property;
+    public  $client,$property;
     public  $client_id, $property_id;
-    public  $title;
-
-
+    protected  $client_property_pre_closing_handler = null;
 
     protected $rules = [
+        'property.sold_price' => 'required|integer',
+        'property.sold_date' => 'required|string',
+        ];
 
-    ];
-//
-//    protected $validationAttributes = [
-//        'client.data.additional_tenant_name' => 'Additional Tenant Name',
-//        'client.data.mortgage_type' => 'Mortgage Type',
-//        'client.data.rental_verification' => 'Rental Verification',
-
-
-    public function mount($property_id = null){
+    public function mount($property_id){
         $this->property_id = $property_id;
+        $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler(null,$property_id);
         $this->getClientProperty();
-
-
-
-
     }
 
 
 
     public function hydrate(){
-
+        $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler(null,$this->property_id);
     }
 
     public function getClientProperty(){
-
+        $this->property = $this->client_property_pre_closing_handler->getProperty();
     }
 
     public function render()
@@ -50,91 +41,22 @@ class PropertyHouseSoldComponent extends Component
         return view('livewire.property.itemchecklist.property-sold');
     }
 
-    public function save_book_purchase(){
-        return $this->redirect('/portfolio');
-    }
-//
-    public function deal_save(){
-
-    }
-
-    public function book_house(){
-
-//        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
+    public function property_sold(){;
         $this->validate();
-        $this->client->stage = PropertyStatusConstant::HOUSE_BOOKED;
-        if($this->client->save()){
-//            return $this->redirect('/items/outstanding/after_dd');
-        };
-    }
-
-    public function before_closing(){
-        $return = false;
-
-            $this->validate($this->rules);
-            $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-            if ($this->client->save()) {
-//            $this->client->property->updatOrCreate(['client_id' =>$this->client_id],$this->client->property);
-                session()->flash('success', 'Item successfully updated.');
-                $return = true;
-                //return $this->redirect('/items/outstanding/after_dd');
-            };
-
-        $this->emit('child_component_update','client_updated',$return);
-    }
-
-    public function setCheckListValueAndDate($check){
-        if($this->client->$check) {
-            $this->client->$check = 1 ;
-
-        }else{
-            $this->client->$check = 0 ;
-        }
-
-    }
-
-
-
-
-    public function addClient(){
-        $this->validate($this->rules);
-        $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
-        if($this->client->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/before_dd');
-        };
-    }
-
-    public function house_book_validate(){
-        $this->validate($this->rules);
-
-    }
-
-    public function cancel_house(){
-        $reset = array_diff_key($this->client->getAttributes(),array_flip($this->exceptArray));
-        if($reset){
-            foreach ($reset as $k=> $v){
-                $reset[$k] = null;
+        try {
+            $this->property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
+            if ($this->property->save()) {
+                $this->dispatchBrowserEvent("property-sold-{$this->property_id}", ['error' => false, 'message' => 'House successfully moved to sold section.']);
+                sleep(1);
+                return $this->redirect('/house/sold');
             }
+        }catch (\Throwable $e){
+            report($e);
         }
-        //dd($reset);
 
-        $reset['stage'] = PropertyStatusConstant::HOUSE_CANCELLED;
-        //dd($reset,$this->client->id,$this->client->update($reset));
-//        $this->client->stage = PropertyStatusConstant::HOUSE_CANCELLED;
-        if($this->client->update($reset)){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/house/cancelled');
-        };
+
     }
 
-    public function cancel_client(){
-        $this->client->stage = PropertyStatusConstant::DROPOUT_CLIENT;
-        if($this->client->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/house/dropout');
-        };
-    }
 
 
 }

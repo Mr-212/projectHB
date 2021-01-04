@@ -1,10 +1,10 @@
 
 <div>
-    {{--<a href="#sold-modal"  class="btn btn-primary p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded">--}}
-    <a href="#sold-modal" data-toggle="modal" data-target="#sold-modal" class="btn btn-primary btn-sm">Sold</a>
+    {{--<a href="#property-modal"  class="btn btn-primary p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded">--}}
+    <a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary  btn-sm btn-block">Sold</a>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="sold-modal">
-        <div class="modal-dialog" role="document">
+    <div  wire:ignore.self class="modal fade" tabindex="-1" role="dialog" id="property-modal-{{$property_id}}" >
+        <div  class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Price and Data</h5>
@@ -13,20 +13,68 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-md-12 col-lg-12">
-                        <label>Sell price</label>
-                        <input class="form-control" type="number" >
+                    <div class="row">
+                        <span class="col-md-12 col-lg-12">
+
+                        </span>
                     </div>
-                    <div class="col-md-12 col-lg-12">
-                        <label>Sell Data</label>
-                        <input class="form-control" type="date" >
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            @error('property.sold_price') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <label>Sell Price</label>
+                            <input class="form-control" id="sold_price" type="number" wire:model="property.sold_price" >
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-md-12 col-lg-12">
+                            @error('property.sold_date')
+                                 <span class="error alert-danger">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+
+
+                        <div class="col-md-12 col-lg-12">
+                            <label>Sell Date</label>
+                            <input class="form-control" id="sold_date" type="date" wire:model="property.sold_date" >
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="property-update" wire:click.prevent="property_sold">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+
+        {{--$('#property-modal-{{$property_id}}').on('hidden.bs.modal',function () {--}}
+            {{--$('#sold_date').val('');--}}
+            {{--$('#sold_price').val('');--}}
+        {{--});--}}
+
+        window.addEventListener('property-sold-{{$property_id}}', event => {
+           //console.log(event.detail.message);
+           if(!event.detail.error){
+               $('#property-modal-{{$property_id}}').modal('hide')
+           }
+        });
+        // $(document).ready(function () {
+        //     $('#property-update').on('click',function () {
+        //         // @this.set('property.sold_price',$('#sold_price').val());
+        //         // @this.set('property.sold_date',$('#sold_date').val());
+        //         Livewire.emit('property_sold');
+        //
+        //     })
+        // })
+    </script>
+@endpush

@@ -27,12 +27,6 @@ class ClientItemChecklist extends Component
 //        'property.is_deal_save_checked' =>'object'
     ];
 
-    protected $listeners = ['child_component_update'];
-    public $child_components = [
-        'client_updated' => false,
-        'property_updated' => false,
-        'pre_closing_updated'=> false
-    ];
 
     public  $exceptArray = [
         'id',
