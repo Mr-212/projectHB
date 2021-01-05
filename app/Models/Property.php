@@ -94,6 +94,9 @@ class Property extends Model
     public function scopeHouseVacant($query){
         return $query->where('property_status_id', PropertyStatusConstant::HOUSE_VACANT);
     }
+    public function scopeHouseSold($query){
+        return $query->where('property_status_id', PropertyStatusConstant::HOUSE_SOLD);
+    }
 
     public function scopeBeforeDD($query){
         return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);

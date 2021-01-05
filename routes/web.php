@@ -77,7 +77,8 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
     });
     Route::prefix('/house')->group(function(){
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);
-        Route::get('/sold', HouseSold::class);
+//        Route::get('/sold', HouseSold::class);
+        Route::get('/sold', [ClientController::class,'get_sold_house']);
         Route::get('/cancelled',  [ClientController::class,'get_cancelled_house']);
         Route::get('/dropout', [ClientController::class,'get_dropout_client']);
         Route::get('/evicted', [ClientController::class,'get_evicted_house']);

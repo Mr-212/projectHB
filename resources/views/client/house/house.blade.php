@@ -10,4 +10,8 @@
    {{--@if(isset($type) && $type == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)--}}
       {{--<livewire:client.house.tables.vacant-house-table />--}}
    {{--@endif--}}
+
+   @if(isset($type) && $type == \App\Constants\PropertyStatusConstant::HOUSE_SOLD)
+      <livewire:client.house.tables.sold-house-table />
+   @endif
 @endsection

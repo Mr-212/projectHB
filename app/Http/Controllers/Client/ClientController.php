@@ -47,4 +47,10 @@ class ClientController extends Controller
         return view('client.house.house',compact('type'));
 
     }
+    public function get_sold_house(Request $request){
+
+        $type = PropertyStatusConstant::HOUSE_SOLD;
+        return view('client.house.house',compact('type'));
+
+    }
 }

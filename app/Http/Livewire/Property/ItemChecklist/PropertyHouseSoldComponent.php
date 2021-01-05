@@ -44,10 +44,10 @@ class PropertyHouseSoldComponent extends Component
     public function property_sold(){;
         $this->validate();
         try {
-            $this->property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
+            $this->property->property_status_id = PropertyStatusConstant::HOUSE_SOLD;
             if ($this->property->save()) {
                 $this->dispatchBrowserEvent("property-sold-{$this->property_id}", ['error' => false, 'message' => 'House successfully moved to sold section.']);
-                sleep(1);
+                sleep(0.5);
                 return $this->redirect('/house/sold');
             }
         }catch (\Throwable $e){

@@ -21,6 +21,8 @@ class ClientItemChecklist extends Component
     public  $title;
     protected  $client_property_pre_closing_handler = null;
 
+    protected $listeners = ['cancel_client'];
+
     protected  $casts = [
 //        'property.closing_date' => 'date:m-d-y',
 //        'closing_date' => 'date:m-d-y',
@@ -418,7 +420,13 @@ class ClientItemChecklist extends Component
         };
     }
 
-    public function cancel_client(){
+    public function cancel_client($client_id = null){
+        dd($client_id,'here');
+        if($client_id) {
+            $this->client_id = $client_id;
+            //$this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
+
+        }
         $this->client_property_pre_closing_handler->dropoutClient();
 
 //        $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;

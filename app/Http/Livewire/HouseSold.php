@@ -13,6 +13,6 @@ class HouseSold extends Component
 
     public function render()
     {
-        return view('livewire.house-sold')->extends('layouts.app');
+        return view('livewire.property.house-sold')->extends('layouts.app');
     }
 }
