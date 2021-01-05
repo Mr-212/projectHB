@@ -41,7 +41,7 @@ class PropertyHouseSoldComponent extends Component
         return view('livewire.property.itemchecklist.property-sold');
     }
 
-    public function property_sold(){;
+    public function property_sold(){
         $this->validate();
         try {
             $this->property->property_status_id = PropertyStatusConstant::HOUSE_SOLD;

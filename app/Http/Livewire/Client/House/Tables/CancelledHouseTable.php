@@ -35,7 +35,8 @@ class CancelledHouseTable extends LivewireDatatable
 
             Column::callback(['additional_tenant_name','id','property.id'], function ($additional_tenant_name,$client_id,$property_id) {
                 return view('livewire.client.tables.house.cancelled.action-additional-tenant',
-                    ['client_id' => $client_id,
+                    [
+                        'client_id' => $client_id,
                         'property_id'=> $property_id,
                         'additional_tenant_name'=> $additional_tenant_name,
                     ]);
