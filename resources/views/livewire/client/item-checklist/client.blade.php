@@ -148,7 +148,7 @@
 
     </div>
 
-    <div class="col-md-12 col-lg-12">
+    <div class="col-md-12 col-lg-12 pt-2">
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <div class="">
@@ -157,6 +157,8 @@
 
                 </div>
             </div>
+        </div>
+        <div class="row">
 
             @if($client->welcome_payment_checked)
                 <div class="col-md-3">
@@ -174,7 +176,7 @@
 
     </div>
 
-    <div class="col-md-12 col-lg-12" >
+    <div class="col-md-12 col-lg-12 pt-2" >
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 @error('client.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
@@ -184,6 +186,8 @@
 
                 </div>
             </div>
+        </div>
+        <div class="row">
 
         @if($client->rental_verification_checked)
             <div class="col-md-3">

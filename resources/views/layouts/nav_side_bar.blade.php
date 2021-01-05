@@ -34,7 +34,7 @@
                         {{--<span class="hide-menu">PortfolioTable</span>--}}
                     {{--</a>--}}
                 {{--</li>--}}
-                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i class="icon-grid font-18"></i
@@ -55,7 +55,6 @@
 
                     </ul>
                 </li>
-                @endcan
                 <!-- User Profile-->
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link"

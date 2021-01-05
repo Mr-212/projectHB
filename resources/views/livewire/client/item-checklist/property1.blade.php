@@ -8,13 +8,14 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 @error('property.is_deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
-
                 <div class="">
                     <label>Deal Save?</label>
                     <span><input class="" type="checkbox" name="property_country" value="" wire:model="property.deal_save_checked" wire:click="markChecklist('property','deal_save_checked')"></span>
                 </div>
 
             </div>
+        </div>
+        <div class="row">
             @if(isset($property->deal_save_checked) && $property->deal_save_checked)
             <div class="col-md-3 col-lg-3">
                 <div class="">

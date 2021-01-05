@@ -253,7 +253,7 @@ class ClientItemChecklist extends Component
             $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
             if ($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()) {
-                return $this->redirect('/items/outstanding/after_dd');
+                return $this->redirect('/items/outstanding/portfolio');
             };
         }catch (\Exception $e){
             dd($e);
@@ -278,7 +278,31 @@ class ClientItemChecklist extends Component
 
             if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
                     session()->flash('success', 'Item successfully updated.');
-                    // return $this->redirect('/items/outstanding/after_dd');
+                     return $this->redirect('/items/outstanding/after_dd');
+            };
+        }catch (\Exception $e){
+            dd($e);
+        }
+
+    }
+
+    public function save_item(){
+
+        $this->validate($this->rules);
+        try{
+//            $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
+//            $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+            $this->property->client_id = $this->client_id;
+//            $this->client_pre_closing->client_id = null;
+            $this->client_pre_closing->property_id = $this->property->id;
+
+            $this->client_property_pre_closing_handler->setClient($this->client);
+            $this->client_property_pre_closing_handler->setProperty($this->property);
+            $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+
+            if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
+                    session()->flash('success', 'Item successfully updated.');
+                    return $this->redirect('/items/outstanding/after_dd');
             };
         }catch (\Exception $e){
             dd($e);
@@ -435,6 +459,7 @@ class ClientItemChecklist extends Component
 //            return $this->redirect('/house/dropout');
 //        };
     }
+
 
 
 }
