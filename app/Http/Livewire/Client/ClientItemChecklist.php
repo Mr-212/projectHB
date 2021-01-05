@@ -421,7 +421,7 @@ class ClientItemChecklist extends Component
     }
 
     public function cancel_client($client_id = null){
-        dd($client_id,'here');
+        //dd($client_id,'here');
         if($client_id) {
             $this->client_id = $client_id;
             //$this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
