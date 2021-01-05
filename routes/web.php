@@ -79,12 +79,24 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);
 //        Route::get('/sold', HouseSold::class);
         Route::get('/sold', [ClientController::class,'get_sold_house']);
+        Route::get('/sold/{property_id}', ClientItemChecklist::class);
+
         Route::get('/cancelled',  [ClientController::class,'get_cancelled_house']);
+        Route::get('/cancelled/property/{property_id}', ClientItemChecklist::class);
+        Route::get('/cancelled/client/{client_id}', ClientItemChecklist::class);
+
         Route::get('/dropout', [ClientController::class,'get_dropout_client']);
+        Route::get('/dropout/{client_id}', ClientItemChecklist::class);
+
         Route::get('/evicted', [ClientController::class,'get_evicted_house']);
+        Route::get('/evicted/{property_id}', ClientItemChecklist::class);
 //        Route::get('/vacant', [ClientController::class,'get_vacant_house']);
         Route::get('/vacant', HouseVacantComponent::class);
+        Route::get('/vacant/{property_id}', ClientItemChecklist::class);
+
         Route::get('/move_out', [ClientController::class,'get_move_out_house']);
+        Route::get('/move_out/{property_id}', ClientItemChecklist::class);
+
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
     });
 

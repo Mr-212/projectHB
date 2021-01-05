@@ -23,7 +23,7 @@ class DropoutClientTable extends LivewireDatatable
     {
         return [
             Column::callback(['id'], function ($id) {
-                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['client_id' => $id]);
+                return view('livewire.client.tables.house.dropout.action-index', ['client_id' => $id]);
             }),
 
             NumberColumn::name('id')

@@ -175,9 +175,6 @@ class ClientItemChecklist extends Component
         $this->client_id = $client_id;
         $this->property_id = $property_id;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
-//        $this->client_property_id = $this->client;
-//        $this->property_id = $property_id;
-//        $this->property_status = $property_status;
         $this->getClientProperty();
 
     }

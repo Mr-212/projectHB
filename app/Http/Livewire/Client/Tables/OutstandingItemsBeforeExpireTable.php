@@ -31,7 +31,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
         return [
 //            Column::checkbox(),
             Column::callback(['id'], function ($id) {
-                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['client_id' => $id]);
+                return view('livewire.client.tables.actions.index', ['client_id' => $id]);
             }),
 
 

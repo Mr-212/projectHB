@@ -42,12 +42,12 @@
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="{{url('/items/outstanding/before_dd')}}" class="sidebar-link">
+                            <a href="{{url('/items/outstanding/before_dd')}}" class="sidebar-link {{ str_contains(url()->current(), '/before_dd') ?'active':''}}">
                                 <i class="fa fa-angle-double-left"></i>
                                 <span class="hide-menu"> Before DD </span></a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{url('/items/outstanding/after_dd')}}" class="sidebar-link">
+                            <a href="{{url('/items/outstanding/after_dd')}}" class="sidebar-link {{ str_contains(url()->current(), '/after_dd') ?'active':''}}">
                                 <i class="fa fa-angle-double-right"></i>
                                 <span class="hide-menu"> Before Closing </span>
                             </a>
@@ -64,24 +64,24 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{url('house/sold')}}" class="sidebar-link">
+                    <a href="{{url('house/sold')}}" class="sidebar-link {{ str_contains(url()->current(), '/sold') ?'active':''}}">
                         <i class="fa fa-check"></i>
                         <span class="hide-menu"> Sold Houses </span></a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{url('house/cancelled')}}" class="sidebar-link">
+                    <a href="{{url('house/cancelled')}}" class="sidebar-link {{ str_contains(url()->current(), '/cancelled') ?'active':''}}">
                         <i class="fa fa-eye-slash"></i>
                         <span class="hide-menu"> Cancelled Houses </span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{url('house/dropout')}}" class="sidebar-link">
+                    <a href="{{url('house/dropout')}}" class="sidebar-link {{ str_contains(url()->current(), '/dropout') ?'active':''}}">
                         <i class="fa fa-minus"></i>
                         <span class="hide-menu"> Drop Out Clients </span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="{{url('house/move_out')}}" class="sidebar-link">
+                    <a href="{{url('house/move_out')}}" class="sidebar-link {{ str_contains(url()->current(), '/move_out') ?'active':''}}">
                         <i class="fa fa-minus"></i>
                         <span class="hide-menu"> Move Out </span>
                     </a>
@@ -94,7 +94,7 @@
                 {{--</li>--}}
 
                 <li class="sidebar-item">
-                    <a href="{{url('house/vacant')}}" class="sidebar-link">
+                    <a href="{{url('house/vacant')}}" class="sidebar-link {{ str_contains(url()->current(), '/vacant') ?'active':''}}">
                         <i class="fa fa-minus"></i>
                         <span class="hide-menu"> Vacant Houses </span>
                     </a>

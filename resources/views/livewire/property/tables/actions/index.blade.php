@@ -8,7 +8,7 @@
     {{--</a>--}}
     @php
         if(isset($property_id)){
-        $url =  url("/items/checklist/property/{$property_id}");
+        $url =  url("/house/vacant/{$property_id}");
         }
 
         if(isset($client_id)){
@@ -28,10 +28,10 @@
             {{--<div class="col-md-12 pt-2">--}}
                 {{--<a href="{{$url}}" class="btn btn-info btn-sm btn-block"><span>New Client</span></a>--}}
             {{--</div>--}}
-    <a class="btn btn-info btn-sm" href="#property-vacant-action" data-toggle="modal" data-target="#property-vacant-action">
+    <a class="btn btn-info btn-sm" href="#property-vacant-action-{{$property_id}}" data-toggle="modal" data-target="#property-vacant-action-{{$property_id}}">
         Action
     </a>
-    <div class="modal fade" tabindex="-1" role="dialog"  id="property-vacant-action">
+    <div class="modal fade" tabindex="-1" role="dialog"  id="property-vacant-action-{{$property_id}}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -44,7 +44,6 @@
                     <div class="row justify-content-center">
                         <div class="col-md-6 ">
                             @livewire('property.item-checklist.property-house-sold-component',['property_id' => $property_id], key($property_id))
-
                         </div>
 
                     </div>
