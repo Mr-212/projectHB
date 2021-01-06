@@ -51,7 +51,9 @@
 
     {{--</div>--}}
 
-   <div class="col-md-6 col-lg-6" wire:ignore>
+   <div class="col-md-6 col-lg-6" >
+       @error('property.house_number_and_street') <span class="error alert-danger">{{ $message }}</span> @enderror
+
        <div class="">
            <label>Property house number and street</label>
            <span><input class="form-control" type="text" name="property_country" value="" wire:model="property.house_number_and_street"></span>

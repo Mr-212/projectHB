@@ -73,13 +73,13 @@ class ClientItemChecklist extends Component
 
 
 
-        'property.house_number_and_street' =>'',
+
         'property.new_construction_check' =>'',
         "property.new_construction_builder" =>'',
-
+        'property.house_number_and_street' =>'required',
         "property.county" =>'string',
-        "property.state" =>'string',
-        "property.city" =>'string',
+        "property.state" =>'string|required',
+        "property.city" =>'string|required',
         "property.zip" =>'string',
 
         "property.purchase_price" => 'integer',
@@ -395,7 +395,7 @@ class ClientItemChecklist extends Component
 //    }
 
     public function addClient(){
-        $this->validate($this->rules);
+        $this->validate(ClientItemCheckListVariables::validateClientRules());
         $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
         $this->client_property_pre_closing_handler->setClient($this->client);
         if($this->client_property_pre_closing_handler->saveClient()){
