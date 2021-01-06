@@ -110,20 +110,24 @@ class ClientPropertyChecklistHandler
     }
 
 
-    public function dropoutClient(){
-
-        $this->client = $this->client ? $this->client :$this->getClient();
-        $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
-        $this->property = $this->property ? $this->property : $this->getProperty();
-        $this->property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
-        if($this->saveClient() && $this->saveProperty()){
-            $this->detachPropertyFromClient();
+    public function dropClient(){
+        $error = true;
+        try {
+            $this->client = $this->client ? $this->client : $this->getClient();
+            $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
+            $this->property = $this->property ? $this->property : $this->getProperty();
+            $this->property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
+            if ($this->saveClient() && $this->saveProperty()) {
+                $this->detachPropertyFromClient();
+                $error = false;
+            }
+        }catch (\Throwable $e){
+            report($e);
         }
+        return $error;
     }
 
     public function detachPropertyFromClient(){
-
-
         try {
             $clone_property = $this->getProperty()->replicate();
             $clone_property->parent_id = $this->getProperty()->id;
@@ -141,6 +145,7 @@ class ClientPropertyChecklistHandler
 
         }
     }
+
 
 
 

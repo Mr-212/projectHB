@@ -1,7 +1,6 @@
 <div>
 
 
-
 </div>
 
 @push('scripts')

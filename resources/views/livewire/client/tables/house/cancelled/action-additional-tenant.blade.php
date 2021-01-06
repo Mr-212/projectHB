@@ -13,6 +13,10 @@
     <a href="#additional-tenant-action-{{$property_id}}" class="" data-toggle="modal" data-target="#additional-tenant-action-{{$property_id}}">{{$additional_tenant_name? :'N/A'}}
     </a>
 
+    {{--<button class="btn btn-danger">{{$additional_tenant_name? :'N/A'}}--}}
+        {{--@livewire('client.component.dropout-client-component', ['client_id' => $client_id])--}}
+    {{--</button>--}}
+
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="additional-tenant-action-{{$property_id}}">
@@ -24,9 +28,27 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-center">
-                    <a  class="btn btn-info  mr-2" type="submit" onclick="">New House</a>
-                    <a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client({{$client_id}})">Drop Out</a>
+                <div class="modal-body">
+
+                    <div class="row justify-center">
+                        {{--<div class="col-md-3">--}}
+                        <a  class="btn btn-info"  onclick="">New House</a>
+                        <div class="ml-2">
+                            @livewire('component.dropout-client-component', ['client_id' => $client_id])
+                        </div>
+                        {{--</div>--}}
+                    </div>
+
+                    {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client({{$client_id}})">Drop Out</a>--}}
+                    {{--<a  class="btn btn-danger  mr-2" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id]) </a>--}}
+                    {{--<div class="row justify-content-center pt-2">--}}
+                        {{--<div class="col-md-3">--}}
+                            {{--<a  class="btn btn-info btn-block">--}}
+                                {{--@livewire('component.dropout-client-component', ['client_id' => $client_id])--}}
+                            {{--</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+
 
                 </div>
                 <div class="modal-footer">
@@ -40,27 +62,6 @@
 
 @push('scripts')
     <script>
-        function cancel_client(client_id) {
-            // console.log(client_id)
-            bootbox.confirm({
-                message: 'Are you sure to move applicant to cancelled clients?',
-                buttons: {
-                    confirm: {
-                        label: 'Yes',
-                        className: 'btn-success'
-                    },
-                    cancel: {
-                        label: 'No',
-                        className: 'btn-danger'
-                    }
-                },
-                callback: function (result) {
-                    if(result){
-                        console.log(client_id);
-                        Livewire.emit('cancel_client');
-                    }
-                }
-            });
-        }
+        //
     </script>
 @endpush

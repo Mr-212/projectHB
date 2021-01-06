@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Property\ItemChecklist;
+namespace App\Http\Livewire\Component;
 
 use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
@@ -9,7 +9,7 @@ use App\Models\Support\Client\ClientItemCheckListVariables;
 use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Livewire\Component;
 
-class PropertyHouseSoldComponent extends Component
+class PropertyHouseSoldButton extends Component
 {
     public  $client,$property;
     public  $client_id, $property_id;
@@ -38,7 +38,7 @@ class PropertyHouseSoldComponent extends Component
 
     public function render()
     {
-        return view('livewire.property.itemchecklist.property-sold');
+        return view('livewire.components.property-sold');
     }
 
     public function property_sold(){

@@ -11,7 +11,6 @@ use App\Models\Support\Client\ClientItemCheckListVariables;
 use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ClientItemChecklist extends Component
@@ -21,13 +20,8 @@ class ClientItemChecklist extends Component
     public  $title;
     protected  $client_property_pre_closing_handler = null;
 
-    protected $listeners = ['cancel_client'];
+    protected $listeners = ['cancel_client'=>'cancel_client'];
 
-    protected  $casts = [
-//        'property.closing_date' => 'date:m-d-y',
-//        'closing_date' => 'date:m-d-y',
-//        'property.is_deal_save_checked' =>'object'
-    ];
 
 
     public  $exceptArray = [
@@ -430,21 +424,21 @@ class ClientItemChecklist extends Component
         };
     }
 
-    public function cancel_client($client_id = null){
-        //dd($client_id,'here');
-        if($client_id) {
-            $this->client_id = $client_id;
-            //$this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
-
-        }
-        $this->client_property_pre_closing_handler->dropoutClient();
-
-//        $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
-//        if($this->client->save()){
-//            session()->flash('success', 'Item successfully updated.');
-//            return $this->redirect('/house/dropout');
-//        };
-    }
+//    public function cancel_client($client_id = null){
+//        //dd($client_id,'here');
+//        if($client_id) {
+//            $this->client_id = $client_id;
+//            //$this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
+//
+//        }
+//        $this->client_property_pre_closing_handler->dropoutClient();
+//
+////        $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
+////        if($this->client->save()){
+////            session()->flash('success', 'Item successfully updated.');
+////            return $this->redirect('/house/dropout');
+////        };
+//    }
 
 
 
