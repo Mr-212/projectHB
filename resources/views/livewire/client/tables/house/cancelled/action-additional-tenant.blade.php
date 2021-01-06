@@ -32,7 +32,7 @@
 
                     <div class="row justify-center">
                         {{--<div class="col-md-3">--}}
-                        <a  class="btn btn-info"  onclick="">New House</a>
+                        <a  class="btn btn-info"  href='{{url("/house/cancelled/client/{$client_id}/true")}}'>New House</a>
                         <div class="ml-2">
                             @livewire('component.dropout-client-component', ['client_id' => $client_id])
                         </div>

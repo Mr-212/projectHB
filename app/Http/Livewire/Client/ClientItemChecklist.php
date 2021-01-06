@@ -17,7 +17,7 @@ class ClientItemChecklist extends Component
 {
     public  $client ,$property, $client_pre_closing,$client_property;
     public  $client_id,$property_id, $property_status,$client_property_id;
-    public  $title;
+    public  $title, $new_property;
     protected  $client_property_pre_closing_handler = null;
 
     protected $listeners = ['cancel_client'=>'cancel_client'];
@@ -164,8 +164,8 @@ class ClientItemChecklist extends Component
 //    ];
 
 
-    public function mount($client_id = null, $property_id = null){
-//        dd($client_id,$property_id);
+    public function mount($client_id = null, $property_id = null, $new_property = false){
+        $this->new_property = $new_property;
         $this->client_id = $client_id;
         $this->property_id = $property_id;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
@@ -194,10 +194,16 @@ class ClientItemChecklist extends Component
             $this->title = 'Item Checklist (Pre Closing)';
         else
             $this->title = 'Add Client Info';
-
         $this->client = $this->client_property_pre_closing_handler->getClient();
-        $this->property = $this->client_property_pre_closing_handler->getProperty();
-        $this->client_pre_closing= $this->client_property_pre_closing_handler->getPreClosingList();
+        if($this->new_property){
+            $this->property = new Property();
+            $this->client_pre_closing= new ClientPreClosingChecklist();
+        } else{
+            $this->property = $this->client_property_pre_closing_handler->getProperty();
+            $this->client_pre_closing= $this->client_property_pre_closing_handler->getPreClosingList();
+        }
+
+
 
     }
 
