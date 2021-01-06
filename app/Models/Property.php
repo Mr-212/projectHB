@@ -103,7 +103,7 @@ class Property extends Model
     }
 
     public function scopeBeforeDDExpire($query){
-        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+        return $query->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
     }
 
     public function scopePortfolio($query){

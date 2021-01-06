@@ -26,7 +26,7 @@ class GeneralConstants
     const BEFORE_DUE_DILIGENCE = 'Before Due Diligence';
     const BEFORE_DUE_DILIGENCE_EXPIRE = 'Before Due Diligence Close';
     const HOUSE_BOOKED = 'House Booked';
-    const HOUSE_CANCELLED = 'Hose Cancelled';
+    const HOUSE_CANCELLED = 'House Cancelled';
     const HOUSE_SOLD = 'House Sold';
     const HOUSE_VACANT = 'House Vacant';
     const HOUSE_EVICTED = 'House Evicted';

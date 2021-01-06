@@ -12,6 +12,7 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use App\Constants\PropertyStatusConstant;
+use App\Models\Property;
 class OutstandingItemsBeforeExpireTable extends LivewireDatatable
 {
 
@@ -22,7 +23,11 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::with('property','pre_closing')->beforeDDExpire();
+//        return Client::with('property','property.pre_closing')->beforeDDExpire();
+        return Property::with('client','pre_closing')->beforeDDExpire();
+//          return Client::query()->beforeDDExpire();
+//          return Client::join('properties as property','property.client_id','clients.id')
+//              ->where('property.property_status_id','=', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
 //        return ClientProperty::with('client','property')->beforeDDExpire();
     }
 
@@ -31,7 +36,8 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
         return [
 //            Column::checkbox(),
             Column::callback(['id'], function ($id) {
-                return view('livewire.client.tables.actions.index', ['client_id' => $id]);
+//                return view('livewire.client.tables.actions.index', ['client_id' => $id]);
+                return view('livewire.client.tables.actions.index', ['property_id' => $id]);
             }),
 
 
@@ -39,32 +45,32 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 ->defaultSort('id')
                 ->label('ID'),
 
-            Column::callback('property.property_status_id',function($stage){
+            Column::callback('property_status_id',function($stage){
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
-            Column::name('property.house_number_and_street')
+            Column::name('house_number_and_street')
                 ->label('House Address')
                 ->filterable(),
 
-            Column::name('property.city')
+            Column::name('city')
                 ->label('City')
                 ->filterable(),
 
-            Column::name('property.state')
+            Column::name('state')
                 ->label('State'),
 
-            Column::name('property.county')
+            Column::name('county')
                 ->label('County'),
 
-            Column::name('property.zip')
+            Column::name('zip')
                 ->label('Zip'),
 
 
-            Column::name('property.closing_date')
+            Column::name('closing_date')
                 ->label('Closing Date'),
 
-            Column::name('property.due_diligence_expire_date')
+            Column::name('due_diligence_expire_date')
                 ->label('Due Diligence Expire'),
 
 //            Column::name('property.is_deal_save_checked->updated_at')
@@ -105,19 +111,19 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
 //            Column::name('co_applicant_phone')
 //                ->label('Co applicant Phone'),
 
-            Column::name('additional_tenant_name')
+            Column::name('client.additional_tenant_name')
                 ->label('Co applicant Phone'),
 
-            Column::callback(['welcome_payment'], function ($welcome_down_payment_id) {
+            Column::callback(['client.welcome_payment'], function ($welcome_down_payment_id) {
                 return YesNoDropdown::getValueByKey($welcome_down_payment_id);
             })->label('Welcome Payment'),
 
-            Column::callback(['mortgage_type_id'], function ($mortgage_type_id) {
+            Column::callback(['client.mortgage_type_id'], function ($mortgage_type_id) {
                 return MortgageTypeDropdown::getValueByKey($mortgage_type_id);
             })->label('Mortgage TYpe'),
 
 
-            Column::callback(['rental_verification_checked'], function ($rental_verification_check) {
+            Column::callback(['client.rental_verification_checked'], function ($rental_verification_check) {
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
 

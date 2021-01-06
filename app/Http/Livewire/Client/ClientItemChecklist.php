@@ -261,15 +261,15 @@ class ClientItemChecklist extends Component
             $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
             $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
             $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-            $this->property->client_id = $this->client_id;
+//            $this->property->client_id = $this->client_id;
 //            $this->client_pre_closing->client_id = null;
-            $this->client_pre_closing->property_id = $this->property->id;
+//            $this->client_pre_closing->property_id = $this->property->id;
 
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
-            if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
+            if($this->client_property_pre_closing_handler->save()){
                     session()->flash('success', 'Item successfully updated.');
                      return $this->redirect('/items/outstanding/after_dd');
             };

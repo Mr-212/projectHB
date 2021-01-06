@@ -154,6 +154,10 @@ class Client extends Model
     public function property(){
         return $this->belongsTo(Property::class,'id','client_id');
     }
+//
+//    public function property(){
+//        return $this->belongsToMany(Property::class);
+//    }
 
 //    public function property($status_id = null){
 //            $query = $this->belongsToMany(Property::class,'client_properties','client_id','property_id');
@@ -195,12 +199,17 @@ class Client extends Model
 
     public function scopeBeforeDDExpire($query){
 
-        return $query->whereHas('property', function (Builder $builder){
-            $builder->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+        return $query->whereHas('property', function ($q){
+            $q->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
         });
-
-//        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
     }
+
+//    public function scopeBeforeDDExpire($query){
+//
+//        return $query->join('properties as property','clients.id','property.client_id')
+//        ->where('property.property_status_id','=',PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+////        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+//    }
 
     public function scopeWithoutProperty($query){
 
@@ -218,7 +227,7 @@ class Client extends Model
     }
     public function scopeCancelledHouse($query){
 
-        return $query->whereHas('property', function (Builder $builder){
+        return $query->whereHas('property', function($builder){
             $builder->where('property_status_id', PropertyStatusConstant::HOUSE_CANCELLED);
         });
 
