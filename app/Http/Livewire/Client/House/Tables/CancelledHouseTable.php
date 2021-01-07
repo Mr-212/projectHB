@@ -8,6 +8,7 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use App\Constants\PropertyStatusConstant;
+use App\Models\Property;
 
 class CancelledHouseTable extends LivewireDatatable
 {
@@ -15,13 +16,13 @@ class CancelledHouseTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::with('property')->CancelledHouse();
+        return Property::query()->with('client')->CancelledHouse();
     }
 
     public function columns()
     {
         return [
-            Column::callback(['id'], function ($id) {
+            Column::callback(['client.id'], function ($id) {
                 return view('livewire.client.tables.house.cancelled.index', ['client_id' => $id]);
             }),
 
@@ -29,11 +30,11 @@ class CancelledHouseTable extends LivewireDatatable
                 ->defaultSort('id')
                 ->label('ID'),
 
-            Column::callback('property.property_status_id',function($stage){
+            Column::callback('property_status_id',function($stage){
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
-            Column::callback(['additional_tenant_name','id','property.id'], function ($additional_tenant_name,$client_id,$property_id) {
+            Column::callback(['client.additional_tenant_name','client.id','id'], function ($additional_tenant_name,$client_id,$property_id) {
                 return view('livewire.client.tables.house.cancelled.action-additional-tenant',
                     [
                         'client_id' => $client_id,
@@ -42,21 +43,21 @@ class CancelledHouseTable extends LivewireDatatable
                     ]);
             })->label('Additional Tenant'),
 
-            Column::name('property.house_number_and_street')
+            Column::name('house_number_and_street')
                 ->label('House Address')
                 ->filterable(),
 
-            Column::name('property.city')
+            Column::name('city')
                 ->label('City')
                 ->filterable(),
 
-            Column::name('property.state')
+            Column::name('state')
                 ->label('State'),
 
-            Column::name('property.county')
+            Column::name('county')
                 ->label('County'),
 
-            Column::name('property.zip')
+            Column::name('zip')
                 ->label('Zip'),
 
 //            Column::name('partner_phone')

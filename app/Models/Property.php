@@ -111,7 +111,7 @@ class Property extends Model
 //            ->orderBy('updated_at','desc');
     }
     public function scopeCancelledHouse($query){
-        return $query->where('stage', PropertyStatusConstant::HOUSE_CANCELLED);
+        return $query->where('property_status_id', PropertyStatusConstant::HOUSE_CANCELLED);
 //            ->orderBy('updated_at','desc');
     }
     public function scopeDropoutClient($query){

@@ -60,11 +60,6 @@
        </div>
    </div>
 
-
-
-
-
-
     <div class="col-md-6 col-lg-6">
         @error('property.county') <span class="error alert-danger">{{ $message }}</span> @enderror
 
@@ -74,6 +69,7 @@
         </div>
 
     </div>
+
     <div class="col-md-6 col-lg-6">
         @error('property.state') <span class="error alert-danger">{{ $message }}</span> @enderror
 
@@ -82,6 +78,7 @@
             <span><input  class="form-control" type="text" name="property_state" value="" wire:model="property.state"></span>
         </div>
     </div>
+
     <div class="col-md-6 col-lg-6">
         @error('property.city') <span class="error alert-danger">{{ $message }}</span> @enderror
 

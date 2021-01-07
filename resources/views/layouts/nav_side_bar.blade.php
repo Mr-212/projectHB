@@ -42,7 +42,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="{{url('/items/outstanding/before_dd')}}" class="sidebar-link {{ str_contains(url()->current(), '/before_dd') ?'active':''}}">
+                            <a href="{{url('/items/outstanding/before_dd')}}" class="sidebar-link {{ str_contains(url()->previous(), '/before_dd') ?'active':''}}">
                                 <i class="fa fa-angle-double-left"></i>
                                 <span class="hide-menu"> Before DD </span></a>
                         </li>
@@ -55,9 +55,10 @@
 
                     </ul>
                 </li>
+                {{--{{ url()->previous()}}--}}
                 <!-- User Profile-->
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                <li class="sidebar-item ">
+                    <a class="sidebar-link waves-effect waves-dark  {{ str_contains(url()->previous(), '/before_dd') ?'':''}}"
                     href="{{url('/portfolio')}}" aria-expanded="false">
                     <i class="mr-3 far fa-clock fa-fw" aria-hidden="true"></i>
                     <span class="hide-menu">Portfolio</span>

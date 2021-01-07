@@ -22,7 +22,7 @@
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_CANCELLED)
                 <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
                 {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client()">Drop Out</a>--}}
-                <a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>
+                {{--<a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>--}}
 
                 @endif
 
@@ -30,7 +30,7 @@
                 {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}
                     <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Save</a>
                     <a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_house()">Cancel House</a>
-                    <a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>
+                    {{--<a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>--}}
 
                     {{--<a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>--}}
             @endif
