@@ -14,6 +14,7 @@ class DropoutClientButton extends Component
     public  $client ,$client_property, $property;
     public  $client_id, $property_id;
     public  $title;
+    //public  $wire_id;
     protected  $client_property_pre_closing_handler;
 
     protected $listeners = ['drop_client'];
@@ -24,6 +25,8 @@ class DropoutClientButton extends Component
 
 
     public function mount($client_id, $property_id = null){
+//        dd($this->id);
+        //$this->wire_id = $this->id;
         $this->client_id = $client_id;
         $this->property_id = $property_id;
        // dd($this->client_id,$this->property_id);
@@ -54,23 +57,17 @@ class DropoutClientButton extends Component
 
     public function render()
     {
-        return view('livewire.components.dropout');
+        $wire_id = $this->id;
+        return view('livewire.components.dropout',compact('wire_id'));
     }
 
 
 
-    public function drop_client($client_id = null, $property_id =null)
+    public function drop_client()
     {
-        $this->client_id = $client_id;
-        $this->property_id = $property_id;
-       // dd($this->client_id,$this->client);
-        //$this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
-
-//         dd($client_id, $property_id);
         if(!$this->client->is_client_dropped) {
             if (!$this->client_property_pre_closing_handler->dropClient()) {
                 $this->redirect('/house/dropout');
-
             }
         }else{
               $this->dispatchBrowserEvent("dropout-response-{$this->property_id}",['message' => 'This client is added to dropouts']);
