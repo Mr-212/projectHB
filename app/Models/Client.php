@@ -152,7 +152,7 @@ class Client extends Model
 
     }
 
-    public function isClientDropped(){
+    public function getIsClientDroppedAttribute(){
         return $this->status == ClientStatusConstant::CLIENT_DROPOUT ? TRUE : FALSE;
     }
 

@@ -16,14 +16,14 @@ class CancelledHouseTable extends LivewireDatatable
 
     public function builder()
     {
-        return Property::query()->with('client')->CancelledHouse();
+        return Property::query()->CancelledHouse();
     }
 
     public function columns()
     {
         return [
-            Column::callback(['client.id'], function ($id) {
-                return view('livewire.client.tables.house.cancelled.index', ['client_id' => $id]);
+            Column::callback(['id'], function ($id) {
+                return view('livewire.client.tables.house.cancelled.index', ['property_id' => $id]);
             }),
 
             NumberColumn::name('id')
@@ -34,7 +34,7 @@ class CancelledHouseTable extends LivewireDatatable
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
-            Column::callback(['client.additional_tenant_name','client.id','id'], function ($additional_tenant_name,$client_id,$property_id) {
+            Column::callback(['client.id','id','client.additional_tenant_name'], function($client_id, $property_id,$additional_tenant_name) {
                 return view('livewire.client.tables.house.cancelled.action-additional-tenant',
                     [
                         'client_id' => $client_id,

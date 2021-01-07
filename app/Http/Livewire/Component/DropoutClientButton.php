@@ -16,9 +16,6 @@ class DropoutClientButton extends Component
     public  $title;
     protected  $client_property_pre_closing_handler;
 
-    protected $rules = [
-
-    ];
 
 
 
@@ -27,6 +24,7 @@ class DropoutClientButton extends Component
     public function mount($client_id, $property_id = null){
         $this->client_id = $client_id;
         $this->property_id = $property_id;
+       // dd($this->client_id,$this->property_id);
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
         $this->getClientProperty();
 
@@ -35,7 +33,7 @@ class DropoutClientButton extends Component
 
 
     public function hydrate(){
-        $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
+        $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id, $this->property_id);
 
     }
 
@@ -61,8 +59,8 @@ class DropoutClientButton extends Component
 
     public function drop_client()
     {
-
-        if(!$this->client->IsClientDropped()) {
+        // dd($this->client_id, $this->property_id);
+        if(!$this->client->is_client_dropped) {
             if (!$this->client_property_pre_closing_handler->dropClient()) {
                 $this->redirect('/house/dropout');
 
