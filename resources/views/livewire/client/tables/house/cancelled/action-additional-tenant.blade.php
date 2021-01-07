@@ -34,7 +34,7 @@
                         {{--<div class="col-md-3">--}}
                         <a  class="btn btn-info"  href='{{url("/house/cancelled/client/{$client_id}/true")}}'>New House</a>
                         <div class="ml-2">
-                            @livewire('component.dropout-client-component', ['client_id' => $client_id])
+                            @livewire('component.dropout-client-component', ['client_id' => $client_id,'property_id' => $property_id], key($property_id))
                         </div>
                         {{--</div>--}}
                     </div>
@@ -62,6 +62,8 @@
 
 @push('scripts')
     <script>
-        //
+        // window.addEventListener("dropout-response", event => {
+        //     bootbox.alert(event.detail.message);
+        // })
     </script>
 @endpush

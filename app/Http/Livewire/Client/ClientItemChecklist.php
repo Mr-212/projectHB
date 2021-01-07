@@ -195,10 +195,17 @@ class ClientItemChecklist extends Component
         else
             $this->title = 'Add Client Info';
         $this->client = $this->client_property_pre_closing_handler->getClient();
-        if($this->new_property){
-            $this->property = new Property();
-            $this->client_pre_closing= new ClientPreClosingChecklist();
-        } else{
+        if($this->new_property) {
+//            if (!$this->client->isClientDropped()){
+                $this->property = new Property();
+                $this->client_pre_closing = new ClientPreClosingChecklist();
+//                }
+//            else {
+//                session()->flash('success', 'This client is added to dropouts');
+//                $this->redirect();
+//            }
+        }
+        else{
             $this->property = $this->client_property_pre_closing_handler->getProperty();
             $this->client_pre_closing= $this->client_property_pre_closing_handler->getPreClosingList();
         }

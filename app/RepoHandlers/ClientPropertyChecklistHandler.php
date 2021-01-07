@@ -146,7 +146,7 @@ class ClientPropertyChecklistHandler
             $this->client = $this->client ? $this->client : $this->getClient();
             $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
             $this->property = $this->property ? $this->property : $this->getProperty();
-            $this->property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
+//            $this->property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
             if ($this->client->save() && $this->property->save()) {
                 $this->detachPropertyFromClient();
                 $error = false;
@@ -161,7 +161,8 @@ class ClientPropertyChecklistHandler
         try {
             $clone_property = $this->property->replicate();
             $clone_property->parent_id = $this->property->id;
-            $clone_property->client_id = null;
+            $clone_property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
+//            $clone_property->client_id = $this->client->id;
 //            $clone_property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
 
             if ($clone_property->save()) {
@@ -175,6 +176,11 @@ class ClientPropertyChecklistHandler
             report($e);
 
         }
+    }
+
+
+    public function idPropertyInDropout(){
+
     }
 
 

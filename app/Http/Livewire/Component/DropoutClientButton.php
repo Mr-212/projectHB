@@ -61,9 +61,14 @@ class DropoutClientButton extends Component
 
     public function drop_client()
     {
-        if (!$this->client_property_pre_closing_handler->dropClient()) {
-            $this->redirect('/house/dropout');
 
+        if(!$this->client->IsClientDropped()) {
+            if (!$this->client_property_pre_closing_handler->dropClient()) {
+                $this->redirect('/house/dropout');
+
+            }
+        }else{
+              $this->dispatchBrowserEvent("dropout-response-{$this->property_id}",['message' => 'This client is added to dropouts']);
         }
     }
 

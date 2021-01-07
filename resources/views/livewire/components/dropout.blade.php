@@ -52,5 +52,9 @@
                 }
             });
         }
+
+        window.addEventListener("dropout-response-{{$property_id}}", event => {
+            bootbox.alert(event.detail.message);
+        })
     </script>
 @endpush
