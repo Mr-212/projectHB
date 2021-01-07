@@ -1,6 +1,6 @@
 <div class="">
 
-    <a onclick="cancel_client()" class="btn btn-danger">Dropout</a>
+    <a onclick="cancel_client()" class="btn btn-danger" wire:key="{{$property_id}}">Dropout</a>
 
     {{--<a href="#dropout-modal-{{$client_id}}" class="" data-toggle="modal" data-target="#dropout-modal-{{$client_id}}">Dropout--}}
     {{--</a>--}}
@@ -47,7 +47,10 @@
                 },
                 callback: function (result) {
                     if(result){
-                        @this.drop_client();
+                        // console.log(@this.find())
+                        //  @this.call('drop_client');
+                         @this.emitSelf('drop_client',"{{$client_id}}","{{$property_id}}");
+                         // Livewire.find.emit('drop_client');
                     }
                 }
             });
