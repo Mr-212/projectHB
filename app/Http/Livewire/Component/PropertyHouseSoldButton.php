@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use App\RepoHandlers\ClientPropertyChecklistHandler;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class PropertyHouseSoldButton extends Component
@@ -45,6 +47,8 @@ class PropertyHouseSoldButton extends Component
         $this->validate();
         try {
             $this->property->property_status_id = PropertyStatusConstant::HOUSE_SOLD;
+            $this->property->sold_price_entered_by= Auth::id();
+            $this->property->sold_price_entered_at= Carbon::now();
             if ($this->property->save()) {
                 $this->dispatchBrowserEvent("property-sold-{$this->property_id}", ['error' => false, 'message' => 'House successfully moved to sold section.']);
                 sleep(0.5);
