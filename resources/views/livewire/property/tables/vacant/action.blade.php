@@ -43,7 +43,7 @@
                 <div class="modal-body ">
                     <div class="row justify-content-center">
                         <div class="">
-                                @livewire('component.property-house-sold-component',['property_id' => $property_id], key($property_id))
+                                @livewire('component.property-house-sold-button',['property_id' => $property_id], key($property_id))
                         </div>
                         <a href="{{$url}}" class="btn btn-info ml-2"><span>New Client</span></a>
 
