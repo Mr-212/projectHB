@@ -21,100 +21,123 @@ class ClientItemCheckListVariables
     }
 
     public static function getValidationRulesForHouseBook(){
+
         return [
-            'client.applicant_name'=>'required|string',
+            'client.applicant_name' => 'required|string',
             'client.applicant_email' =>'required|email',
-            'client.applicant_phone' =>'required|integer',
+            'client.applicant_phone' =>'required',
             'client.partner_name' =>'string',
             'client.partner_email' =>'email',
-            'client.partner_phone' =>'integer',
+            'client.partner_phone' =>'',
             'client.co_applicant_name' =>'string',
             'client.co_applicant_email' =>'',
-            'client.co_applicant_phone' =>'integer',
+            'client.co_applicant_phone' =>'',
 
             'client.additional_tenant_check' => '',
             'client.additional_tenant_name' => '',
-            'client.mortgage_type_id' => 'required',
-            'client.rental_verification_complete_check' => 'required',
-            'client.rental_verification_check' => '',
-            'client.welcome_down_payment' => '',
-            'client.welcome_down_payment_complete_check' => '',
+            'client.mortgage_type_id' => '',
+            'client.rental_verification_checked' => '',
+            'client.rental_verification_checked_by' => '',
+            'client.rental_verification_checked_at' => '',
+            'client.rental_verification_checked_comment' => '',
+//        'client.rental_verification_check' => '',
+//        'client.welcome_down_payment' => '',
+            'client.welcome_payment_checked' => '',
+            'client.welcome_payment_checked_by' => '',
+            'client.welcome_payment_checked_at' => '',
+            'client.welcome_payment_checked_comment' => '',
 
 
-            'client.property_new_construction_check' =>'',
-            "client.property_new_construction_builder_name" =>'',
-            "client.property_country" =>'required|string',
-            "client.property_state" =>'required|string',
-            "client.property_city" =>'required|string',
-            "client.property_zip" =>'required|integer',
+            //client property rules
 
-            "client.property_purchase_price" => 'required|integer',
-            "client.property_closing_cost" => 'required|integer',
-            "client.property_closing_credit_general" => 'required',
-            "client.property_annual_property_tax" => 'required|integer',
+            "property.deal_save_checked" =>'',
+            "property.deal_save_checked_by" =>'',
+            "property.deal_save_checked_at" =>'',
+            "property.deal_save_checked_comment" =>'',
 
-            "client.property_hoa_check" => '',
-            "client.property_hoa_name" => '',
-            "client.property_hoa_phone" => '',
 
-            "client.property_repair_request_check" => '',
-            "client.property_repair_request_item_names" => '',
 
-            "client.property_lender_check" => '',
-            "client.property_lender_name" => '',
 
-            "client.property_closing_date_complete_check" => 'required',
-            "client.property_closing_date" => '',
+            'property.new_construction_check' =>'',
+            "property.new_construction_builder" =>'',
+            'property.house_number_and_street' =>'required',
+            "property.county" =>'string',
+            "property.state" =>'string|required',
+            "property.city" =>'string|required',
+            "property.zip" =>'string',
 
-            "client.property_due_diligence_expire_complete_check" => 'required',
-            "client.property_due_diligence_expire" => '',
+            "property.purchase_price" => 'integer',
+            "property.closing_cost" => 'integer',
+            "property.closing_credit_general" => '',
+            "property.annual_property_tax" => '',
 
-            "client.due_diligence_rent" =>'required',
-            "client.due_diligence_option_payment_check" =>'',
-            "client.due_diligence_option_payment_3_month" =>'',
-            "client.due_diligence_option_payment_6_month" =>'',
-            "client.due_diligence_option_payment_12_month" =>'',
-            "client.due_diligence_option_payment_date" =>'required',
+            "property.hoa_check" => '',
+            "property.hoa_name" => '',
+            "property.hoa_phone" => '',
+//
+//        "property.repair_request_check" => '',
+//        "property.repair_request_item_names" => '',
 
-            "client.letter_of_commitment_signed" =>'',
-            "client.on_boarding_fee_payment_check" =>'',
+            "property.lender_check" => '',
+            "property.lender_name" => '',
 
-            "client.due_diligence_inspection_check" =>'',
-            "client.due_diligence_inspection_check_date" =>'',
+            "property.closing_date" => '',
+            "property.due_diligence_expire_date" => '',
 
-            'client.appraisal_value_check' => '',
-            'client.appraisal_value' => '',
 
-            'client.driver_license_applicant' => '',
-            'client.driver_license_co_applicant' => '',
-            'client.soc_sec_card_applicant' => '',
-            'client.soc_sec_card_co_applicant' => '',
+            //pre c;osing rules
+            "client_pre_closing.rent" =>'',
+            "client_pre_closing.payment_option_3_month" =>'',
+            "client_pre_closing.payment_option_6_month" =>'',
+            "client_pre_closing.payment_option_12_month" =>'',
 
-            'client.renter_insurance_check' => '',
-            'client.renter_insurance_company_name' => '',
+            "client_pre_closing.payment_option_date" =>'',
+            "client_pre_closing.payment_option_date_checked" =>'',
 
-            'client.flood_certificate_check' => '',
-            'client.landlord_insurance_check' => '',
+            "client_pre_closing.letter_of_commitment_checked" =>'required',
+            "client_pre_closing.on_boarding_fee_payment_checked" =>'',
 
-            'client.warranty_check' => '',
-            'client.warranty_company_name' => '',
+            "client_pre_closing.inspection_checked" =>'',
+//        "client_pre_closing.inspection_check_date" =>'',
+            'client_pre_closing.termite_checked' => '',
+            'client_pre_closing.termite_paid_by' => '',
 
-            'client.warranty_paid_by_seller_check' => '',
+            'client_pre_closing.septic_inspection_checked' => '',
 
-            'client.lease_check' => '',
-            'client.lease_expire_date' => '',
+            'client_pre_closing.repair_credit_checked' => '',
+            'client_pre_closing.repair_credit' => '',
 
-            'client.termite_check' => '',
-            'client.termite_paid_by' => '',
+            'client_pre_closing.appraisal_value_checked' => '',
+            'client_pre_closing.appraisal_value' => '',
 
-            'client.septic_inspection_check' => '',
-            'client.clear_now_rent_payment_enrollment_check' => '',
+            'client_pre_closing.driver_license_applicant_checked' => '',
+            'client_pre_closing.driver_license_co_applicant_checked' => '',
+            'client_pre_closing.soc_sec_card_applicant_checked' => '',
+            'client_pre_closing.soc_sec_card_co_applicant_checked' => '',
 
-            'client.prorated_rent_check' => '',
-            'client.prorated_rent' => '',
+            'client_pre_closing.renter_insurance_checked' => '',
+            'client_pre_closing.renter_insurance_name' => '',
 
-            'client.other_check' => '',
-            'client.other_value' => '',
+            'client_pre_closing.flood_certificate_checked' => '',
+
+            'client_pre_closing.landlord_insurance_checked' => '',
+
+            'client_pre_closing.warranty_checked' => '',
+            'client_pre_closing.warranty_company_name' => '',
+            'client_pre_closing.warranty_paid_by_seller_checked' => '',
+
+
+            'client_pre_closing.lease_signed_checked' => '',
+            'client_pre_closing.lease_expire_checked' => '',
+            'client_pre_closing.lease_expire_date' => '',
+
+//        'client_pre_closing.clear_now_rent_payment_enrollment_check' => '',
+//        'client_pre_closing.prorated_rent_check' => '',
+//        'client_pre_closing.prorated_rent' => '',
+
+            'client_pre_closing.option_checked' => '',
+            'client_pre_closing.other_checked' => '',
+            'client_pre_closing.other_value' => '',
         ];
     }
 
@@ -150,8 +173,6 @@ class ClientItemCheckListVariables
                 'client.rental_verification_checked_by' => '',
                 'client.rental_verification_checked_at' => '',
                 'client.rental_verification_checked_comment' => '',
-//        'client.rental_verification_check' => '',
-//        'client.welcome_down_payment' => '',
                 'client.welcome_payment_checked' => '',
                 'client.welcome_payment_checked_by' => '',
                 'client.welcome_payment_checked_at' => '',

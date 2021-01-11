@@ -35,7 +35,7 @@ class SoldHouseTable extends LivewireDatatable
     {
         return [
 //            Column::callback(['id','property_status_id'], function ($id) {
-//                return view('livewire.property.tables.actions.index', ['property_id' => $id]);
+//                return view('livewire.property.tables.sold.action-index', ['property_id' => $id]);
 //            }),
 
             NumberColumn::name('id')

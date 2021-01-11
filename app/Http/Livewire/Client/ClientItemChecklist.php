@@ -252,8 +252,8 @@ class ClientItemChecklist extends Component
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
-            if ($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()) {
-                return $this->redirect('/items/outstanding/portfolio');
+            if ($this->client_property_pre_closing_handler->save()) {
+                return $this->redirect('/portfolio');
             };
         }catch (\Exception $e){
             dd($e);
@@ -261,28 +261,29 @@ class ClientItemChecklist extends Component
     }
 
     public function before_closing(){
-//        $this->rules = ClientItemCheckListVariables::getValidationRulesBeforeClosing();
-        //dd($this->property,$this->property->save());
-        $this->validate($this->rules);
-        try{
-            $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-            $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
-            $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+
+            $this->validate($this->rules);
+            try {
+                $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+                $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
+                $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
 //            $this->property->client_id = $this->client_id;
 //            $this->client_pre_closing->client_id = null;
 //            $this->client_pre_closing->property_id = $this->property->id;
 
-            $this->client_property_pre_closing_handler->setClient($this->client);
-            $this->client_property_pre_closing_handler->setProperty($this->property);
-            $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+                $this->client_property_pre_closing_handler->setClient($this->client);
+                $this->client_property_pre_closing_handler->setProperty($this->property);
+                $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
-            if($this->client_property_pre_closing_handler->save()){
+                if ($this->client_property_pre_closing_handler->save()) {
                     session()->flash('success', 'Item successfully updated.');
-                     return $this->redirect('/items/outstanding/after_dd');
-            };
-        }catch (\Exception $e){
-            dd($e);
-        }
+                    return $this->redirect('/items/outstanding/after_dd');
+                };
+            } catch (\Exception $e) {
+                dd($e);
+            }
+
+            //$this->dispatchBrowserEvent('client-property-validation-errors');
 
     }
 
@@ -331,14 +332,7 @@ class ClientItemChecklist extends Component
 
         return $return;
     }
-  public function child_component_update($key,$value){
-       $this->child_components[$key] = $value;
-      if(!in_array(false,$this->child_components)){
-          session()->flash('success', 'Item successfully updated.');
-           return $this->redirect('/items/outstanding/after_dd');
-      }
 
-  }
 
     public function setCheckListValueAndDate($check){
         if($this->client->$check) {
@@ -437,21 +431,6 @@ class ClientItemChecklist extends Component
         };
     }
 
-//    public function cancel_client($client_id = null){
-//        //dd($client_id,'here');
-//        if($client_id) {
-//            $this->client_id = $client_id;
-//            //$this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
-//
-//        }
-//        $this->client_property_pre_closing_handler->dropoutClient();
-//
-////        $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
-////        if($this->client->save()){
-////            session()->flash('success', 'Item successfully updated.');
-////            return $this->redirect('/house/dropout');
-////        };
-//    }
 
 
 

@@ -143,27 +143,40 @@ class ClientPropertyChecklistHandler
     public function dropClient(){
         $error = true;
         try {
-            $this->client = $this->client ? $this->client : $this->getClient();
+            DB::beginTransaction();
+            $this->client? : $this->getClient();
             $this->client->status = ClientStatusConstant::CLIENT_DROPOUT;
-            $this->property = $this->property ? $this->property : $this->getProperty();
-//            $this->property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
-            if ($this->client->save() && $this->property->save()) {
-                $this->detachPropertyFromClient();
+            $this->property ? : $this->getProperty();
+            if ($this->client->save()) {
+//                $this->copyPropertyToDropoutClient();
+                $clone_property = $this->property->replicate();
+                $clone_property->parent_id = $this->property->id;
+                $clone_property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
+                if ($clone_property->save()) {
+                    if (isset($this->getPreClosingList()->id) && !empty($this->getPreClosingList()->id)) {
+                        $clone_pre_closing = $this->getPreClosingList()->replicate();
+                        $clone_pre_closing->property_id = $clone_property->id;
+                        $clone_pre_closing->save();
+                    }
+                    DB::commit();
+                }
                 $error = false;
             }
         }catch (\Throwable $e){
+            DB::rollBack();
             report($e);
         }
         return $error;
     }
 
-    public function detachPropertyFromClient(){
+    public function copyPropertyToDropoutClient(){
+
         try {
             $clone_property = $this->property->replicate();
             $clone_property->parent_id = $this->property->id;
             $clone_property->property_status_id = PropertyStatusConstant::CLIENT_DROPOUT;
 //            $clone_property->client_id = $this->client->id;
-//            $clone_property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
+
 
             if ($clone_property->save()) {
                 if (isset($this->getPreClosingList()->id) && !empty($this->getPreClosingList()->id)) {
@@ -178,9 +191,67 @@ class ClientPropertyChecklistHandler
         }
     }
 
+    public function movePropertyToEvictionAndVacant(){
+           $response = false;
+        try{
+            DB::beginTransaction();
+            if($this->vacateProperty()) {
+                $this->moveOutProperty();
+                $response =  true;
+            }
 
-    public function idPropertyInDropout(){
+            DB::commit();
 
+
+        }catch (\Throwable $e){
+            DB::rollBack();
+            dd($e);
+            report($e);
+        }
+        return $response;
+
+    }
+
+    private function moveOutProperty(){
+        try {
+//        $this->client ? : $this->getClient();
+            $this->property ? : $this->getProperty();
+
+            if(!empty($this->property->id)) {
+                $this->property->property_status_id = PropertyStatusConstant::HOUSE_EVICTED;
+                $this->property->save();
+            }
+        }catch (\Throwable $e){
+
+            report($e);
+        }
+    }
+
+    private function vacateProperty(){
+
+        $is_cloned = false;
+        try {
+//            $this->client ?: $this->getClient();
+            $this->property ? : $this->getProperty();
+            $clone_property = $this->property->replicate();
+            $clone_property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
+            $clone_property->client_id = NULL;
+
+            if ($clone_property->save()) {
+                $this->pre_closing ? : $this->getPreClosingList();
+                $clone_pre_closing = $this->pre_closing->replicate();
+                $is_cloned =  true;
+                if (isset($clone_pre_closing->id) && !empty($clone_pre_closing->id)) {
+                    $clone_pre_closing->property_id = $clone_property->id;
+                    $clone_pre_closing->save();
+                }
+            }
+        }catch (\Throwable $e){
+            dd($e);
+            report($e);
+        }
+
+        return $is_cloned;
     }
 
 

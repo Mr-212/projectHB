@@ -74,6 +74,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
 //    Route::get('/portfolio',PortfolioTable::class);
     Route::prefix('portfolio')->group(function(){
         Route::get('/', [ClientController::class,'portfolio']);
+        Route::get('/{property_id}', ClientItemChecklist::class);
     });
     Route::prefix('/house')->group(function(){
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);

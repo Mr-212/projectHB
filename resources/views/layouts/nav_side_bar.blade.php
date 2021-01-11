@@ -58,7 +58,7 @@
                 {{--{{ url()->previous()}}--}}
                 <!-- User Profile-->
                 <li class="sidebar-item ">
-                    <a class="sidebar-link waves-effect waves-dark  {{ str_contains(url()->previous(), '/before_dd') ?'':''}}"
+                    <a class="sidebar-link waves-effect waves-dark  {{ str_contains(url()->previous(), '/portfolio') ?'active':''}}"
                     href="{{url('/portfolio')}}" aria-expanded="false">
                     <i class="mr-3 far fa-clock fa-fw" aria-hidden="true"></i>
                     <span class="hide-menu">Portfolio</span>

@@ -11,7 +11,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use App\Constants\PropertyStatusConstant;
 
-class VacantHouseTable extends LivewireDatatable
+class EvictedHouseTable extends LivewireDatatable
 {
 
     protected $listeners = [];
@@ -28,28 +28,39 @@ class VacantHouseTable extends LivewireDatatable
 
     public function builder()
     {
-        return Property::HouseVacant();
+        return Property::with('client')->HouseEvicted();
     }
 
     public function columns()
     {
         return [
             Column::callback(['id','property_status_id'], function ($id) {
-                return view('livewire.property.tables.vacant.action-index', ['property_id' => $id]);
+                return view('livewire.property.tables.evicted.action-index', ['property_id' => $id]);
             }),
 
-            NumberColumn::name('id')
-                ->defaultSort('desc')
-                ->label('ID'),
+//            NumberColumn::name('id')
+//                ->defaultSort('desc')
+//                ->label('ID'),
 
             Column::callback('property_status_id',function($stage){
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Status'),
 
+            Column::name('client.applicant_email')
+                ->label('Client Email'),
+
+            Column::name('client.applicant_name')
+                ->label('Client Name'),
+
+
+
+
+
 
             Column::name('house_number_and_street')
                 ->label('House Address')
                 ->filterable(),
+
 
             Column::name('city')
                 ->label('City')
@@ -63,6 +74,8 @@ class VacantHouseTable extends LivewireDatatable
 
             Column::name('zip')
                 ->label('Zip'),
+
+
 
         ];
     }

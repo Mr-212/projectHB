@@ -23,7 +23,7 @@ class CancelledHouseTable extends LivewireDatatable
     {
         return [
             Column::callback(['id'], function ($id) {
-                return view('livewire.client.tables.house.cancelled.index', ['property_id' => $id]);
+                return view('livewire.property.tables.cancelled.action-index', ['property_id' => $id]);
             }),
 
             NumberColumn::name('id')
@@ -35,7 +35,7 @@ class CancelledHouseTable extends LivewireDatatable
             })->label('Stage'),
 
             Column::callback(['client.id','id','client.additional_tenant_name'], function($client_id, $property_id,$additional_tenant_name) {
-                return view('livewire.client.tables.house.cancelled.action-additional-tenant',
+                return view('livewire.property.tables.cancelled.action-additional-tenant',
                     [
                         'client_id' => $client_id,
                         'property_id'=> $property_id,

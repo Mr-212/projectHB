@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constants\PropertyStatusConstant;
+use App\Models\Casts\ItemCheckListDateTimeCast;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +57,8 @@ class Property extends Model
     protected $casts = [
         'closing_date' => 'date:Y-m-d',
         'due_diligence_expire_date' => 'date:Y-m-d',
-        'deal_save_checked_at' => 'date:Y-m-d',
+//        'deal_save_checked_at' => 'datetime:Y-m-d  h:i:s A',
+        'deal_save_checked_at' => ItemCheckListDateTimeCast::class,
 
     ];
     protected $attributes = [
@@ -107,7 +109,7 @@ class Property extends Model
     }
 
     public function scopePortfolio($query){
-        return $query->where('stage', PropertyStatusConstant::HOUSE_BOOKED);
+        return $query->where('property_status_id', PropertyStatusConstant::HOUSE_BOOKED);
 //            ->orderBy('updated_at','desc');
     }
     public function scopeCancelledHouse($query){
@@ -116,6 +118,10 @@ class Property extends Model
     }
     public function scopeDropoutClient($query){
         return $query->where('stage', PropertyStatusConstant::DROPOUT_CLIENT);
+//            ->orderBy('updated_at','desc');
+    }
+    public function scopeHouseEvicted($query){
+        return $query->where('property_status_id', PropertyStatusConstant::HOUSE_EVICTED);
 //            ->orderBy('updated_at','desc');
     }
 

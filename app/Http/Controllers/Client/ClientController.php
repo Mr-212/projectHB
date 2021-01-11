@@ -29,7 +29,7 @@ class ClientController extends Controller
 
     public function get_move_out_house(Request $request){
 
-        $type = ClientStatusConstant::CLIENT_DROPOUT;
+        $type = PropertyStatusConstant::HOUSE_EVICTED;
         return view('client.house.house',compact('type'));
 
     }

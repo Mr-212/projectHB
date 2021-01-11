@@ -4,11 +4,15 @@
             <h3 class="text-black-50">{{$title}}</h3>
         </div>
     </div>
-    {{--<div>--}}
-        {{--@foreach ($errors->all() as $error)--}}
-            {{--<li class="validation_error">{{ $error }}</li>--}}
+    <div>
+        {{--@if ($errors->any())--}}
+            {{--@foreach ($errors->all() as $error)--}}
+            {{--<p class="alert alert-danger alert-dismissible" role="">{{ $error }}</p>--}}
+                {{--<script>--}}
+                {{--</script>--}}
         {{--@endforeach--}}
-    {{--</div>--}}
+        {{--@endif--}}
+    </div>
     {{--<form wire:submit.prevent="book_house">--}}
     {{--@livewire('client.item-checklist.client-component',['client_id' => $client_id])--}}
     @include('livewire.client.item-checklist.client')
@@ -37,6 +41,11 @@
 
 @push('scripts')
     <script type="text/javascript">
+        window.addEventListener("client-property-validation-errors", event => {
+            bootbox.alert('error');
+        });
+
+
 
         $(document).ready(function() {
             $('#payment_options').select2({
@@ -44,6 +53,8 @@
                 allowClear: true
             });
             triggerPaymentOptions();
+
+
 
 
         });

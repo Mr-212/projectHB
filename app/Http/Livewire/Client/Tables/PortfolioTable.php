@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Client\Tables;
 
 use App\Constants\PropertyStatusConstant;
+use App\Models\Property;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -17,7 +18,7 @@ class PortfolioTable extends LivewireDatatable
     public function builder()
     {
 
-        return Client::with('property','pre_closing')->portfolio();
+        return Property::with('client','pre_closing')->portfolio();
     }
 
     public function columns()
@@ -25,110 +26,96 @@ class PortfolioTable extends LivewireDatatable
         return [
 //            Column::checkbox(),
             Column::callback(['id'], function ($id) {
-                return view('livewire.client.tables.actions.outstanding-items-before-dd-actions', ['client_property_id' => $id]);
+                return view('livewire.property.tables.portfolio.action-index', ['property_id' => $id]);
             }),
 
             NumberColumn::name('id')
                 ->defaultSort('desc')
                 ->label('ID'),
 
-            Column::callback('property.property_status_id',function($stage){
+            Column::callback('property_status_id',function($stage){
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
 
-            Column::name('property.house_number_and_street')
+            Column::name('house_number_and_street')
                 ->label('House Address')
                 ->filterable(),
 
-            Column::name('property.city')
+            Column::name('city')
                 ->label('City')
                 ->filterable(),
 
-            Column::name('property.state')
+            Column::name('state')
                 ->label('State'),
 
-            Column::name('property.county')
+            Column::name('county')
                 ->label('County'),
 
-            Column::name('property.zip')
+            Column::name('zip')
                 ->label('Zip'),
 
-            Column::name('property.closing_date')
+
+            Column::callback(['id','purchase_price'],function ($property_id, $purchase_price){
+                return view('livewire.property.tables.portfolio.action-purchase-price',compact('property_id','purchase_price'));
+
+            })->label('Purchase Price'),
+
+            Column::name('closing_date')
                 ->label('Closing Date'),
 
-            Column::name('property.due_diligence_expire_date')
+            Column::name('due_diligence_expire_date')
                 ->label('Due Diligence Expire'),
 
 
-            Column::callback(['updated_by'], function ($updated_by) {
-                return User::getUserNameByID($updated_by);
-            })->label('Updated By'),
+//            Column::callback(['updated_by'], function ($updated_by) {
+//                return User::getUserNameByID($updated_by);
+//            })->label('Updated By'),
 
-            Column::name('applicant_name')
+            Column::name('client.applicant_name')
                 ->label('Applicant Name')
                 ->filterable(),
 
-            Column::name('applicant_email')
+            Column::name('client.applicant_email')
                 ->filterable(),
 
-            Column::name('applicant_phone')
-                ->label('Applicant Phone'),
 
-            Column::name('partner_name')
-                ->label('Partner Name'),
-
-            Column::name('partner_email')
-                ->label('Partner Email'),
-
-            Column::name('partner_phone')
-                ->label('Partner Phone'),
-
-//            Column::name('co_applicant_name')
-//                ->label('Co applicant Name'),
-//
-//            Column::name('co_applicant_email')
-//                ->label('Co applicant Email'),
-//
-//            Column::name('co_applicant_phone')
-//                ->label('Co applicant Phone'),
-
-            Column::name('additional_tenant_name')
+            Column::name('client.additional_tenant_name')
                 ->label('Co applicant Phone'),
 
-            Column::callback(['welcome_payment'], function ($welcome_down_payment_id) {
+            Column::callback(['client.welcome_payment'], function ($welcome_down_payment_id) {
                 return YesNoDropdown::getValueByKey($welcome_down_payment_id);
             })->label('Welcome Payment'),
 
-            Column::callback(['mortgage_type_id'], function ($mortgage_type_id) {
+            Column::callback(['client.mortgage_type_id'], function ($mortgage_type_id) {
                 return MortgageTypeDropdown::getValueByKey($mortgage_type_id);
             })->label('Mortgage TYpe'),
 
 
-            Column::callback(['rental_verification_checked'], function ($rental_verification_check) {
+            Column::callback(['client.rental_verification_checked'], function ($rental_verification_check) {
                 return YesNoDropdown::getValueByKey($rental_verification_check);
             })->label('Rental Verification Check'),
 
-            Column::name('property.new_construction_builder')
+            Column::name('new_construction_builder')
                 ->label('Builder Name'),
 
-            Column::name('property.purchase_price')
+            Column::name('purchase_price')
                 ->label('Purchase Price'),
 
-            Column::name('property.closing_cost')
+            Column::name('closing_cost')
                 ->label('Closing Cost'),
 
-            Column::name('property.closing_credit_general')
+            Column::name('closing_credit_general')
                 ->label('Closing Credit General'),
 
-            Column::callback(['property.hoa_check'], function ($hoa_check) {
+            Column::callback(['hoa_check'], function ($hoa_check) {
                 return YesNoDropdown::getValueByKey($hoa_check);
             })->label('HOA?'),
 
-            Column::name('property.hoa_name')
+            Column::name('hoa_name')
                 ->label('HOA Name'),
 
-            Column::name('property.hoa_phone')
+            Column::name('hoa_phone')
                 ->label('HOA PHone'),
 
             Column::name('pre_closing.rent')

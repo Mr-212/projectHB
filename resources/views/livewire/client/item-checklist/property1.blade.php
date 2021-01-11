@@ -20,7 +20,7 @@
             <div class="col-md-3 col-lg-3">
                 <div class="">
                     <label>Checked At</label>
-                    <input type="date" class="form-control" wire:model="property.deal_save_checked_at" readonly="readonly">
+                    <input type="text" class="form-control" wire:model="property.deal_save_checked_at" readonly="readonly">
 
                 </div>
 
@@ -99,14 +99,14 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>New Construction</label>
-                <select class="form-control" name="item_checklist_new_construction" id="item_checklist_new_construction" wire:model="property.new_construction_check" value="">
+                <select class="form-control" name="item_checklist_new_construction" id="item_checklist_new_construction" wire:model="property.new_construction_check" value=""  onchange="hideShow(this.value,'.item_checklist_new_construction_input_div')">
                     @foreach(YesNoDropDown::getList() as $key => $val)
                         <option value="{{$key}}">{{$val}}</option>
                     @endforeach
                 </select>
             </div>
 
-            <div class="col-md-6 col-lg-6 d item_checklist_new_construction_input_div {{$property->new_construction_check? '':'d-none'}}"  wire:target="property.new_construction_check"  id="item_checklist_new_construction_input_div"  wire:ignore>
+            <div class="col-md-6 col-lg-6 d item_checklist_new_construction_input_div {{$property->new_construction_check? '':'d-none'}}"   id="item_checklist_new_construction_input_div" wire:ignore>
                 <label>Builder Name</label>
                 <input  class="form-control" type="text" name="builder_name" value="" placeholder="Builder Name" wire:model="property.new_construction_builder">
             </div>

@@ -1,8 +1,8 @@
 
 <div class="">
-   <a onclick="openModal({{$property_id}})" class="btn btn-primary">Sold</a>
+   {{--<a onclick="openModal({{$property_id}})" class="btn btn-primary">Sold</a>--}}
     {{--<a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}">Sold</a>--}}
-    {{--<a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary  btn-sm btn-block">Sold</a>--}}
+    <a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary">Sold</a>
 
     <div  wire:ignore.self class="modal fade" tabindex="-1" role="dialog" id="property-modal-{{$property_id}}" >
         <div  class="modal-dialog" role="document">

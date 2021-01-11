@@ -9,22 +9,21 @@ use App\Models\Support\Client\ClientItemCheckListVariables;
 use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Livewire\Component;
 
-class DropoutClientButton extends Component
+class MoveOutPropertyButton extends Component
 {
     public  $client ,$client_property, $property;
     public  $client_id, $property_id;
     public  $title;
-    //public  $wire_id;
     protected  $client_property_pre_closing_handler;
 
-    protected $listeners = ['drop_client'];
+    protected $listeners = ['move_out_property'];
 
 
 
 
 
 
-    public function mount($client_id, $property_id = null){
+    public function mount($property_id, $client_id =null){
         $this->client_id = $client_id;
         $this->property_id = $property_id;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
@@ -48,23 +47,23 @@ class DropoutClientButton extends Component
         }
         $this->client = $this->client_property_pre_closing_handler->getClient();
         $this->property = $this->client_property_pre_closing_handler->getProperty();
-//        $this->client_pre_closing = $this->client_property_pre_closing_handler->getPreClosingList();
+        //$this->client_pre_closing = $this->client_property_pre_closing_handler->getPreClosingList();
 
     }
 
     public function render()
     {
         $wire_id = $this->id;
-        return view('livewire.components.dropout',compact('wire_id'));
+        return view('livewire.components.move-out');
     }
 
 
 
-    public function drop_client()
+    public function move_out_property()
     {
         if(!$this->client->is_client_dropped) {
-            if (!$this->client_property_pre_closing_handler->dropClient()) {
-                $this->redirect('/house/dropout');
+            if ($this->client_property_pre_closing_handler->movePropertyToEvictionAndVacant()) {
+                $this->redirect('/house/move_out');
             }
         }else{
               $this->dispatchBrowserEvent("dropout-response-{$this->property_id}",['message' => 'This client is already added to dropouts']);
