@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\ClientStatusConstant;
 use App\Constants\PropertyStatusConstant;
+use App\Models\Casts\ItemCheckListDateTimeCast;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;;
@@ -121,8 +122,8 @@ class Client extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-          'welcome_payment_checked_at' =>'date:Y-m-d',
-          'rental_verification_checked_at' =>'date:Y-m-d',
+          'welcome_payment_checked_at' => ItemCheckListDateTimeCast::class,
+          'rental_verification_checked_at' => ItemCheckListDateTimeCast::class,
     ];
     protected $attributes = [
 //        'additional_tenant' => [

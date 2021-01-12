@@ -163,7 +163,7 @@
             @if($client->welcome_payment_checked)
                 <div class="col-md-3">
                     <label>Checked AT</label>
-                    <input type="date" class="form-control" wire:model="client.welcome_payment_checked_at" readonly>
+                    <input type="text" class="form-control" wire:model="client.welcome_payment_checked_at" readonly>
                 </div>
 
                 <div class="col-md-3">
@@ -192,7 +192,7 @@
         @if($client->rental_verification_checked)
             <div class="col-md-3">
                 <label>Checked AT</label>
-                    <input type="date" class="form-control" wire:model="client.rental_verification_checked_at" readonly>
+                    <input type="text" class="form-control" wire:model="client.rental_verification_checked_at" readonly>
             </div>
 
            <div class="col-md-3">

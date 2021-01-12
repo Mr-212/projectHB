@@ -351,7 +351,7 @@ class ClientItemChecklist extends Component
 
         if($this->$model->$check) {
             $this->$model->$checked_by = Auth::id() ;
-            $this->$model->$checked_at = Carbon::now() ;
+            $this->$model->$checked_at = Carbon::now()->toDateTimeString();
         }else{
             $this->$model->$checked_by = $this->property->getOriginal($checked_by);
             $this->$model->$checked_at = $this->property->getOriginal($checked_at);;
