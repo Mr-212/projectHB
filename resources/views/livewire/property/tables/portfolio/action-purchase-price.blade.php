@@ -42,7 +42,7 @@
                         <div class="row justify-content-center">
                                 @livewire('component.property-house-sold-button',['property_id' => $property_id], key($property_id))
                                 {{--<a href="" class="btn btn-info ml-2"><span>Move Out</span></a>--}}
-                                @livewire('component.move-out-property-button',['property_id' => $property_id], key($property_id))
+                                {{--@livewire('component.move-out-property-button',['property_id' => $property_id], key($property_id))--}}
 
                             {{--<a href="" class="btn btn-info ml-2"><span>Eviction</span></a>--}}
                             </div>
