@@ -117,7 +117,7 @@ class Property extends Model
 //            ->orderBy('updated_at','desc');
     }
     public function scopeDropoutClient($query){
-        return $query->where('stage', PropertyStatusConstant::DROPOUT_CLIENT);
+        return $query->where('property_status_id', PropertyStatusConstant::DROPOUT_CLIENT);
 //            ->orderBy('updated_at','desc');
     }
     public function scopeHouseEvicted($query){

@@ -88,7 +88,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/cancelled/client/{client_id}/{new_property}', ClientItemChecklist::class);
 
         Route::get('/dropout', [ClientController::class,'get_dropout_client']);
-        Route::get('/dropout/{client_id}', ClientItemChecklist::class);
+        Route::get('/dropout/{property_id}', ClientItemChecklist::class);
 
         Route::get('/evicted', [ClientController::class,'get_evicted_house']);
         Route::get('/evicted/{property_id}', ClientItemChecklist::class);

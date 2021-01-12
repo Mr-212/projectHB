@@ -6,10 +6,10 @@ use App\Constants\ClientStatusConstant;
 use App\Constants\PropertyStatusConstant;
 use App\Models\Casts\ItemCheckListDateTimeCast;
 use App\Models\Support\Client\ClientItemCheckListVariables;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 
 class Client extends Model
 {
@@ -160,6 +160,10 @@ class Client extends Model
     public function property(){
         return $this->belongsTo(Property::class,'id','client_id');
     }
+//    public function property(){
+//        return $this->belongsTo(Property::class,'id','client_id')
+//            ->where('properties.property_status_id',PropertyStatusConstant::CLIENT_DROPOUT);
+//    }
 //
 //    public function property(){
 //        return $this->belongsToMany(Property::class);
@@ -198,15 +202,15 @@ class Client extends Model
 //            $builder->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
 //        });
 
-        return $query->whereHas('property', function (Builder $builder){
-            $builder->where('property_status_id', null);
+        return $query->whereHas('property', function ( $query){
+            $query->where('property_status_id', null);
         });
     }
 
     public function scopeBeforeDDExpire($query){
 
-        return $query->whereHas('property', function ($q){
-            $q->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+        return $query->whereHas('property', function ($query){
+            $query->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
         });
     }
 
@@ -239,9 +243,24 @@ class Client extends Model
 
     }
     public function scopeDropoutClient($query){
-        return $query->where('status', ClientStatusConstant::CLIENT_DROPOUT);
-//            ->orderBy('updated_at','desc');
+         return $query->where('status', ClientStatusConstant::CLIENT_DROPOUT);
+
     }
+    public function scopeDropoutProperty($query){
+
+        $query->leftJoin('properties as property','clients.id','property.client_id')
+            ->where('properties.property_status_id',PropertyStatusConstant::CLIENT_DROPOUT);
+    }
+//    public function scopeDropoutProperty($query){
+//
+////            $query->where('clients.status', ClientStatusConstant::CLIENT_DROPOUT);
+//            $query->whereHas('property',function ( $q){
+//                  $q->where('properties.property_status_id', PropertyStatusConstant::CLIENT_DROPOUT);
+//        });
+//        return $query;
+//
+//    }
+
 
     public function last_updated_by()
     {

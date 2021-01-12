@@ -1,9 +1,8 @@
 <div class="col-md-12 pt-4 pb-lg-5" >
     <div class="float-right">
 
-{{--@if(!in_array($property->property_status_id,[\App\Constants\PropertyStatusConstant::HOUSE_CANCELLED, \App\Constants\PropertyStatusConstant::CLIENT_DROPOUT]))--}}
-        @if($client_id || $property_id)
-            @if($property->property_status_id ==\App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE || $property->property_status_id ==  NULL)
+        @if($property_id || $client_id)
+            @if( ($property->property_status_id ==\App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE || $property->property_status_id ==  NULL))
                 <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
             {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_house()">Cancel House</a>--}}
             {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client()">Drop Out</a>--}}
@@ -20,11 +19,12 @@
             @endif
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_CANCELLED)
+                {{--<p>here</p>--}}
                 <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
                 {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client()">Drop Out</a>--}}
-                {{--<a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>--}}
+                {{--<a  class="" type="submit">@livewire('component.dropout-client-button', ['client_id' => $client_id])</a>--}}
 
-                @endif
+            @endif
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE)
                 {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}
@@ -41,11 +41,11 @@
             @endif
                 {{--<div  wire:poll="house_book_validate">--}}
                 {{--<a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>--}}
-            @else
+        @elseif($client_id)
+        @else
                  <a  class="btn btn-warning mr-2" type="submit" onclick="return addclient()">Add</a>
-            @endif
+        @endif
     </div>
-{{--@endif--}}
 
 </div>
 
