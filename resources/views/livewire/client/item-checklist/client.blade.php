@@ -161,12 +161,12 @@
         <div class="row">
 
             @if($client->welcome_payment_checked)
-                <div class="col-md-3">
-                    <label>Checked AT</label>
+                <div class="col-md-6 col-lg-6">
+                    <label>Checked At</label>
                     <input type="text" class="form-control" wire:model="client.welcome_payment_checked_at" readonly>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-6">
                     <label>Comment</label>
                     <input type="text" class="form-control" placeholder="Add Comment" wire:model="client.welcome_payment_checked_comment">
                 </div>
@@ -190,12 +190,12 @@
         <div class="row">
 
         @if($client->rental_verification_checked)
-            <div class="col-md-3">
-                <label>Checked AT</label>
+            <div class="col-md-6 col-lg-6">
+                <label>Checked At</label>
                     <input type="text" class="form-control" wire:model="client.rental_verification_checked_at" readonly>
             </div>
 
-           <div class="col-md-3">
+           <div class="col-md-6 col-lg-6">
                <label>Comment</label>
                     <input type="text" class="form-control" wire:model="client.rental_verification_checked_comment" placeholder="Add Comment">
            </div>

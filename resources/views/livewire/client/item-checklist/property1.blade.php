@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             @if(isset($property->deal_save_checked) && $property->deal_save_checked)
-            <div class="col-md-3 col-lg-3">
+            <div class="col-md-6 col-lg-6">
                 <div class="">
                     <label>Checked At</label>
                     <input type="text" class="form-control" wire:model="property.deal_save_checked_at" readonly="readonly">
@@ -26,7 +26,7 @@
 
             </div>
 
-                <div class="col-md-3 col-lg-3">
+                <div class="col-md-6 col-lg-6">
                     <label>Comment</label>
                     <input type="text" class="form-control" placeholder="Add Comment" wire:model="property.deal_save_checked_comment">
 
