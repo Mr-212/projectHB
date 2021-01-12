@@ -11,7 +11,7 @@
     {{--@endphp--}}
 
     {{--<a href="#additional-tenant-action-{{$property_id}}" class="" data-toggle="modal" data-target="#additional-tenant-action-{{$property_id}}">{{$additional_tenant_name? :'N/A'}}</a>--}}
-    <a href="#additional-tenant-action-{{$property_id}}" class="" data-toggle="modal" data-target="#additional-tenant-action-{{$property_id}}">{{ $client_id}}</a>
+    <a href="#additional-tenant-action-{{$property_id}}" class="" data-toggle="modal" data-target="#additional-tenant-action-{{$property_id}}">{{ $additional_tenant_name?:'N/A'}}</a>
 
     {{--<button class="btn btn-danger">{{$additional_tenant_name? :'N/A'}}--}}
         {{--@livewire('client.component.dropout-client-component', ['client_id' => $client_id])--}}
