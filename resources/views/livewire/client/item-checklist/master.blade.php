@@ -53,17 +53,21 @@
                 allowClear: true
             });
             triggerPaymentOptions();
-
-
-
-
+            // hideShow();
         });
+        {{--Livewire.hook('element.updated', (el, component) => {--}}
+            {{--alert('here');--}}
+            {{--$('#payment_options').select2({--}}
+                {{--placeholder: '{{__('Select your option')}}',--}}
+                {{--allowClear: true--}}
+            {{--});--}}
+            {{--triggerPaymentOptions();--}}
+        {{--})--}}
 
         document.addEventListener("livewire:load", () => {
 
             Livewire.hook('component.initialized', (el, component) => {
-                 //alert('here');
-                //$('.select2').select2();
+
             })
 
             Livewire.hook('message.processed', (message, component) => {
@@ -71,7 +75,12 @@
                 //$('.select2').select2();
             });
             Livewire.hook('element.updated', (el, component) => {
-                //alert('here');
+
+                {{--$('#payment_options').select2({--}}
+                    {{--placeholder: '{{__('Select your option')}}',--}}
+                    {{--allowClear: true--}}
+                {{--});--}}
+                {{--triggerPaymentOptions();--}}
             })
         });
     </script>

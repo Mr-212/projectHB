@@ -61,7 +61,7 @@ class ClientAttrLogs extends Model
         return $this->hasMany(Client::class,'client_id','id');
     }
     public function pre_closing(){
-        return $this->belongsTo(ClientPreClosingChecklist::class,'id','client_id');
+        return $this->belongsTo(PropertyPreClosingChecklist::class,'id','client_id');
     }
 
     public function scopeBeforeDD($query){

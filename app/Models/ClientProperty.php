@@ -60,7 +60,7 @@ class ClientProperty extends Model
     }
 
     public function pre_closing_checklist(){
-        return $this->hasOne(ClientPreClosingChecklist::class,'id','pre_closing_checklist_id');
+        return $this->hasOne(PropertyPreClosingChecklist::class,'id','pre_closing_checklist_id');
     }
 
     public function status(){

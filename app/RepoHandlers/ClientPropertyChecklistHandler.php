@@ -12,7 +12,7 @@ namespace App\RepoHandlers;
 use App\Constants\ClientStatusConstant;
 use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
-use App\Models\ClientPreClosingChecklist;
+use App\Models\PropertyPreClosingChecklist;
 use App\Models\Property;
 use Illuminate\Support\Facades\DB;
 
@@ -39,7 +39,7 @@ class ClientPropertyChecklistHandler
     }
 
     public function getPreClosingList(){
-        return $this->pre_closing = $this->pre_closing ? : ($this->property->pre_closing ? : new ClientPreClosingChecklist());
+        return $this->pre_closing = $this->pre_closing ? : ($this->property->pre_closing ? : new PropertyPreClosingChecklist());
     }
 
     public function  setClient(CLient $client){
@@ -50,7 +50,7 @@ class ClientPropertyChecklistHandler
         $this->property = $property;
     }
 
-    public function  setPreClosingList(ClientPreClosingChecklist $pre_closing){
+    public function  setPreClosingList(PropertyPreClosingChecklist $pre_closing){
         $this->pre_closing = $pre_closing;
     }
 

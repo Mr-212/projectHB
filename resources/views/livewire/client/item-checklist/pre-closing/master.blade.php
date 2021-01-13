@@ -7,25 +7,34 @@
 
 @include('livewire.client.item-checklist.pre-closing.letter_of_commitment')
 
-
-    <div class="col-md-6 col-lg-6 pt-2">
-        @error('client_pre_closing.on_boarding_fee_payment_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
-
-        <div class="">
-            <label>On Board Fee Payment</label>
-            <input  class="" type="checkbox" name="rent" wire:model="client_pre_closing.on_boarding_fee_payment_checked" />
+    <div class="col-md-12 col-lg-12 pt-2">
+        <div class="col-md-6 col-lg-6">
+            <div class="row">
+                @error('client_pre_closing.on_boarding_fee_payment_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <label>On Board Fee Payment</label>
+                    <input  class="" type="checkbox" name="rent" wire:model="client_pre_closing.on_boarding_fee_payment_checked" wire:click="markChecklist('client_pre_closing','on_boarding_fee_payment_checked')" />
+                </div>
+            </div>
         </div>
+
+
+        @if(isset($client_pre_closing->on_boarding_fee_payment_checked) && $client_pre_closing->on_boarding_fee_payment_checked)
+
+                <x-checkedt-at-comment>
+                    <x-slot name="checked">
+                        client_pre_closing.on_boarding_fee_payment_checked_at
+                    </x-slot>
+
+                    <x-slot name="comment">
+                        client_pre_closing.on_boarding_fee_payment_checked_comment
+                    </x-slot>
+                </x-checkedt-at-comment>
+        @endif
     </div>
 
 
-    <div class="col-md-6 col-lg-6 mt-2">
-        @error('client_pre_closing.payment_option_date') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Option Payment Date</label>
-            <input  class="form-control" type="date" name="item_checklist_option_payment_date" value="" wire:model="client_pre_closing.payment_option_date" />
-        </div>
-    </div>
 
 
 
@@ -38,10 +47,25 @@
             <div class="col-md-6 col-lg-6">
                 <div>
                     <label>Inspection?</label>
-                    <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')" wire:model="client_pre_closing.inspection_checked"  >
+                    <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')" wire:model="client_pre_closing.inspection_checked" wire:click="markChecklist('client_pre_closing','inspection_checked')" >
                 </div>
             </div>
         </div>
+
+
+            @if(isset($client_pre_closing->inspection_checked) && $client_pre_closing->inspection_checked)
+                <x-checkedt-at-comment>
+                    <x-slot name="checked">
+                        client_pre_closing.inspection_checked_at
+                    </x-slot>
+
+                    <x-slot name="comment">
+                        client_pre_closing.inspection_checked_comment
+                    </x-slot>
+                </x-checkedt-at-comment>
+
+            @endif
+
         {{--<div class="row">--}}
         {{--@error('client_pre_closing.inspection_check_date') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
         {{--<div class="col-md-6 col-lg-6 item_checklist_option_list_inspection_date_div {{$client->inspection_check ?'':'d-none'}}" wire:ignore>--}}
@@ -55,10 +79,23 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Termite ?</label>
-                <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" wire:model="client_pre_closing.termite_checked">
+                <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" wire:model="client_pre_closing.termite_checked"  wire:click="markChecklist('client_pre_closing','termite_checked')">
             </div>
-
         </div>
+
+
+            @if($client_pre_closing->termite_checked)
+                <x-checkedt-at-comment>
+                    <x-slot name="checked">
+                        client_pre_closing.termite_checked_at
+                    </x-slot>
+
+                    <x-slot name="comment">
+                        client_pre_closing.termite_checked_comment
+                    </x-slot>
+                </x-checkedt-at-comment>
+
+            @endif
         {{--@if(!$client->termite_checked)--}}
             {{--<div class="row">--}}
                 {{--<div class="col-md-6 col-lg-6 item_checklist_termite_paid_by_div">--}}
@@ -81,13 +118,27 @@
                 @error('client_pre_closing.appraisal_value_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
                 <div>
                     <label>Appraisal Value?</label>
-                    <input  class="" type="checkbox" name="item_checklist_appraisal_value_checkbox" value=""  wire:model="client_pre_closing.appraisal_value_checked">
+                    <input  class="" type="checkbox" name="item_checklist_appraisal_value_checkbox" value=""  wire:model="client_pre_closing.appraisal_value_checked" wire:click="markChecklist('client_pre_closing','appraisal_value_checked')">
                 </div>
             </div>
         </div>
-        @if(!$client_pre_closing->appraisal_value_checked)
-            <div class="row">
+        @if($client_pre_closing->appraisal_value_checked)
 
+            {{--<div class="row">--}}
+                @if($client_pre_closing->appraisal_value_checked)
+                    <x-checkedt-at-comment>
+                        <x-slot name="checked">
+                            client_pre_closing.appraisal_value_checked_at
+                        </x-slot>
+
+                        <x-slot name="comment">
+                            client_pre_closing.appraisal_value_checked_comment
+                        </x-slot>
+                    </x-checkedt-at-comment>
+                @endif
+            {{--</div>--}}
+
+            <div class="row">
                 <div class=" col-md-6 col-lg-6 item_checklist_appraisal_value_div">
                     @error('client_pre_closing.appraisal_value') <span class="error alert-danger">{{ $message }}</span> @enderror
                     <div class="">
@@ -104,47 +155,113 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Driver license applicant</label>
-                <input class="" type="checkbox" name="item_checklist_driver_license_applicant" value="" wire:model="client_pre_closing.driver_license_applicant_checked">
+                <input class="" type="checkbox" name="item_checklist_driver_license_applicant" value="" wire:model="client_pre_closing.driver_license_applicant_checked" wire:click="markChecklist('client_pre_closing','driver_license_applicant_checked')">
             </div>
 
-
-            <div class="col-md-6 col-lg-6">
-                <label>Co Driver license applicant</label>
-                <input  class="" type="checkbox" name="item_checklist_co_driver_license_applicant" value="" wire:model="client_pre_closing.driver_license_co_applicant_checked">
-
-            </div>
         </div>
+
+        @if($client_pre_closing->driver_license_applicant_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.driver_license_applicant_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.driver_license_applicant_checked_comment
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
+    </div>
+    <div class="col-md-12 col-lg-12">
 
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <label>Soc Sec card Applicant</label>
-                <input class="" type="checkbox" name="item_checklist_soc_sec_card_applicant" value="" wire:model="client_pre_closing.soc_sec_card_applicant_checked">
+                <label>Co Driver license applicant</label>
+                <input  class="" type="checkbox" name="item_checklist_co_driver_license_applicant" value="" wire:model="client_pre_closing.driver_license_co_applicant_checked" wire:click="markChecklist('client_pre_closing','driver_license_co_applicant_checked')">
+
             </div>
+        </div>
+        @if($client_pre_closing->driver_license_co_applicant_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.driver_license_co_applicant_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.driver_license_co_applicant_checked_comment
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
+    </div>
+
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <label>Soc Sec card Applicant</label>
+                <input class="" type="checkbox" name="item_checklist_soc_sec_card_applicant" value="" wire:model="client_pre_closing.soc_sec_card_applicant_checked" wire:click="markChecklist('client_pre_closing','soc_sec_card_applicant_checked')">
+            </div>
+        </div>
+        @if($client_pre_closing->soc_sec_card_applicant_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.soc_sec_card_applicant_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.soc_sec_card_applicant_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
+    </div>
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
 
             <div class="col-md-6 col-lg-6">
                 <div class="">
                     <label>Soc Sec card Co Applicant</label>
-                    <input  class="" type="checkbox" name="item_checklist_soc_sec_card_co_applicant" value="" wire:model="client_pre_closing.soc_sec_card_co_applicant_checked">
+                    <input  class="" type="checkbox" name="item_checklist_soc_sec_card_co_applicant" value="" wire:model="client_pre_closing.soc_sec_card_co_applicant_checked" wire:click="markChecklist('client_pre_closing','soc_sec_card_co_applicant_checked')">
                 </div>
             </div>
         </div>
+        @if($client_pre_closing->soc_sec_card_co_applicant_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.soc_sec_card_co_applicant_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.soc_sec_card_co_applicant_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
     </div>
 
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Renters insurance?</label>
-                <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value=""  wire:model="client_pre_closing.renter_insurance_checked">
+                <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value=""  wire:model="client_pre_closing.renter_insurance_checked"  wire:click="markChecklist('client_pre_closing','renter_insurance_checked')">
             </div>
 
         </div>
-        @if(!$client_pre_closing->renter_insurance_checked)
+        @if($client_pre_closing->renter_insurance_checked)
             <div class="row">
                 <div class="col-md-6 col-lg-6 item_checklist_renters_insurance_div">
                     <label>Company</label>
                     <input  class="form-control" type="text" name="item_checklist_renters_insurance_company" value="" wire:model="client_pre_closing.renter_insurance_name">
                 </div>
             </div>
+
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.renter_insurance_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.renter_insurance_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+
         @endif
 
     </div>
@@ -152,9 +269,21 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Flood Certificate</label>
-                <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.flood_certificate_checked">
+                <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.flood_certificate_checked" wire:click="markChecklist('client_pre_closing','flood_certificate_checked')">
             </div>
         </div>
+
+        @if($client_pre_closing->flood_certificate_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.flood_certificate_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.flood_certificate_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
     </div>
 
     <div class="col-md-12 col-lg-12">
@@ -162,24 +291,46 @@
 
             <div class="col-md-6 col-lg-6">
                 <label>Landlord Insurance</label>
-                <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.landlord_insurance_checked">
+                <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.landlord_insurance_checked" wire:click="markChecklist('client_pre_closing','landlord_insurance_checked')">
             </div>
         </div>
+        @if($client_pre_closing->landlord_insurance_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.landlord_insurance_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.landlord_insurance_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
     </div>
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Warranty?</label>
-                <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="" wire:model="client_pre_closing.warranty_checked">
+                <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="" wire:model="client_pre_closing.warranty_checked" wire:click="markChecklist('client_pre_closing','warranty_checked')">
             </div>
         </div>
-        @if(!$client_pre_closing->warranty_checked)
+        @if($client_pre_closing->warranty_checked)
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <label>Company Name</label>
                     <input  class="form-control" type="text" name="item_checklist_warranty_company" value="" wire:model="client_pre_closing.warranty_company_name">
                 </div>
             </div>
+
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.warranty_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.warranty_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+
         @endif
 
     </div>
@@ -200,16 +351,27 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Lease Signed?</label>
-                <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" wire:model="client_pre_closing.lease_signed_checked">
+                <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" wire:model="client_pre_closing.lease_signed_checked" wire:click="markChecklist('client_pre_closing','lease_signed_checked')">
             </div>
         </div>
-        @if(!$client_pre_closing->lease_signed_checked)
+        @if($client_pre_closing->lease_signed_checked)
             <div class="row item_checklist_lease_div">
                 <div class="col-md-6 col-lg-6 ">
                     <label>Lease Expire</label>
                     <input  class="form-control" type="date" name="item_checklist_lease_expire" value="" wire:model="client_pre_closing.lease_expire_date">
                 </div>
             </div>
+
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.lease_signed_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.lease_signed_checked
+                </x-slot>
+            </x-checkedt-at-comment>
+
         @endif
     </div>
 
@@ -264,7 +426,7 @@
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <label>Other?</label>
-                <input  class="" type="checkbox" name="item_checklist_other_checkbox" value="" wire:model="client_pre_closing.other_checked">
+                <input  class="" type="checkbox" name="item_checklist_other_checkbox" value="" wire:model="client_pre_closing.other_checked" wire:click="markChecklist('client_pre_closing','other_checked')">
             </div>
         </div>
         @if($client_pre_closing->other_checked)
@@ -279,6 +441,16 @@
                     </div>
                 </div>
             </div>
+            {{--<x-checkedt-at-comment>--}}
+                {{--<x-slot name="checked">--}}
+                    {{--client_pre_closing.other_checked_at--}}
+                {{--</x-slot>--}}
+
+                {{--<x-slot name="comment">--}}
+                    {{--client_pre_closing.other_checked--}}
+                {{--</x-slot>--}}
+            {{--</x-checkedt-at-comment>--}}
+
         @endif
     </div>
 </div>
