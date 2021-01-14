@@ -11,6 +11,7 @@ use App\Models\Support\Client\ClientItemCheckListVariables;
 use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class ClientItemChecklist extends Component
@@ -204,7 +205,6 @@ class ClientItemChecklist extends Component
         "client_pre_closing.flood_certificate_checked_comment" =>'',
         "client_pre_closing.warranty_checked_comment" =>'',
         "client_pre_closing.lease_signed_checked_comment" =>'',
-//        "client_pre_closing.lease_signed__checked_comment" =>'',
     ];
 
 //
@@ -229,14 +229,42 @@ class ClientItemChecklist extends Component
     public function hydrate(){
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
 
-    }
+//        dd($this->client_pre_closing->isDirty('lease_expire_date'));
+        if(empty($this->client_pre_closing->lease_expire_date)){
 
-    public function updated(){
-
-        if($this->property->isDirty('is_deal_save_checked')) {
-
+            if($this->property->closing_date){
+                $date = Carbon::parse($this->property->closing_date)->endOfMonth()->addYear(1);
+                $this->client_pre_closing->lease_expire_date = $date->toDateString();
+            }
         }
+
     }
+
+    public function dehydrate()
+    {
+
+//        if ($this->getErrorBag()->any()) {
+////            $this->resetErrorBag();
+//           $this->dispatchBrowserEvent('validation-errors',['errors' => true]);
+//
+//        }
+
+    }
+
+     public function  updatedFoo(){
+
+     }
+
+//    public function updated(){
+//
+//        if($this->property->isDirty('is_deal_save_checked')) {
+//
+//        }
+//
+//        if ($this->getErrorBag()->any()) {
+//            $this->dispatchBrowserEvent('validation-errors',['errors' => true]);
+//        }
+//    }
 
 
 
@@ -318,10 +346,6 @@ class ClientItemChecklist extends Component
                 $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
                 $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
                 $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-//            $this->property->client_id = $this->client_id;
-//            $this->client_pre_closing->client_id = null;
-//            $this->client_pre_closing->property_id = $this->property->id;
-
                 $this->client_property_pre_closing_handler->setClient($this->client);
                 $this->client_property_pre_closing_handler->setProperty($this->property);
                 $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
@@ -344,14 +368,14 @@ class ClientItemChecklist extends Component
         try{
 //            $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
 //            $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-            $this->property->client_id = $this->client_id;
-            $this->client_pre_closing->property_id = $this->property->id;
+//            $this->property->client_id = $this->client_id;
+//            $this->client_pre_closing->property_id = $this->property->id;
 
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
-            if($this->client_property_pre_closing_handler->saveClientPropertyAndPreClosing()){
+            if($this->client_property_pre_closing_handler->save()){
                     session()->flash('success', 'Item successfully updated.');
                     return $this->redirect('/items/outstanding/after_dd');
             };

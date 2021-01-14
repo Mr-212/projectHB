@@ -1,51 +1,113 @@
-<div class="">
+<div class="" >
     <div class="row pl-2">
         <div class="col-md-12">
             <h3 class="text-black-50">{{$title}}</h3>
         </div>
     </div>
     <div>
-        {{--@if ($errors->any())--}}
+        @if ($errors->any())
+
+
+            {{--<script wire:ignore>--}}
+                {{--// $('#validation-errors-modal').modal('show');--}}
+            {{--</script>--}}
             {{--@foreach ($errors->all() as $error)--}}
-            {{--<p class="alert alert-danger alert-dismissible" role="">{{ $error }}</p>--}}
-                {{--<script>--}}
-                {{--</script>--}}
-        {{--@endforeach--}}
-        {{--@endif--}}
+                {{--<div class="alert alert-danger alert-dismissible" role="alert">--}}
+                    {{--<strong>{{$error}}</strong>--}}
+                    {{--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+                        {{--<span aria-hidden="true">&times;</span>--}}
+                    {{--</button>--}}
+                {{--</div>--}}
+
+           {{--@endforeach--}}
+        @endif
     </div>
-    {{--<form wire:submit.prevent="book_house">--}}
-    {{--@livewire('client.item-checklist.client-component',['client_id' => $client_id])--}}
+
+
     @include('livewire.client.item-checklist.client')
     @if($client_id || $property_id)
     @include('livewire.client.item-checklist.property1')
     @include('livewire.client.item-checklist.pre-closing.master')
     @endif
 
-    {{--@livewire('client.item-checklist.client-property-component',['client_id' => $client_id])--}}
-    {{--@livewire('client.item-checklist.client-pre-closing-component',['client_id' => $client_id])--}}
-    {{--<livewire:client.client-item-checklist.client />--}}
-    {{--@include('livewire.client.item-checklist.client')--}}
-    {{--@include('livewire.client.item-checklist.property')--}}
-    {{--@include('livewire.client.item-checklist.property1')--}}
-    {{--@include('livewire.client.item-checklist.due-diligence')--}}
-    {{--@include('livewire.client.item-checklist.pre-closing')--}}
-
-
     <div class="col-md-12 border-bottom pt-4">
     </div>
     @include('livewire.client.item-checklist.footer-buttons')
 
+    {{--@if ($errors->any())--}}
+    <div wire:ignore.self class="modal" tabindex="-1" role="dialog" id="validation-errors-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    @foreach ($errors->all() as $error)
+                        <div class="error-div">
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <strong>{{$error}}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        {{--@endif--}}
 </div>
 
 
 
 @push('scripts')
-    <script type="text/javascript">
-        window.addEventListener("client-property-validation-errors", event => {
-            bootbox.alert('error');
+    <script>
+        document.addEventListener("livewire:load", () => {
+
+            Livewire.hook('component.initialized', (el, component) => {
+
+            });
+
+            Livewire.hook('message.processed', (message, component) => {
+                $('#payment_options').select2({
+                    placeholder: '{{__('Select your option')}}',
+                    allowClear: true
+                });
+
+
+                    // $('#validation-errors-modal').modal('show');
+
+
+            });
+
+
+            Livewire.hook('element.updated', (el, component) => {
+
+                {{--@if($errors->any())--}}
+               // $('#validation-errors-modal').modal('show');
+                {{--@endif--}}
+            })
         });
 
+        window.addEventListener("validation-errors", event => {
+            // bootbox.alert(event.detail.errors);
+            // $('#validation-errors-modal').modal('show');
 
+        });
+
+    </script>
+
+    <script type="text/javascript">
 
         $(document).ready(function() {
             $('#payment_options').select2({
@@ -53,36 +115,14 @@
                 allowClear: true
             });
             triggerPaymentOptions();
-            // hideShow();
+
+
+            // $('#validation-errors-modal').on('hidden.bs.modal',function () {
+            //     $(this).find('.modal-body .error-div').html('');
+            // })
+
         });
-        {{--Livewire.hook('element.updated', (el, component) => {--}}
-            {{--alert('here');--}}
-            {{--$('#payment_options').select2({--}}
-                {{--placeholder: '{{__('Select your option')}}',--}}
-                {{--allowClear: true--}}
-            {{--});--}}
-            {{--triggerPaymentOptions();--}}
-        {{--})--}}
 
-        document.addEventListener("livewire:load", () => {
-
-            Livewire.hook('component.initialized', (el, component) => {
-
-            })
-
-            Livewire.hook('message.processed', (message, component) => {
-               // alert('here');
-                //$('.select2').select2();
-            });
-            Livewire.hook('element.updated', (el, component) => {
-
-                {{--$('#payment_options').select2({--}}
-                    {{--placeholder: '{{__('Select your option')}}',--}}
-                    {{--allowClear: true--}}
-                {{--});--}}
-                {{--triggerPaymentOptions();--}}
-            })
-        });
     </script>
 
 

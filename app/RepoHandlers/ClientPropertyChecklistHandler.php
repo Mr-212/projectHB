@@ -201,8 +201,6 @@ class ClientPropertyChecklistHandler
             }
 
             DB::commit();
-
-
         }catch (\Throwable $e){
             DB::rollBack();
             dd($e);
@@ -235,6 +233,7 @@ class ClientPropertyChecklistHandler
             $this->property ? : $this->getProperty();
             $clone_property = $this->property->replicate();
             $clone_property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
+            $clone_property->parent_id = $this->property->id;
             $clone_property->client_id = NULL;
 
             if ($clone_property->save()) {

@@ -128,7 +128,7 @@ class PropertyPreClosingChecklist extends Model
         "landlord_insurance_checked_at" => ItemCheckListDateTimeCast::class,
         "warranty_checked_at" => ItemCheckListDateTimeCast::class,
         "lease_signed_checked_at" => ItemCheckListDateTimeCast::class,
-//        "lease_signed_checked_at" => ItemCheckListDateTimeCast::class,
+        "lease_expire_date" => "date:Y-m-d",
     ];
     protected $attributes = [
 

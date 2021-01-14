@@ -68,7 +68,7 @@
                         @endforeach
                     </select>
                 </div>
-                {{--@if($client_pre_closing->option_payment_select_checked)--}}
+                @if($client_pre_closing->payment_option_select_checked)
                 <div class="col-md-6 col-lg-6 item_checklist_option_list_div" wire:ignore>
                     <label>Option?</label>
                     <select class="form-control" name="item_checklist_option_list" id="payment_options" multiple="multiple" onchange="selectChange(this)">
@@ -79,11 +79,10 @@
 
                     </select>
                 </div>
-                {{--@endif--}}
+                @endif
         </div>
         <div class="row">
                 @if($client_pre_closing->payment_option_3_month)
-                {{$client->payment_option_3_month}}
                     <div class="col-md-4 col-lg-4 option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_3_MONTH}}">
                         <label>3 Month Payment Option</label>
                         <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_3_month" readonly="readonly">
