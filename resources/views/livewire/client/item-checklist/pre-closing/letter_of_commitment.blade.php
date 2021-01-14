@@ -8,9 +8,9 @@
             @error('client_pre_closing.letter_of_commitment_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
 
             <div class="">
+                <input  class="" type="checkbox" name="rent" wire:model="client_pre_closing.letter_of_commitment_checked" wire:click="markChecklist('client_pre_closing','letter_of_commitment_checked')"/>
                 <label>Letter of Commitment</label>
                 {{--<input  class="" type="checkbox" name="rent" wire:model="client_pre_closing.letter_of_commitment_signed_checked" onchange="hideShow(this.value,'.payment_options_div')"/>--}}
-                <input  class="" type="checkbox" name="rent" wire:model="client_pre_closing.letter_of_commitment_checked" wire:click="markChecklist('client_pre_closing','letter_of_commitment_checked')"/>
             </div>
         </div>
     </div>

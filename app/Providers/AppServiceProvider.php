@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Client;
+use App\Models\PreClosingChecklist;
+use App\Models\Property;
 use App\Observers\ClientObserver;
+use App\Observers\PreClosingObserver;
+use App\Observers\PropertyLogObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +36,7 @@ class AppServiceProvider extends ServiceProvider
     private function registerObserver(){
 
         Client::observe(ClientObserver::class);
+        Property::observe(PropertyLogObserver::class);
+        PreClosingChecklist::observe(PreClosingObserver::class);
     }
 }

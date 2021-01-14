@@ -11,8 +11,8 @@
 
     <div class="col-md-6 col-lg-6">
         <label>Comment</label>
-        {{--<input type="text" class="form-control" placeholder="Add Comment" wire:model="{{$comment}}">--}}
-        <input type="text" class="form-control" placeholder="Add Comment" wire:model="{{}}">
+        <input type="text" class="form-control" placeholder="Add Comment" wire:model="{{$comment}}">
+        {{--<input type="text" class="form-control" placeholder="Add Comment" wire:model="{{}}">--}}
 
     </div>
 </div>

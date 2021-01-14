@@ -14,6 +14,7 @@ use App\Http\Livewire\Client\ClientLogComponent;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Livewire\Client\AddClientComponent;
 use App\Http\Livewire\Property\HouseVacantComponent;
+use App\Http\Livewire\Component\ClientPropertyChecklistLogComponent;
 
 
 /*
@@ -57,7 +58,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/checklist/client/{client_id}', ClientItemChecklist::class);
         Route::get('/checklist/{client_id}', ClientItemChecklist::class);
         Route::get('/checklist', ClientItemChecklist::class);
-        Route::get('/log/{client_id}', ClientLogComponent::class);
+        Route::get('/log/{property_id}', ClientPropertyChecklistLogComponent::class);
         Route::get('/add/client', AddClientComponent::class);
         Route::get('/client/add', ClientItemChecklist::class);
 

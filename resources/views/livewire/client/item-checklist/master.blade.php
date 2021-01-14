@@ -8,6 +8,7 @@
         @if ($errors->any())
 
 
+
             {{--<script wire:ignore>--}}
                 {{--// $('#validation-errors-modal').modal('show');--}}
             {{--</script>--}}
@@ -102,6 +103,11 @@
         window.addEventListener("validation-errors", event => {
             // bootbox.alert(event.detail.errors);
             // $('#validation-errors-modal').modal('show');
+
+        });
+
+        window.addEventListener("update-saved", event => {
+             bootbox.alert(event.detail.message);
 
         });
 

@@ -9,8 +9,8 @@
             <div class="col-md-6 col-lg-6">
                 @error('property.is_deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
                 <div class="">
-                    <label>Deal Save?</label>
                     <span><input class="" type="checkbox" name="property_country" value="" wire:model="property.deal_save_checked" wire:click="markChecklist('property','deal_save_checked')"></span>
+                    <label>Deal Save?</label>
                 </div>
 
             </div>

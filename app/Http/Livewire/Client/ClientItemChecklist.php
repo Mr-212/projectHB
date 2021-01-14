@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Client;
 use App\Constants\ClientStatusConstant;
 use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
-use App\Models\PropertyPreClosingChecklist;
+use App\Models\PreClosingChecklist;
 use App\Models\ClientProperty;
 use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
@@ -202,6 +202,7 @@ class ClientItemChecklist extends Component
         "client_pre_closing.soc_sec_card_applicant_checked_comment" =>'',
         "client_pre_closing.soc_sec_card_co_applicant_checked_comment" =>'',
         "client_pre_closing.renter_insurance_checked_comment" =>'',
+        "client_pre_closing.landlord_insurance_checked_comment" =>'',
         "client_pre_closing.flood_certificate_checked_comment" =>'',
         "client_pre_closing.warranty_checked_comment" =>'',
         "client_pre_closing.lease_signed_checked_comment" =>'',
@@ -277,7 +278,7 @@ class ClientItemChecklist extends Component
         if($this->new_property) {
 //            if (!$this->client->isClientDropped()){
                 $this->property = new Property();
-                $this->client_pre_closing = new PropertyPreClosingChecklist();
+                $this->client_pre_closing = new PreClosingChecklist();
 //                }
 //            else {
 //                session()->flash('success', 'This client is added to dropouts');
@@ -304,7 +305,7 @@ class ClientItemChecklist extends Component
             if(!$this->property)
                 $this->property = new Property();
             if(!$this->client_pre_closing)
-                $this->client_pre_closing = new PropertyPreClosingChecklist();
+                $this->client_pre_closing = new PreClosingChecklist();
 
         }
     }
@@ -376,8 +377,9 @@ class ClientItemChecklist extends Component
             $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
             if($this->client_property_pre_closing_handler->save()){
-                    session()->flash('success', 'Item successfully updated.');
-                    return $this->redirect('/items/outstanding/after_dd');
+                   // session()->flash('success', 'Item successfully updated.');
+//                    return $this->redirect('/items/outstanding/after_dd');
+                $this->dispatchBrowserEvent('update-saved',['message'=>'Page saved successfully.']);
             };
         }catch (\Exception $e){
             //dd($e);
@@ -429,10 +431,9 @@ class ClientItemChecklist extends Component
             $this->$model->$checked_at = Carbon::now()->toDateTimeString();
         }else{
             $this->$model->$checked_by = $this->$model->getOriginal($checked_by);
-            $this->$model->$checked_at = $this->$model->getOriginal($checked_at);;
-            $this->$model->$comment = $this->$model->getOriginal($comment);;
+            $this->$model->$checked_at = $this->$model->getOriginal($checked_at);
+            $this->$model->$comment    = $this->$model->getOriginal($comment);
         }
-//        dd($this->$model->$checked_by);
 
     }
 

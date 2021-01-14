@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Client\ItemChecklist;
 
 use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
-use App\Models\PropertyPreClosingChecklist;
+use App\Models\PreClosingChecklist;
 use App\Models\Property;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Livewire\Component;
@@ -115,13 +115,13 @@ class ClientPreClosingComponent extends Component
     public function getClientProperty(){
         if($this->client_id) {
             $this->title = 'Item Checklist (Pre Closing)';
-            $this->client = PropertyPreClosingChecklist::whereClientId($this->client_id)->first();
+            $this->client = PreClosingChecklist::whereClientId($this->client_id)->first();
             if(!$this->client)
-                $this->client = new PropertyPreClosingChecklist();
+                $this->client = new PreClosingChecklist();
         }
         else {
             $this->title = 'Add Client Info';
-            $this->client = new PropertyPreClosingChecklist();
+            $this->client = new PreClosingChecklist();
         }
 
     }

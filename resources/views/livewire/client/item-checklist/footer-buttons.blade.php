@@ -28,7 +28,7 @@
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE)
                 {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}
-                    <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Save</a>
+                    <a  class="btn btn-warning mr-2" type="submit" onclick="return save_item()">Save</a>
                     <a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_house()">Cancel House</a>
                     {{--<a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>--}}
 
@@ -161,7 +161,7 @@
     //     });
     // }
 
-    function save() {
+    function save_item() {
         bootbox.confirm({
             message: 'Do you want to save current state of item?',
             buttons: {

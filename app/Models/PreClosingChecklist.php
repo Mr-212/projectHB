@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class PropertyPreClosingChecklist extends Model
+class PreClosingChecklist extends Model
 {
 
     protected $table = 'client_pre_closing_checklist';

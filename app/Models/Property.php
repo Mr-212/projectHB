@@ -90,7 +90,7 @@ class Property extends Model
         return $this->hasOne(Client::class,'id','client_id');
     }
     public function pre_closing(){
-        return $this->hasOne(PropertyPreClosingChecklist::class,'property_id','id');
+        return $this->hasOne(PreClosingChecklist::class,'property_id','id');
     }
 
     public function scopeHouseVacant($query){

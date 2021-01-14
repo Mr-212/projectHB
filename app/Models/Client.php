@@ -193,7 +193,7 @@ class Client extends Model
 //        return $this->belongsTo(Property::class,'id','client_id');
 //    }
     public function pre_closing(){
-        return $this->belongsTo(PropertyPreClosingChecklist::class,'id','client_id');
+        return $this->belongsTo(PreClosingChecklist::class,'id','client_id');
     }
 
     public function scopeBeforeDD($query){
