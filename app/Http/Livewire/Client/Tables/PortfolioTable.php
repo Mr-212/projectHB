@@ -40,9 +40,10 @@ class PortfolioTable extends LivewireDatatable
 
 
 
-            Column::name('house_number_and_street')
-                ->label('House Address')
-                ->filterable(),
+            Column::callback(['house_number_and_street','id'],function ($house_number_and_street,$property_id){
+                return view('livewire.property.tables.portfolio.action-property',compact('house_number_and_street','property_id'));
+            })->label('House Address'),
+
 
             Column::name('city')
                 ->label('City')
