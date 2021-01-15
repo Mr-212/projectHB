@@ -68,7 +68,7 @@ class PortfolioTable extends LivewireDatatable
 
             Column::callback(['id','closing_cost'],function ($property_id, $closing_cost){
                 return view('livewire.property.tables.portfolio.action-property',['closing_cost' => $closing_cost,'property_id'=>$property_id,'key'=>'closing_cost']);
-            })->label('Purchase Price'),
+            })->label('Closing Cost'),
 
 //            Column::name('closing_cost')
 //                ->label('Closing Cost'),

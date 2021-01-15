@@ -61,13 +61,14 @@ class MoveOutPropertyButton extends Component
 
     public function move_out_property()
     {
-        if(!$this->client->is_client_dropped) {
+//        if(!$this->client->is_client_dropped) {
             if ($this->client_property_pre_closing_handler->movePropertyToEvictionAndVacant()) {
-                $this->redirect('/house/move_out');
-            }
-        }else{
-              $this->dispatchBrowserEvent("dropout-response-{$this->property_id}",['message' => 'This client is already added to dropouts']);
+                $this->redirect('/house/vacant');
+//            }
         }
+//            else{
+//              $this->dispatchBrowserEvent("dropout-response-{$this->property_id}",['message' => 'This client is already added to dropouts']);
+//        }
     }
 
 
