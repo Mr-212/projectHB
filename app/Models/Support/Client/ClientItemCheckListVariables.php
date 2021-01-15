@@ -12,6 +12,8 @@ namespace App\Models\Support\Client;
 class ClientItemCheckListVariables
 {
 
+    const DEFAULT_CLOSING_COST = 3500;
+
     public static function getPaymentOptionList(){
         return [
             1 =>  ['key' => 'payment_option_3_month' ,   'formula' => 1.03 ],

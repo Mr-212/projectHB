@@ -40,29 +40,39 @@ class PortfolioTable extends LivewireDatatable
 
 
 
-            Column::callback(['house_number_and_street','id'],function ($house_number_and_street,$property_id){
-                return view('livewire.property.tables.portfolio.action-property',compact('house_number_and_street','property_id'));
+            Column::callback(['house_number_and_street','id'],function ($field,$property_id){
+                return view('livewire.property.tables.portfolio.action-property',compact('field','property_id'));
             })->label('House Address'),
 
+            Column::callback(['city','id'],function ($field,$property_id){
+                return view('livewire.property.tables.portfolio.action-property',compact('field','property_id'));
+            })->label('City'),
 
-            Column::name('city')
-                ->label('City')
-                ->filterable(),
+            Column::callback(['state','id'],function ($field,$property_id){
+                return view('livewire.property.tables.portfolio.action-property',compact('field','property_id'));
+            })->label('State'),
 
-            Column::name('state')
-                ->label('State'),
+            Column::callback(['county','id'],function ($field,$property_id){
+                return view('livewire.property.tables.portfolio.action-property',compact('field','property_id'));
+            })->label('County'),
 
-            Column::name('county')
-                ->label('County'),
-
-            Column::name('zip')
-                ->label('Zip'),
+            Column::callback(['zip','id'],function ($field,$property_id){
+                return view('livewire.property.tables.portfolio.action-property',compact('field','property_id'));
+            })->label('Zip'),
 
 
             Column::callback(['id','purchase_price'],function ($property_id, $purchase_price){
                 return view('livewire.property.tables.portfolio.action-purchase-price',compact('property_id','purchase_price'));
-
             })->label('Purchase Price'),
+
+
+            Column::callback(['id','closing_cost'],function ($property_id, $closing_cost){
+                return view('livewire.property.tables.portfolio.action-property',['closing_cost' => $closing_cost,'property_id'=>$property_id,'key'=>'closing_cost']);
+            })->label('Purchase Price'),
+
+//            Column::name('closing_cost')
+//                ->label('Closing Cost'),
+////            ->editable(),
 
             Column::name('closing_date')
                 ->label('Closing Date'),

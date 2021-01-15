@@ -94,6 +94,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/evicted', [ClientController::class,'get_evicted_house']);
         Route::get('/evicted/{property_id}', ClientItemChecklist::class);
 //        Route::get('/vacant', [ClientController::class,'get_vacant_house']);
+//        Route::get('/vacant', HouseVacantComponent::class);
         Route::get('/vacant', HouseVacantComponent::class);
         Route::get('/vacant/{property_id}', ClientItemChecklist::class);
 

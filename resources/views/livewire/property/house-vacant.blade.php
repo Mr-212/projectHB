@@ -1,19 +1,13 @@
 <div class="">
-    <div>
-        <livewire:client.house.tables.vacant-house-table />
-    </div>
+        <livewire:client.house.tables.vacant-house-table>
+
+        </livewire:client.house.tables.vacant-house-table>
 </div>
 
 
+@push('scripts')
+    <script type="text/javascript">
 
-{{--@push('scripts')--}}
-    {{--<script type="text/javascript">--}}
-        {{--$(document).ready(function () {--}}
-            {{--$('#property-update').on('click',function () {--}}
-               {{--livewire.emit('update_property_status','123');--}}
-
-            {{--})--}}
-        {{--})--}}
-    {{--</script>--}}
-{{--@endpush--}}
+    </script>
+@endpush
 

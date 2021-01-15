@@ -11,29 +11,32 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class PropertyRepairRequestComponent extends Component
+class EditInputComponent extends Component
 {
-    public  $client ,$client_property, $property;
+    public  $client ,$client_property, $object;
     public  $property_id;
-    public  $field;
+    public  $key,$input_type,$value;
     public  $wire_id;
     protected  $client_property_pre_closing_handler;
 
-    protected $rules = [
-        'property.repair_request_checked_comment'=> '',
-        'property.repair_request_checked_at'=> '',
-        'property.repair_request_checked_by'=> '',
-        'property.repair_request_checked'=> '',
-    ];
+//    protected $rules = [
+//        'property.repair_request_checked_comment'=> '',
+//        'property.repair_request_checked_at'=> '',
+//        'property.repair_request_checked_by'=> '',
+//        'property.repair_request_checked'=> '',
+//    ];
 
 
 
 
 
-    public function mount($property_id=null,$field=null){
+    public function mount($input_type, $key, $value, $property_id){
         $this->wire_id = $this->id;
         $this->property_id = $property_id;
-        $this->field = $field;
+//        $this->object = $object;
+        $this->key = $key;
+        $this->value = $value;
+        $this->input_type = $input_type;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler(null,$this->property_id);
         $this->getClientProperty();
 
@@ -49,14 +52,15 @@ class PropertyRepairRequestComponent extends Component
     public function getClientProperty(){
 
 //        $this->client = $this->client_property_pre_closing_handler->getClient();
-          $this->property = $this->client_property_pre_closing_handler->getProperty();
+        if($this->property_id)
+            $this->object = $this->client_property_pre_closing_handler->getProperty();
 //        $this->client_pre_closing = $this->client_property_pre_closing_handler->getPreClosingList();
 
     }
 
     public function render()
     {
-        return view('livewire.components.property_repair_request');
+        return view('livewire.components.edit-input-component');
     }
 
     public function markChecklist($model,$check){
@@ -79,21 +83,20 @@ class PropertyRepairRequestComponent extends Component
 
     public function save()
     {
-        $this->validate();
-
-
-        if (!$this->client_property_pre_closing_handler->dropClient()) {
-
-//            $this->property->repair_request_checked = 1;
-//            $this->property->repair_request_checked_by = Auth::id();
-//            $this->property->repair_request_checked_at = Carbon::now()->toDateTimeString();
-
-            $this->client_property_pre_closing_handler->setProperty($this->property);
-            if($this->client_property_pre_closing_handler->save()){
-                $this->dispatchBrowserEvent("repair-request-{$this->wire_id}",['message' => 'Repair request comment updated successfully.']);
+//        $this->validate();
+        if($this->value) {
+            $key = $this->key;
+            $this->object->$key = $this->value;
+            $this->client_property_pre_closing_handler->setProperty($this->object);
+            if ($this->client_property_pre_closing_handler->save()) {
+                $this->dispatchBrowserEvent("input-{$this->wire_id}", ['message' => 'Value updated to '.$this->value. ' successfully.']);
             }
+        }else{
+            $this->dispatchBrowserEvent("input-{$this->wire_id}", ['message' => 'Value must be greater than 0']);
 
         }
+
+
     }
 
 

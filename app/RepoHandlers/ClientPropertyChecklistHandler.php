@@ -84,14 +84,14 @@ class ClientPropertyChecklistHandler
         $isSave = false;
         try{
             DB::beginTransaction();
-            if($this->client->isDirty()){
+            if(isset($this->client) && $this->client->isDirty()){
                 $this->client->save();
             }
-            if($this->property->isDirty()){
+            if(isset($this->property) && $this->property->isDirty()){
                 $this->property->client_id = $this->property->client_id ? :  $this->client->id;
                 $this->property->save();
             }
-            if($this->pre_closing->isDirty()) {
+            if(isset($this->pre_closing) && $this->pre_closing->isDirty()) {
                 $this->pre_closing->property_id = $this->pre_closing->property_id ? : $this->property->id;
                 $this->pre_closing->save();
             }
@@ -196,7 +196,7 @@ class ClientPropertyChecklistHandler
         try{
             DB::beginTransaction();
             if($this->vacateProperty()) {
-                $this->moveOutProperty();
+//                $this->moveOutProperty();
                 $response =  true;
             }
 

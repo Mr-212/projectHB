@@ -84,11 +84,7 @@
                     placeholder: '{{__('Select your option')}}',
                     allowClear: true
                 });
-
-
                     // $('#validation-errors-modal').modal('show');
-
-
             });
 
 

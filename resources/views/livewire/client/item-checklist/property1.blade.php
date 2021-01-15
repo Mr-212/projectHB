@@ -145,7 +145,7 @@
 
         <div class="">
             <label>Closing Cost</label>
-            <input  class="form-control" type="number" name="closing_cost_price" value="3500" wire:model="property.closing_cost">
+            <input  class="form-control" type="number" name="closing_cost_price" value="{{$property->closing_cost ?:3500 }}" wire:model="property.closing_cost">
 
         </div>
     </div>

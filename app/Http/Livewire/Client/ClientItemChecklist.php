@@ -21,6 +21,7 @@ class ClientItemChecklist extends Component
     public  $title, $new_property;
     protected  $client_property_pre_closing_handler = null;
 
+
     protected $listeners = ['cancel_client'=>'cancel_client'];
 
 
@@ -230,14 +231,8 @@ class ClientItemChecklist extends Component
     public function hydrate(){
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
 
-//        dd($this->client_pre_closing->isDirty('lease_expire_date'));
-        if(empty($this->client_pre_closing->lease_expire_date)){
 
-            if($this->property->closing_date){
-                $date = Carbon::parse($this->property->closing_date)->endOfMonth()->addYear(1);
-                $this->client_pre_closing->lease_expire_date = $date->toDateString();
-            }
-        }
+
 
     }
 
@@ -249,6 +244,17 @@ class ClientItemChecklist extends Component
 //           $this->dispatchBrowserEvent('validation-errors',['errors' => true]);
 //
 //        }
+
+        if(empty($this->client_pre_closing->lease_expire_date)){
+            if($this->property->closing_date){
+                $date = Carbon::parse($this->property->closing_date)->endOfMonth()->addYear(1);
+                $this->client_pre_closing->lease_expire_date = $date->toDateString();
+            }
+        }
+
+        if(!$this->property->closing_cost){
+            $this->property->closing_cost = ClientItemCheckListVariables::DEFAULT_CLOSING_COST;
+        }
 
     }
 
@@ -487,18 +493,6 @@ class ClientItemChecklist extends Component
     }
 
     public function cancel_house(){
-//        $reset = array_diff_key($this->client->getAttributes(),array_flip($this->exceptArray));
-//        if($reset){
-//            foreach ($reset as $k=> $v){
-//                $reset[$k] = null;
-//            }
-//        }
-        //dd($reset);
-
-        //$reset['stage'] = PropertyStatusConstant::HOUSE_CANCELLED;
-        //dd($reset,$this->client->id,$this->client->update($reset));
-        //$this->client_property_pre_closing_handler->setClient($this->client_property_pre_closing_handler->getClient());
-        //$this->client_property_pre_closing_handler->setPreClosingList($this->client_property_pre_closing_handler->getPreClosingList());
         $this->property->property_status_id = PropertyStatusConstant::HOUSE_CANCELLED;
         $this->client_property_pre_closing_handler->setProperty($this->property);
         if($this->client_property_pre_closing_handler->getProperty($this->property)->save()){

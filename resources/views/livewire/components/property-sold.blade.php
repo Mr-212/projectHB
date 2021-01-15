@@ -2,17 +2,19 @@
 <div class="">
    {{--<a onclick="openModal({{$property_id}})" class="btn btn-primary">Sold</a>--}}
     {{--<a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}">Sold</a>--}}
-    <a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary">Sold</a>
+    <a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary mx-1">Sold</a>
 
     <div  wire:ignore.self class="modal fade" tabindex="-1" role="dialog" id="property-modal-{{$property_id}}" >
         <div  class="modal-dialog" role="document">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h5 class="modal-title">Add Price and Date</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     <div class="row">
                         <span class="col-md-12 col-lg-12">
@@ -37,7 +39,6 @@
 
                         </div>
 
-
                         <div class="col-md-12 col-lg-12">
                             <label>Sell Date</label>
                             <input class="form-control" id="sold_date" type="date" wire:model="property.sold_date" >
@@ -45,10 +46,12 @@
 
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="property-update" wire:click.prevent="property_sold">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+
             </div>
         </div>
     </div>
