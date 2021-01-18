@@ -16,17 +16,7 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::query()->Active()->BeforeDDExpireQuery();
-//        return
-//            Client::query()->Active()
-//                ->leftjoin('properties',function ($join){
-//                    $join->on('clients.id','=','properties.client_id')
-//                        ->where(function ($q){
-//                            $q->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE)
-//                            ->orWhereNULL('property_status_id');
-//                        });
-//                    })
-//                ->leftjoin('pre_closing_checklist','pre_closing_checklist.property_id','properties.id');
+        return Client::query()->with('property','pre_closing')->Active()->BeforeDDExpireQuery();
 
     }
 
