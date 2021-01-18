@@ -23,7 +23,7 @@
 
     {{--<a href="{{url("/items/log/{$client_id}")}}"  class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded">--}}
         {{--<svg class="w-4 h-1" fill="currentColor" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">--}}
-            {{--<img class="" src="{{url('system_svg/log.svg')}}" >--}}
+            {{--<img class="" src="{{url('system/log.svg')}}" >--}}
         {{--</svg>--}}
     {{--</a>--}}
 

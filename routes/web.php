@@ -55,8 +55,8 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
 //        Route::get('/outstanding/{type}', OutstandingItemsBeforeDueDiligence::class);
         Route::get('/outstanding/{type}', OutstandingItems::class);
         Route::get('/checklist/property/{property_id}', ClientItemChecklist::class);
-        Route::get('/checklist/client/{client_id}', ClientItemChecklist::class);
-        Route::get('/checklist/{client_id}', ClientItemChecklist::class);
+//        Route::get('/checklist/client/{client_id}', ClientItemChecklist::class);
+        Route::get('/checklist/{client_id}/{property_id?}', ClientItemChecklist::class);
         Route::get('/checklist', ClientItemChecklist::class);
         Route::get('/log/{property_id}', ClientPropertyChecklistLogComponent::class);
         Route::get('/add/client', AddClientComponent::class);

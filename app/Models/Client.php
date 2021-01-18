@@ -153,6 +153,16 @@ class Client extends Model
 
     }
 
+    public function scopeActive($query)
+    {
+//        $builder->where('status', '!=', ClientStatusConstant::CLIENT_DROPOUT);
+        $query->where(function ($q){
+            $q->where('status', ClientStatusConstant::CLIENT_ACTIVE);
+            $q->orWhereNULL('status');
+        });
+    }
+
+
     public function getIsClientDroppedAttribute(){
         return $this->status == ClientStatusConstant::CLIENT_DROPOUT ? TRUE : FALSE;
     }
@@ -207,19 +217,24 @@ class Client extends Model
         });
     }
 
-    public function scopeBeforeDDExpire($query){
-
-        return $query->whereHas('property', function ($query){
-            $query->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
-        });
-    }
-
 //    public function scopeBeforeDDExpire($query){
 //
-//        return $query->join('properties as property','clients.id','property.client_id')
-//        ->where('property.property_status_id','=',PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
-////        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+//        return $query->whereHas('property', function ($query){
+//            $query->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
+//        });
 //    }
+
+    public function scopeBeforeDDExpireQuery($query){
+
+        return
+            $query ->leftjoin('properties',function ($join){
+                $join->on('clients.id','=','properties.client_id')
+                    ->where(function ($q){
+                        $q->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE)
+                            ->orWhereNULL('property_status_id');
+                    });
+            })->leftjoin('pre_closing_checklist','pre_closing_checklist.property_id','properties.id');
+    }
 
     public function scopeWithoutProperty($query){
 

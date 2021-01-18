@@ -25,17 +25,16 @@ class ClientPropertyChecklistHandler
     {
          $this->client = $client_id ? Client::find($client_id) : null;
          $this->property = $property_id ? Property::find($property_id) : null;
-//         dd($this->property);
     }
 
 
     public function getClient(){
-        return $this->client = $this->client ? : (!empty($this->property->client) ? $this->property->client: new Client());
+        return $this->client = $this->client ? : (isset($this->property->client) ? $this->property->client: new Client());
 
     }
 
     public function getProperty(){
-        return $this->property = $this->property ? : ($this->client->property ? : new Property());
+        return $this->property = $this->property ? :  new Property();
     }
 
     public function getPreClosingList(){
@@ -54,32 +53,8 @@ class ClientPropertyChecklistHandler
         $this->pre_closing = $pre_closing;
     }
 
-    public function saveClientPropertyAndPreClosing(){
-        $isSave = false;
-        try{
 
-            DB::beginTransaction();
-            if($this->client->save()){
-//                dd($this->property);
-                $this->property->client_id = $this->client->id;
-                if($this->property->save()){
-                    $this->pre_closing->property_id = $this->property->id;
-                    if($this->pre_closing->save()) {
 
-                        DB::commit();
-                        $isSave = true;
-                    }
-                }
-            }
-
-        }catch (\Exception $e){
-            dd($e);
-            DB::rollBack();
-            report($e);
-        }
-
-        return $isSave;
-    }
     public function save(){
         $isSave = false;
         try{
@@ -88,11 +63,11 @@ class ClientPropertyChecklistHandler
                 $this->client->save();
             }
             if(isset($this->property) && $this->property->isDirty()){
-                $this->property->client_id = $this->property->client_id ? :  $this->client->id;
+                $this->property->client_id = $this->property->client_id ? : ($this->client->id ? : null);
                 $this->property->save();
             }
             if(isset($this->pre_closing) && $this->pre_closing->isDirty()) {
-                $this->pre_closing->property_id = $this->pre_closing->property_id ? : $this->property->id;
+                $this->pre_closing->property_id = $this->pre_closing->property_id ? : ($this->property->id ? : null);
                 $this->pre_closing->save();
             }
             DB::commit();
@@ -102,38 +77,6 @@ class ClientPropertyChecklistHandler
             dd($e);
             DB::rollBack();
             report($e);
-        }
-
-        return $isSave;
-    }
-
-    public function saveClient(){
-        $isSave = false;
-        try{
-            DB::beginTransaction();
-            if($this->client->save()){
-                        DB::commit();
-                        $isSave = true;
-            }
-        }catch (\Exception $e){
-            DB::rollBack();
-            return $e;
-        }
-
-        return $isSave;
-    }
-
-    public function saveProperty(){
-        $isSave = false;
-        try{
-            DB::beginTransaction();
-            if($this->property->save()){
-                        DB::commit();
-                        $isSave = true;
-            }
-        }catch (\Exception $e){
-            DB::rollBack();
-            return $e;
         }
 
         return $isSave;
@@ -196,7 +139,7 @@ class ClientPropertyChecklistHandler
         try{
             DB::beginTransaction();
             if($this->vacateProperty()) {
-//                $this->moveOutProperty();
+                $this->moveOutProperty();
                 $response =  true;
             }
 

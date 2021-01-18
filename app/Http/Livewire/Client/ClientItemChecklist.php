@@ -493,15 +493,18 @@ class ClientItemChecklist extends Component
     }
 
     public function cancel_house(){
-        $this->property->property_status_id = PropertyStatusConstant::HOUSE_CANCELLED;
-        $this->client_property_pre_closing_handler->setProperty($this->property);
-        if($this->client_property_pre_closing_handler->getProperty($this->property)->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/house/cancelled');
-        };
+        if(!empty($this->property->id)) {
+            $this->property->property_status_id = PropertyStatusConstant::HOUSE_CANCELLED;
+            $this->client_property_pre_closing_handler->setProperty($this->property);
+            if ($this->client_property_pre_closing_handler->getProperty($this->property)->save()) {
+                session()->flash('success', 'Item successfully updated.');
+                return $this->redirect('/house/cancelled');
+            };
+        }else{
+            $this->dispatchBrowserEvent('update-saved',['message'=>'Cant cancel house as property form is empty..']);
+
+        }
     }
-
-
 
 
 }

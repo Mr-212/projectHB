@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class PreClosingChecklist extends Model
 {
 
-    protected $table = 'client_pre_closing_checklist';
+    protected $table = 'pre_closing_checklist';
     protected $fillable = [
 
         "client_id",

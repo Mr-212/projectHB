@@ -23,21 +23,16 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
 
     public function builder()
     {
-//        return Client::with('property','property.pre_closing')->beforeDDExpire();
-        return Property::with('client','pre_closing')->beforeDDExpire();
-//          return Client::query()->beforeDDExpire();
-//          return Client::join('properties as property','property.client_id','clients.id')
-//              ->where('property.property_status_id','=', PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE);
-//        return ClientProperty::with('client','property')->beforeDDExpire();
+
+        return Property::query()->beforeDDExpire();
+
     }
 
     public function columns()
     {
         return [
-//            Column::checkbox(),
-            Column::callback(['id'], function ($id) {
-//                return view('livewire.client.tables.actions.index', ['client_id' => $id]);
-                return view('livewire.client.tables.actions.index', ['property_id' => $id]);
+            Column::callback(['id','client.id'], function ($id,$client_id) {
+                return view('livewire.client.tables.actions.index', ['property_id' => $id,'client_id' => $client_id]);
             }),
 
 

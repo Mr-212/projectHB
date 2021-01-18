@@ -44,7 +44,7 @@
                         <li class="sidebar-item">
                             <a href="{{url('/items/outstanding/before_dd')}}" class="sidebar-link {{ str_contains(url()->previous(), '/before_dd') ?'active':''}}">
                                 <i class="fa fa-angle-double-left"></i>
-                                <span class="hide-menu"> Before DD </span></a>
+                                <span class="hide-menu"> Before DD Ends </span></a>
                         </li>
                         <li class="sidebar-item">
                             <a href="{{url('/items/outstanding/after_dd')}}" class="sidebar-link {{ str_contains(url()->current(), '/after_dd') ?'active':''}}">

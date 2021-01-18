@@ -14,7 +14,7 @@ class DropoutClientButton extends Component
     public  $client ,$client_property, $property;
     public  $client_id, $property_id;
     public  $title;
-    //public  $wire_id;
+    public  $wire_id;
     protected  $client_property_pre_closing_handler;
 
     protected $listeners = ['drop_client'];
@@ -24,9 +24,10 @@ class DropoutClientButton extends Component
 
 
 
-    public function mount($client_id, $property_id = null){
+    public function mount($client_id, $property_id){
         $this->client_id = $client_id;
         $this->property_id = $property_id;
+        $this->wire_id = $this->id;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
         $this->getClientProperty();
 
