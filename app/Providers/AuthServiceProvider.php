@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Constants\GeneralConstants;
 use App\Models\Team;
 use App\Policies\TeamPolicy;
+use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -26,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
+        });
     }
 }

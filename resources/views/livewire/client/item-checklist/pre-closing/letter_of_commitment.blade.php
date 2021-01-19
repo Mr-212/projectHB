@@ -85,19 +85,22 @@
                 @if($client_pre_closing->payment_option_3_month)
                     <div class="col-md-4 col-lg-4 option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_3_MONTH}}">
                         <label>3 Month Payment Option</label>
-                        <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_3_month" readonly="readonly">
+                        {{--<input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_3_month" {{\Illuminate\Support\Facades\Auth::user()->hasRole('Admin')?:'readonly'}}>--}}
+                        <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_3_month" readonly>
                     </div>
                 @endif
                 @if($client_pre_closing->payment_option_6_month)
                     <div class="col-md-4 col-lg-4 option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_6_MONTH}}">
                         <label>6 Month Payment Option</label>
                         <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_6_month" readonly="readonly">
+                        {{--<input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_6_month" {{\Illuminate\Support\Facades\Auth::user()->hasRole('Admin')?:'readonly'}}>--}}
                     </div>
                 @endif
                 @if($client_pre_closing->payment_option_12_month)
                     <div class="col-md-4 col-lg-4 option_list_value_div " id="{{\App\Constants\Dropdowns\PaymentOptionDropdown::PAYMENT_OPTION_12_MONTH}}">
                         <label>12 Month Payment Option</label>
                         <input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_12_month" readonly="readonly">
+                        {{--<input  class="form-control" type="number" name="item_checklist_option_list_value" value="" wire:model="client_pre_closing.payment_option_12_month" {{\Illuminate\Support\Facades\Auth::user()->hasRole('Admin')?:'readonly'}}>--}}
                     </div>
                 @endif
          </div>

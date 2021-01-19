@@ -30,89 +30,16 @@ class Client extends Model
 
         'additional_tenant_check' ,
         'additional_tenant_name' ,
-        'mortgage_type_id' ,
-        'rental_verification_checked',
-        'rental_verification_checked_at',
-//        'rental_verification_check',
-        'welcome_payment',
-        'welcome_payment_checked',
-        'welcome_payment_checked_at',
-
-        'property_new_construction_check',
-        "property_new_construction_builder_name",
-        "property_country" ,
-        "property_state" ,
-        "property_city" ,
-        "property_zip",
-
-        "property_purchase_price" ,
-        "property_closing_cost" ,
-        "property_closing_credit_general" ,
-        "property_annual_property_tax" ,
-
-        "property_hoa_check" ,
-        "property_hoa_name" ,
-        "property_hoa_phone" ,
-
-        "property_repair_request_check" ,
-        "property_repair_request_item_names" ,
-
-        "property_lender_check" ,
-        "property_lender_name" ,
-
-        "property_closing_date_complete_check" ,
-        "property_closing_date" ,
-
-        "property_due_diligence_expire_complete_check" ,
-        "property_due_diligence_expire" ,
-
-        "due_diligence_rent" ,
-        "due_diligence_option_payment_check" ,
-        "due_diligence_option_payment_3_month" ,
-        "due_diligence_option_payment_6_month" ,
-        "due_diligence_option_payment_12_month" ,
-        "due_diligence_option_payment_date" ,
-
-        "letter_of_commitment_signed" ,
-        "on_boarding_fee_payment_check" ,
-
-
-
-        "due_diligence_inspection_check" ,
-        "due_diligence_inspection_check_date" ,
-
-        'appraisal_value_check' ,
-        'appraisal_value' ,
-
-        'driver_license_applicant' ,
-        'driver_license_co_applicant' ,
-        'soc_sec_card_applicant' ,
-        'soc_sec_card_co_applicant' ,
-
-        'renter_insurance_check' ,
-        'renter_insurance_company_name' ,
-
-        'flood_certificate_check' ,
-        'landlord_insurance_check' ,
-
-        'warranty_check' ,
-        'warranty_company_name' ,
-
-        'warranty_paid_by_seller_check' ,
-
-        'lease_check' ,
-        'lease_expire_date' ,
-
-        'termite_check' ,
-        'termite_paid_by' ,
-
-        'septic_inspection_check' ,
-        'clear_now_rent_payment_enrollment_check' ,
-        'prorated_rent_check' ,
-        'prorated_rent' ,
-        'other_check' ,
-        'other_value' ,
         'stage',
+
+//        'mortgage_type_id' ,
+//        'rental_verification_checked',
+//        'rental_verification_checked_at',
+//        'welcome_payment',
+//        'welcome_payment_checked',
+//        'welcome_payment_checked_at',
+
+
 
         'created_by',
         'updated_by',
@@ -122,8 +49,8 @@ class Client extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-          'welcome_payment_checked_at' => ItemCheckListDateTimeCast::class,
-          'rental_verification_checked_at' => ItemCheckListDateTimeCast::class,
+//          'welcome_payment_checked_at' => ItemCheckListDateTimeCast::class,
+//          'rental_verification_checked_at' => ItemCheckListDateTimeCast::class,
     ];
     protected $attributes = [
 //        'additional_tenant' => [

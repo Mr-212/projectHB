@@ -129,81 +129,81 @@
         </div>
     </div>
 
-    <div class="col-md-12 col-lg-12">
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                @error('client.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror
-                <div class="">
-                    <label>Mortgage Type ?</label>
-                    <select class="form-control" name="deal_mortgage_type" wire:model="client.mortgage_type_id" wire:ignore>
-                        <option value="0">Select</option>
-                        @foreach(MortgageTypeDropdown::getList() as $key => $val)
-                            <option value="{{$key}}" >{{$val}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+    {{--<div class="col-md-12 col-lg-12">--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--@error('client.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+                {{--<div class="">--}}
+                    {{--<label>Mortgage Type ?</label>--}}
+                    {{--<select class="form-control" name="deal_mortgage_type" wire:model="client.mortgage_type_id" wire:ignore>--}}
+                        {{--<option value="0">Select</option>--}}
+                        {{--@foreach(MortgageTypeDropdown::getList() as $key => $val)--}}
+                            {{--<option value="{{$key}}" >{{$val}}</option>--}}
+                        {{--@endforeach--}}
+                    {{--</select>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-        </div>
+        {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
 
-    <div class="col-md-12 col-lg-12 pt-2">
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="">
-                    <input type="checkbox"  value="" wire:model="client.welcome_payment_checked"  wire:click="markChecklist('client','welcome_payment_checked')">
-                    <label>$500 Welcome Payment ?</label>
+    {{--<div class="col-md-12 col-lg-12 pt-2">--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--<div class="">--}}
+                    {{--<input type="checkbox"  value="" wire:model="client.welcome_payment_checked"  wire:click="markChecklist('client','welcome_payment_checked')">--}}
+                    {{--<label>$500 Welcome Payment ?</label>--}}
 
-                </div>
-            </div>
-        </div>
-        <div class="row">
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="row">--}}
 
-            @if($client->welcome_payment_checked)
-                <div class="col-md-6 col-lg-6">
-                    <label>Checked At</label>
-                    <input type="text" class="form-control" wire:model="client.welcome_payment_checked_at" readonly>
-                </div>
+            {{--@if($client->welcome_payment_checked)--}}
+                {{--<div class="col-md-6 col-lg-6">--}}
+                    {{--<label>Checked At</label>--}}
+                    {{--<input type="text" class="form-control" wire:model="client.welcome_payment_checked_at" readonly>--}}
+                {{--</div>--}}
 
-                <div class="col-md-6 col-lg-6">
-                    <label>Comment</label>
-                    <input type="text" class="form-control" placeholder="Add Comment" wire:model="client.welcome_payment_checked_comment">
-                </div>
-            @endif
+                {{--<div class="col-md-6 col-lg-6">--}}
+                    {{--<label>Comment</label>--}}
+                    {{--<input type="text" class="form-control" placeholder="Add Comment" wire:model="client.welcome_payment_checked_comment">--}}
+                {{--</div>--}}
+            {{--@endif--}}
 
-        </div>
+        {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
 
-    <div class="col-md-12 col-lg-12 pt-2" >
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                @error('client.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
-                <div class="">
-                    <input type="checkbox"  value="" wire:model="client.rental_verification_checked" wire:click="markChecklist('client','rental_verification_checked')" />
-                    <label>Rental Verification</label>
+    {{--<div class="col-md-12 col-lg-12 pt-2" >--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--@error('client.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+                {{--<div class="">--}}
+                    {{--<input type="checkbox"  value="" wire:model="client.rental_verification_checked" wire:click="markChecklist('client','rental_verification_checked')" />--}}
+                    {{--<label>Rental Verification</label>--}}
 
-                </div>
-            </div>
-        </div>
-        <div class="row">
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="row">--}}
 
-        @if($client->rental_verification_checked)
-            <div class="col-md-6 col-lg-6">
-                <label>Checked At</label>
-                    <input type="text" class="form-control" wire:model="client.rental_verification_checked_at" readonly>
-            </div>
+        {{--@if($client->rental_verification_checked)--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--<label>Checked At</label>--}}
+                    {{--<input type="text" class="form-control" wire:model="client.rental_verification_checked_at" readonly>--}}
+            {{--</div>--}}
 
-           <div class="col-md-6 col-lg-6">
-               <label>Comment</label>
-                    <input type="text" class="form-control" wire:model="client.rental_verification_checked_comment" placeholder="Add Comment">
-           </div>
+           {{--<div class="col-md-6 col-lg-6">--}}
+               {{--<label>Comment</label>--}}
+                    {{--<input type="text" class="form-control" wire:model="client.rental_verification_checked_comment" placeholder="Add Comment">--}}
+           {{--</div>--}}
 
-        @endif
-        </div>
+        {{--@endif--}}
+        {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
 
 
     {{--<select class="form-control" name="deal_save" wire:model="client.rental_verification_check" wire:ignore>--}}

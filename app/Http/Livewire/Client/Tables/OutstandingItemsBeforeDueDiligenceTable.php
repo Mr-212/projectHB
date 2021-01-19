@@ -38,7 +38,7 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
 
             Column::callback('status',function($stage){
                 return ClientStatusConstant::getValueByKey($stage);
-            })->label('Stage'),
+            })->label('Client Status'),
 
             Column::name('applicant_name')
                 ->label('Applicant Name')
@@ -48,14 +48,14 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
                 ->filterable(),
 
 
-            Column::callback('welcome_payment_checked',function($field){
+            Column::callback('pre_closing.welcome_payment_checked',function($field){
                 if($field){
                     return view('livewire.property.tables.actions.check-icon');
                }
             })->label('Welcome Payment'),
 
 
-             Column::callback('rental_verification_checked',function($field){
+             Column::callback('pre_closing.rental_verification_checked',function($field){
                  if($field){
                      return view('livewire.property.tables.actions.check-icon');
                  }

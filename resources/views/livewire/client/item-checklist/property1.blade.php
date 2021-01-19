@@ -1,40 +1,58 @@
 <div class="row pl-2 item_checklist_property_info_div">
-    <div class="col-md-12 col-lg-12 bg-info">
+    <div class="col-md-12 col-lg-12 bg-info mb-3">
         <h4 class="text-white pt-2">Property Information</h4>
 
     </div>
 
-    <div class="col-md-12 col-lg-12 pt-4">
+    <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                @error('property.is_deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                {{--@error('property.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
                 <div class="">
-                    <span><input class="" type="checkbox" name="property_country" value="" wire:model="property.deal_save_checked" wire:click="markChecklist('property','deal_save_checked')"></span>
-                    <label>Deal Save?</label>
+                    <label>Mortgage Type ?</label>
+                    <select class="form-control" name="deal_mortgage_type" wire:model="property.mortgage_type_id" wire:ignore>
+                        <option value="0">Select</option>
+                        @foreach(MortgageTypeDropdown::getList() as $key => $val)
+                            <option value="{{$key}}" >{{$val}}</option>
+                        @endforeach
+                    </select>
                 </div>
-
-            </div>
-        </div>
-        <div class="row">
-            @if(isset($property->deal_save_checked) && $property->deal_save_checked)
-            <div class="col-md-6 col-lg-6">
-                <div class="">
-                    <label>Checked At</label>
-                    <input type="text" class="form-control" wire:model="property.deal_save_checked_at" readonly="readonly">
-
-                </div>
-
             </div>
 
-                <div class="col-md-6 col-lg-6">
-                    <label>Comment</label>
-                    <input type="text" class="form-control" placeholder="Add Comment" wire:model="property.deal_save_checked_comment">
-
-                </div>
-            @endif
         </div>
 
     </div>
+    {{--<div class="col-md-12 col-lg-12 pt-4">--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--@error('property.is_deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+                {{--<div class="">--}}
+                    {{--<span><input class="" type="checkbox" name="property_country" value="" wire:model="property.deal_save_checked" wire:click="markChecklist('property','deal_save_checked')"></span>--}}
+                    {{--<label>Deal Save?</label>--}}
+                {{--</div>--}}
+
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="row">--}}
+            {{--@if(isset($property->deal_save_checked) && $property->deal_save_checked)--}}
+            {{--<div class="col-md-6 col-lg-6">--}}
+                {{--<div class="">--}}
+                    {{--<label>Checked At</label>--}}
+                    {{--<input type="text" class="form-control" wire:model="property.deal_save_checked_at" readonly="readonly">--}}
+
+                {{--</div>--}}
+
+            {{--</div>--}}
+
+                {{--<div class="col-md-6 col-lg-6">--}}
+                    {{--<label>Comment</label>--}}
+                    {{--<input type="text" class="form-control" placeholder="Add Comment" wire:model="property.deal_save_checked_comment">--}}
+
+                {{--</div>--}}
+            {{--@endif--}}
+        {{--</div>--}}
+
+    {{--</div>--}}
 
     {{--<div class="col-md-12 col-lg-12 pt-4">--}}
         {{--<div class="row">--}}
@@ -52,7 +70,7 @@
     {{--</div>--}}
 
    <div class="col-md-6 col-lg-6" >
-       @error('property.house_number_and_street') <span class="error alert-danger">{{ $message }}</span> @enderror
+       {{--@error('property.house_number_and_street') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
        <div class="">
            <label>Property house number and street</label>
@@ -61,7 +79,7 @@
    </div>
 
     <div class="col-md-6 col-lg-6">
-        @error('property.county') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.county') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Property County</label>
@@ -71,7 +89,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        @error('property.state') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.state') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Property State</label>
@@ -80,7 +98,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        @error('property.city') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.city') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Property City</label>
@@ -88,7 +106,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        @error('property.zip') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.zip') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Property Zip</label>
@@ -114,7 +132,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        @error('property.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Purchase Price</label>
@@ -132,7 +150,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        @error('property.annual_property_tax') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.annual_property_tax') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Annual Property Tax</label>
@@ -141,7 +159,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        @error('property.closing_cost') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.closing_cost') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
         <div class="">
             <label>Closing Cost</label>
@@ -175,7 +193,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        @error('property.closing_date') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.closing_date') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
         <div class="">
             <label>Closing Date</label>
                 <input  class="form-control" type="date" name="closing_date" value="" wire:model="property.closing_date" />
@@ -183,7 +201,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        @error('property.due_diligence_expire_date') <span class="error alert-danger">{{ $message }}</span> @enderror
+        {{--@error('property.due_diligence_expire_date') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
         <div class="">
             <label>Due Diligence Expires</label>
                 <input  class="form-control" type="date" name="dd_expire_date" value="" wire:model="property.due_diligence_expire_date" />

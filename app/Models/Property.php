@@ -21,6 +21,7 @@ class Property extends Model
         "deal_save_checked_at",
         "deal_save_checked_by",
         "deal_save_checked_comment",
+        'mortgage_type_id',
 
         "house_number_and_street",
         "county" ,

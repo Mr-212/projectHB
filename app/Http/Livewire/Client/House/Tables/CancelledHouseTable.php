@@ -16,7 +16,7 @@ class CancelledHouseTable extends LivewireDatatable
 
     public function builder()
     {
-        return Property::query()->CancelledHouse();
+        return Property::query()->with('client','pre_closing')->CancelledHouse();
     }
 
     public function columns()
@@ -34,14 +34,19 @@ class CancelledHouseTable extends LivewireDatatable
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Stage'),
 
-            Column::callback(['client.id','id','client.additional_tenant_name'], function($client_id, $property_id,$additional_tenant_name) {
-                return view('livewire.property.tables.cancelled.action-additional-tenant',
-                    [
-                        'client_id' => $client_id,
-                        'property_id'=> $property_id,
-                        'additional_tenant_name'=> $additional_tenant_name,
-                    ]);
-            })->label('Additional Tenant'),
+            Column::name('client.applicant_name')
+                ->label('Applicant'),
+
+//            Column::callback(['client.id','id','client.additional_tenant_name'], function($client_id, $property_id,$additional_tenant_name) {
+//                return view('livewire.property.tables.cancelled.action-additional-tenant',
+//                    [
+//                        'client_id' => $client_id,
+//                        'property_id'=> $property_id,
+//                        'additional_tenant_name'=> $additional_tenant_name,
+//                    ]);
+//            })->label('Additional Tenant'),
+
+
 
             Column::name('house_number_and_street')
                 ->label('House Address')
@@ -60,14 +65,12 @@ class CancelledHouseTable extends LivewireDatatable
             Column::name('zip')
                 ->label('Zip'),
 
-//            Column::name('partner_phone')
-//                ->label('Partner Phone'),
-//
-//            Column::name('co_applicant_name')
-//                ->label('Co applicant Name'),
-//
-//            Column::name('co_applicant_email')
-//                ->label('Co applicant Email'),
+
+            Column::name('client.co_applicant_name')
+                ->label('Co applicant Name'),
+
+            Column::name('client.partner_name')
+                ->label('Partner Name'),
 
 
         ];

@@ -3,7 +3,6 @@ namespace App\Http\Livewire\Client;
 
 use App\Constants\ClientStatusConstant;
 use App\Constants\PropertyStatusConstant;
-use App\Models\Client;
 use App\Models\PreClosingChecklist;
 use App\Models\ClientProperty;
 use App\Models\Property;
@@ -11,7 +10,7 @@ use App\Models\Support\Client\ClientItemCheckListVariables;
 use App\RepoHandlers\ClientPropertyChecklistHandler;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class ClientItemChecklist extends Component
@@ -26,20 +25,6 @@ class ClientItemChecklist extends Component
 
 
 
-    public  $exceptArray = [
-        'id',
-        'applicant_name',
-        'applicant_email' ,
-        'applicant_phone' ,
-        'partner_name',
-        'partner_email' ,
-        'partner_phone' ,
-        'co_applicant_name' ,
-        'co_applicant_email' ,
-        'co_applicant_phone',
-//        'stage',
-        ];
-
     protected $rules = [
         'client.applicant_name' => 'required|string',
         'client.applicant_email' =>'required|email',
@@ -53,29 +38,29 @@ class ClientItemChecklist extends Component
 
         'client.additional_tenant_check' => '',
         'client.additional_tenant_name' => '',
-        'client.mortgage_type_id' => '',
-        'client.rental_verification_checked' => '',
-        'client.rental_verification_checked_by' => '',
-        'client.rental_verification_checked_at' => '',
-        'client.rental_verification_checked_comment' => '',
-//        'client.rental_verification_check' => '',
-//        'client.welcome_down_payment' => '',
-        'client.welcome_payment_checked' => '',
-        'client.welcome_payment_checked_by' => '',
-        'client.welcome_payment_checked_at' => '',
-        'client.welcome_payment_checked_comment' => '',
+//        'client.mortgage_type_id' => '',
+//        'client.rental_verification_checked' => '',
+//        'client.rental_verification_checked_by' => '',
+//        'client.rental_verification_checked_at' => '',
+//        'client.rental_verification_checked_comment' => '',
+////        'client.rental_verification_check' => '',
+////        'client.welcome_down_payment' => '',
+//        'client.welcome_payment_checked' => '',
+//        'client.welcome_payment_checked_by' => '',
+//        'client.welcome_payment_checked_at' => '',
+//        'client.welcome_payment_checked_comment' => '',
 
 
         //client property rules
 
-        "property.deal_save_checked" =>'',
-        "property.deal_save_checked_by" =>'',
-        "property.deal_save_checked_at" =>'',
-        "property.deal_save_checked_comment" =>'',
+//        "property.deal_save_checked" =>'',
+//        "property.deal_save_checked_by" =>'',
+//        "property.deal_save_checked_at" =>'',
+//        "property.deal_save_checked_comment" =>'',
 
 
 
-
+        'property.mortgage_type_id' => '',
         'property.new_construction_check' =>'',
         "property.new_construction_builder" =>'',
         'property.house_number_and_street' =>'required',
@@ -103,7 +88,23 @@ class ClientItemChecklist extends Component
         "property.due_diligence_expire_date" => '',
 
 
-        //pre c;osing rules
+        //pre closing rules
+
+        'client_pre_closing.rental_verification_checked' => '',
+        'client_pre_closing.rental_verification_checked_by' => '',
+        'client_pre_closing.rental_verification_checked_at' => '',
+        'client_pre_closing.rental_verification_checked_comment' => '',
+
+        'client_pre_closing.welcome_payment_checked' => '',
+        'client_pre_closing.welcome_payment_checked_by' => '',
+        'client_pre_closing.welcome_payment_checked_at' => '',
+        'client_pre_closing.welcome_payment_checked_comment' => '',
+
+        "client_pre_closing.deal_save_checked" =>'',
+        "client_pre_closing.deal_save_checked_by" =>'',
+        "client_pre_closing.deal_save_checked_at" =>'',
+        "client_pre_closing.deal_save_checked_comment" =>'',
+
         "client_pre_closing.rent" =>'',
         "client_pre_closing.payment_option_select_checked" =>'',
         "client_pre_closing.payment_option_3_month" =>'',
@@ -185,11 +186,7 @@ class ClientItemChecklist extends Component
         'client_pre_closing.lease_expire_checked' => '',
         'client_pre_closing.lease_expire_date' => '',
 
-//        'client_pre_closing.clear_now_rent_payment_enrollment_check' => '',
-//        'client_pre_closing.prorated_rent_check' => '',
-//        'client_pre_closing.prorated_rent' => '',
 
-//        'client_pre_closing.option_checked' => '',
         'client_pre_closing.other_checked' => '',
         'client_pre_closing.other_value' => '',
 
@@ -239,12 +236,6 @@ class ClientItemChecklist extends Component
     public function dehydrate()
     {
 
-//        if ($this->getErrorBag()->any()) {
-////            $this->resetErrorBag();
-//           $this->dispatchBrowserEvent('validation-errors',['errors' => true]);
-//
-//        }
-
         if(empty($this->client_pre_closing->lease_expire_date)){
             if($this->property->closing_date){
                 $date = Carbon::parse($this->property->closing_date)->endOfMonth()->addYear(1);
@@ -257,21 +248,6 @@ class ClientItemChecklist extends Component
         }
 
     }
-
-     public function  updatedFoo(){
-
-     }
-
-//    public function updated(){
-//
-//        if($this->property->isDirty('is_deal_save_checked')) {
-//
-//        }
-//
-//        if ($this->getErrorBag()->any()) {
-//            $this->dispatchBrowserEvent('validation-errors',['errors' => true]);
-//        }
-//    }
 
 
 
@@ -324,15 +300,12 @@ class ClientItemChecklist extends Component
     public function save_book_purchase(){
         return $this->redirect('/portfolio');
     }
-//
-    public function deal_save(){
 
-    }
 
     public function book_house(){
 
-        $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
         try {
+            $this->validate(ClientItemCheckListVariables::getValidationRulesForHouseBook());
             $this->property->property_status_id = PropertyStatusConstant::HOUSE_BOOKED;
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
@@ -341,9 +314,17 @@ class ClientItemChecklist extends Component
             if ($this->client_property_pre_closing_handler->save()) {
                 return $this->redirect('/portfolio');
             };
-        }catch (\Exception $e){
-            dd($e);
         }
+        catch (ValidationException $e){
+            $this->dispatchBrowserEvent('validation-errors');
+            throw $e;
+
+        }
+        catch (\Exception $e){
+           dd($e);
+        }
+
+
     }
 
     public function before_closing(){
@@ -365,7 +346,7 @@ class ClientItemChecklist extends Component
                 dd($e);
             }
 
-            //$this->dispatchBrowserEvent('client-property-validation-errors');
+
 
     }
 
@@ -373,18 +354,11 @@ class ClientItemChecklist extends Component
 
         $this->validate($this->rules);
         try{
-//            $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
-//            $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-//            $this->property->client_id = $this->client_id;
-//            $this->client_pre_closing->property_id = $this->property->id;
-
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
 
             if($this->client_property_pre_closing_handler->save()){
-                   // session()->flash('success', 'Item successfully updated.');
-//                    return $this->redirect('/items/outstanding/after_dd');
                 $this->dispatchBrowserEvent('update-saved',['message'=>'Page saved successfully.']);
             };
         }catch (\Exception $e){
@@ -395,37 +369,6 @@ class ClientItemChecklist extends Component
 
     }
 
-    public function updateClientPropertyByPropertyClientId(){
-        //$this->client_property->attach($this->property->id, ['pre_closing_checklist_id'=> $this->client_pre_closing->id,'status_id' => PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE]);
-       $return = false;
-        if($this->client_property ) {
-            try {
-                $this->client_property->property_id = $this->property->id;
-                $this->client_property->client_id = $this->client->id;
-                $this->client_property->pre_closing_checklist_id = $this->client_pre_closing->id;
-                $this->client_property->status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
-                $return = $this->client_property->save();
-            }catch (\Exception $e){
-                dd($e);
-                report($e);
-               ;
-            }
-
-        }
-
-        return $return;
-    }
-
-
-    public function setCheckListValueAndDate($check){
-        if($this->client->$check) {
-            $this->client->$check = 1 ;
-
-        }else{
-            $this->client->$check = 0 ;
-        }
-
-    }
 
     public function markChecklist($model,$check){
         $checked_by = $check.'_by';
@@ -451,7 +394,8 @@ class ClientItemChecklist extends Component
         foreach ($options_array as $k => $v){
             $key = $v['key'];
             if(array_key_exists($k,array_flip($values))){
-                $this->client_pre_closing->$key = round($calculated_payment * ($v['formula']),2);
+                if(!$this->client_pre_closing->$key)
+                    $this->client_pre_closing->$key = round($calculated_payment * ($v['formula']),2);
             }
             else{
                 $this->client_pre_closing->$key = null;
@@ -461,27 +405,12 @@ class ClientItemChecklist extends Component
 
     }
 
-//    public function payment_option($values){
-//         $options_array = $this->client->getPaymentOptionList();
-//          $calculated_payment = $this->client->property_purchase_price + $this->client->property_pclosing_cost + $this->client->prooerty_closing_credit_general;
-//            foreach ($options_array as $k => $v){
-//                $key = $v['key'];
-//                if(array_key_exists($k,array_flip($values))){
-//                        $this->client->$key = round($calculated_payment * ($v['formula']),2);
-//                }
-//                else{
-//                    $this->client->$key = null;
-//                }
-//
-//            }
-//
-//    }
 
     public function addClient(){
         $this->validate(ClientItemCheckListVariables::validateClientRules());
         $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
         $this->client_property_pre_closing_handler->setClient($this->client);
-        if($this->client_property_pre_closing_handler->saveClient()){
+        if($this->client->save()){
             session()->flash('success', 'Item successfully updated.');
             return $this->redirect('/items/outstanding/before_dd');
         };
@@ -495,8 +424,7 @@ class ClientItemChecklist extends Component
     public function cancel_house(){
         if(!empty($this->property->id)) {
             $this->property->property_status_id = PropertyStatusConstant::HOUSE_CANCELLED;
-            $this->client_property_pre_closing_handler->setProperty($this->property);
-            if ($this->client_property_pre_closing_handler->getProperty($this->property)->save()) {
+            if ($this->property->save()) {
                 session()->flash('success', 'Item successfully updated.');
                 return $this->redirect('/house/cancelled');
             };

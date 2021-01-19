@@ -14,6 +14,7 @@ use App\Constants\PropertyStatusConstant;
 use App\Models\Client;
 use App\Models\PreClosingChecklist;
 use App\Models\Property;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ClientPropertyChecklistHandler
@@ -63,11 +64,13 @@ class ClientPropertyChecklistHandler
                 $this->client->save();
             }
             if(isset($this->property) && $this->property->isDirty()){
-                $this->property->client_id = $this->property->client_id ? : ($this->client->id ? : null);
+                $this->property->client_id = $this->property->client_id?: ($this->client->id ?: null);
                 $this->property->save();
             }
             if(isset($this->pre_closing) && $this->pre_closing->isDirty()) {
-                $this->pre_closing->property_id = $this->pre_closing->property_id ? : ($this->property->id ? : null);
+                $this->pre_closing->client_id = $this->property->client_id?: ($this->client->id ?: null);
+                $this->pre_closing->property_id = $this->pre_closing->property_id ?: ($this->property->id ?: null);
+
                 $this->pre_closing->save();
             }
             DB::commit();
@@ -178,6 +181,7 @@ class ClientPropertyChecklistHandler
             $clone_property->property_status_id = PropertyStatusConstant::HOUSE_VACANT;
             $clone_property->parent_id = $this->property->id;
             $clone_property->client_id = NULL;
+            $clone_property->move_out_date = Carbon::now()->toDateTimeString();
 
             if ($clone_property->save()) {
                 $this->pre_closing ? : $this->getPreClosingList();

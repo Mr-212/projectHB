@@ -24,7 +24,6 @@
                 <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
                 {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client()">Drop Out</a>--}}
                 {{--<a  class="" type="submit">@livewire('component.dropout-client-button', ['client_id' => $client_id])</a>--}}
-
             @endif
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE)
@@ -38,7 +37,9 @@
 
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)
-                    <a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>
+                    @livewire('component.property-house-sold-button',['property_id' => $property_id], key($property_id))
+                    @livewire('component.move-out-property-button',['property_id' => $property_id], key($property_id))
+                    {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}
             @endif
                 {{--<div  wire:poll="house_book_validate">--}}
                 {{--<a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>--}}

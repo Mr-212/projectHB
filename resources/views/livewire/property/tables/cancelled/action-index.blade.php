@@ -7,9 +7,6 @@
         $url =  url("/house/cancelled/property/{$property_id}");
         }
 
-        if(isset($client_id)){
-        $url =  url("/house/cancelled/client/{$client_id}");
-        }
    // $url =  url("/items/checklist/{$client_id}");
 
     @endphp

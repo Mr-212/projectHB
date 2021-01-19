@@ -18,7 +18,7 @@ class DropoutClientTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::query()->DropoutClient()->DropoutProperty()->groupBy('clients.id');
+        return Client::query()->with('property','pre_closing')->DropoutClient()->DropoutProperty()->groupBy('clients.id');
 
 
 //            Client::query()->leftJoin('properties as property','clients.id','property.client_id')
@@ -58,23 +58,36 @@ class DropoutClientTable extends LivewireDatatable
             Column::name('applicant_email')
                 ->filterable(),
 
-            Column::name('applicant_phone')
-                ->label('Applicant Phone'),
 
-            Column::name('partner_name')
-                ->label('Partner Name'),
+            Column::name('property.house_number_and_street')
+                ->label('House Address')
+                ->filterable(),
 
-            Column::name('partner_email')
-                ->label('Partner Email'),
 
-            Column::name('partner_phone')
-                ->label('Partner Phone'),
+            Column::name('property.city')
+                ->label('City')
+                ->filterable(),
+
+            Column::name('property.state')
+                ->label('State'),
+
+            Column::name('property.county')
+                ->label('County'),
+
+            Column::name('property.zip')
+                ->label('Zip'),
+
+            Column::callback('pre_closing.welcome_payment_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Welcome Payment'),
 
             Column::name('co_applicant_name')
                 ->label('Co applicant Name'),
 
-            Column::name('co_applicant_email')
-                ->label('Co applicant Email'),
+            Column::name('partner_name')
+                ->label('Partner Name'),
 
 
         ];

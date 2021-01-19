@@ -3,7 +3,90 @@
         <h4 class="text-white pt-2">Pre Closing Checklist </h4>
     </div>
 
+    <div class="col-md-12 col-lg-12 pt-4">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="">
+                    @error('client_pre_closing.deal_save_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
 
+                    <input class="" type="checkbox" name="property_country" value="" wire:model="client_pre_closing.deal_save_checked" wire:click="markChecklist('client_pre_closing','deal_save_checked')">
+                    <label>Deal Save?</label>
+                </div>
+
+            </div>
+        </div>
+        @if($client_pre_closing->deal_save_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    client_pre_closing.deal_save_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    client_pre_closing.deal_save_checked_comment
+                </x-slot>
+            </x-checkedt-at-comment>
+        @endif
+    </div>
+
+
+    <div class="col-md-12 col-lg-12 pt-2">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client_pre_closing.welcome_payment_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <input type="checkbox"  value="" wire:model="client_pre_closing.welcome_payment_checked"  wire:click="markChecklist('client_pre_closing','welcome_payment_checked')">
+                    <label>$500 Welcome Payment ?</label>
+
+                </div>
+            </div>
+        </div>
+
+            @if($client_pre_closing->welcome_payment_checked)
+                <x-checkedt-at-comment>
+                    <x-slot name="checked">
+                        client_pre_closing.welcome_payment_checked_at
+                    </x-slot>
+
+                    <x-slot name="comment">
+                        client_pre_closing.welcome_payment_checked_comment
+                    </x-slot>
+                </x-checkedt-at-comment>
+            @endif
+    </div>
+
+
+
+    <div class="col-md-12 col-lg-12 pt-2" >
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('client_pre_closing.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <input type="checkbox"  value="" wire:model="client_pre_closing.rental_verification_checked" wire:click="markChecklist('client_pre_closing','rental_verification_checked')" />
+                    <label>Rental Verification</label>
+
+                </div>
+            </div>
+        </div>
+
+            @if($client_pre_closing->rental_verification_checked)
+
+
+                <x-checkedt-at-comment>
+                    <x-slot name="checked">
+                        client_pre_closing.rental_verification_checked_at
+                    </x-slot>
+
+                    <x-slot name="comment">
+                        client_pre_closing.rental_verification_checked_comment
+                    </x-slot>
+                </x-checkedt-at-comment>
+
+
+
+            @endif
+
+    </div>
 
 @include('livewire.client.item-checklist.pre-closing.letter_of_commitment')
 
@@ -42,9 +125,9 @@
 
     <div class="col-md-12 col-lg-12 no-gutters mb-2">
         <div class="row">
-            @error('client_pre_closing.inspection_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
-
             <div class="col-md-6 col-lg-6">
+                @error('client_pre_closing.inspection_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
                 <div>
                     <input  class="" type="checkbox" name="item_checklist_inspection_checkbox" onclick="hideShow(this.checked,'.item_checklist_option_list_inspection_date_div')" wire:model="client_pre_closing.inspection_checked" wire:click="markChecklist('client_pre_closing','inspection_checked')" >
                     <label>Inspection?</label>
@@ -78,8 +161,11 @@
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" wire:model="client_pre_closing.termite_checked"  wire:click="markChecklist('client_pre_closing','termite_checked')">
-                <label>Termite ?</label>
+                @error('client_pre_closing.termite_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div>
+                    <input  class="" type="checkbox" name="item_checklist_termite_checkbox" value="" wire:model="client_pre_closing.termite_checked"  wire:click="markChecklist('client_pre_closing','termite_checked')">
+                    <label>Termite ?</label>
+                </div>
             </div>
         </div>
 
@@ -149,6 +235,8 @@
             </div>
         @endif
     </div>
+    @if(isset($client->co_applicant_email) && !empty($client->co_applicant_email))
+
 
 
     <div class="col-md-12 col-lg-12">
@@ -194,6 +282,8 @@
         @endif
     </div>
 
+
+
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
@@ -236,11 +326,19 @@
         @endif
     </div>
 
+
+    @endif
+
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value=""  wire:model="client_pre_closing.renter_insurance_checked"  wire:click="markChecklist('client_pre_closing','renter_insurance_checked')">
-                <label>Renters insurance?</label>
+                @error('client_pre_closing.renter_insurance_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div>
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value=""  wire:model="client_pre_closing.renter_insurance_checked"  wire:click="markChecklist('client_pre_closing','renter_insurance_checked')">
+                    <label>Renters insurance?</label>
+                </div>
+
             </div>
 
         </div>
@@ -268,8 +366,12 @@
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.flood_certificate_checked" wire:click="markChecklist('client_pre_closing','flood_certificate_checked')">
-                <label>Flood Certificate</label>
+                @error('client_pre_closing.flood_certificate_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div>
+
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.flood_certificate_checked" wire:click="markChecklist('client_pre_closing','flood_certificate_checked')">
+                    <label>Flood Certificate</label>
+                </div>
             </div>
         </div>
 
@@ -290,8 +392,13 @@
         <div class="row">
 
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.landlord_insurance_checked" wire:click="markChecklist('client_pre_closing','landlord_insurance_checked')">
-                <label>Landlord Insurance</label>
+                @error('client_pre_closing.landlord_insurance_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div>
+                    <input  class="" type="checkbox" name="item_checklist_renters_insurance" value="" wire:model="client_pre_closing.landlord_insurance_checked" wire:click="markChecklist('client_pre_closing','landlord_insurance_checked')">
+                    <label>Landlord Insurance</label>
+                </div>
+
             </div>
         </div>
         @if($client_pre_closing->landlord_insurance_checked)
@@ -309,8 +416,12 @@
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="" wire:model="client_pre_closing.warranty_checked" wire:click="markChecklist('client_pre_closing','warranty_checked')">
-                <label>Warranty?</label>
+                @error('client_pre_closing.warranty_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div>
+                    <input  class="" type="checkbox" name="item_checklist_warranty_checkbox" value="" wire:model="client_pre_closing.warranty_checked" wire:click="markChecklist('client_pre_closing','warranty_checked')">
+                    <label>Warranty?</label>
+                </div>
+
             </div>
         </div>
         @if($client_pre_closing->warranty_checked)
@@ -350,8 +461,13 @@
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" wire:model="client_pre_closing.lease_signed_checked" wire:click="markChecklist('client_pre_closing','lease_signed_checked')">
-                <label>Lease Signed?</label>
+                @error('client_pre_closing.lease_signed_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div>
+                    <input  class="" type="checkbox" name="item_checklist_lease_checkbox" value="" wire:model="client_pre_closing.lease_signed_checked" wire:click="markChecklist('client_pre_closing','lease_signed_checked')">
+                    <label>Lease Signed?</label>
+                </div>
+
             </div>
         </div>
         @if($client_pre_closing->lease_signed_checked)

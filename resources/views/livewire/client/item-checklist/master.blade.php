@@ -5,13 +5,8 @@
         </div>
     </div>
     <div>
-        @if ($errors->any())
+        {{--@if ($errors->any())--}}
 
-
-
-            {{--<script wire:ignore>--}}
-                {{--// $('#validation-errors-modal').modal('show');--}}
-            {{--</script>--}}
             {{--@foreach ($errors->all() as $error)--}}
                 {{--<div class="alert alert-danger alert-dismissible" role="alert">--}}
                     {{--<strong>{{$error}}</strong>--}}
@@ -21,7 +16,7 @@
                 {{--</div>--}}
 
            {{--@endforeach--}}
-        @endif
+        {{--@endif--}}
     </div>
 
 
@@ -40,24 +35,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Validation Errors</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    @foreach ($errors->all() as $error)
                         <div class="error-div">
+                            @foreach ($errors->all() as $error)
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <strong>{{$error}}</strong>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            @endforeach
                         </div>
 
-                    @endforeach
+
                 </div>
                 <div class="modal-footer">
                     {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
@@ -98,7 +94,7 @@
 
         window.addEventListener("validation-errors", event => {
             // bootbox.alert(event.detail.errors);
-            // $('#validation-errors-modal').modal('show');
+             $('#validation-errors-modal').modal('show');
 
         });
 

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Client\House\Tables;
 use App\Constants\ClientStatusConstant;
 use App\Models\Client;
 use App\Models\Property;
+use Carbon\Carbon;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -28,7 +29,7 @@ class SoldHouseTable extends LivewireDatatable
 
     public function builder()
     {
-        return Property::HouseSold();
+        return Property::with('client')->HouseSold();
     }
 
     public function columns()
@@ -46,13 +47,13 @@ class SoldHouseTable extends LivewireDatatable
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Status'),
 
-            Column::name('sold_price')
-                ->label('Sold Price')
+
+
+            Column::name('client.applicant_name')
+                ->label('Applicant')
                 ->filterable(),
 
-            Column::name('sold_date')
-                ->label('Sold Date')
-                ->filterable(),
+
 
             Column::name('house_number_and_street')
                 ->label('House Address')
@@ -71,6 +72,28 @@ class SoldHouseTable extends LivewireDatatable
 
             Column::name('zip')
                 ->label('Zip'),
+
+            Column::name('sold_date')
+                ->label('Sold Date')
+                ->filterable(),
+
+
+            Column::name('closing_date')
+                ->label('Purchase Date')
+                ->filterable(),
+
+            Column::callback(['sold_date','closing_date'],function($sold_date,$purchase_date){
+                if($sold_date && $purchase_date)
+                return Carbon::parse($purchase_date)->diffInDays(Carbon::parse($sold_date));
+            })->label('Days Held'),
+
+            Column::name('sold_price')
+                ->label('Sold Price')
+                ->filterable(),
+
+            Column::name('closing_cost')
+                ->label('Purchase Price')
+                ->filterable(),
 
         ];
     }

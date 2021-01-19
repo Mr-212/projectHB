@@ -46,14 +46,16 @@ class EvictedHouseTable extends LivewireDatatable
                 return PropertyStatusConstant::getValueByKey($stage);
             })->label('Status'),
 
-            Column::name('client.applicant_email')
-                ->label('Client Email'),
+
+            Column::name('move_out_date')
+                ->label('Move Out Date'),
 
             Column::name('client.applicant_name')
-                ->label('Client Name'),
+                ->label('Applicant'),
 
 
-
+            Column::name('client.applicant_email')
+                ->label('Applicant  Email'),
 
 
 

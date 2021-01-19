@@ -40,4 +40,9 @@ class GeneralConstants
     const PAYMENT_OPTION_6_MONTH  = '6 Month Option';
     const PAYMENT_OPTION_12_MONTH = '12 Month Option';
 
+    //USER ROLES
+    const SUPER_ADMIN = 'Super Admin';
+    const ADMIN = 'Admin';
+    const USER = 'User';
+
 }

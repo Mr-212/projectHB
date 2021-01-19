@@ -24,7 +24,7 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
     public function builder()
     {
 
-        return Property::query()->beforeDDExpire();
+        return Property::query()->with('client','pre_closing')->beforeDDExpire();
 
     }
 
@@ -35,10 +35,17 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 return view('livewire.client.tables.actions.index', ['property_id' => $id,'client_id' => $client_id]);
             }),
 
-
             NumberColumn::name('id')
                 ->defaultSort('id')
                 ->label('ID'),
+
+            Column::name('client.applicant_name')
+                ->label('Applicant Name')
+                ->filterable(),
+
+            Column::name('client.applicant_email')
+                ->filterable(),
+
 
             Column::callback('property_status_id',function($stage){
                 return PropertyStatusConstant::getValueByKey($stage);
@@ -62,68 +69,88 @@ class OutstandingItemsBeforeExpireTable extends LivewireDatatable
                 ->label('Zip'),
 
 
-            Column::name('closing_date')
-                ->label('Closing Date'),
 
-            Column::name('due_diligence_expire_date')
-                ->label('Due Diligence Expire'),
-
-//            Column::name('property.is_deal_save_checked->updated_at')
-//                ->label('Deal Save updated by'),
-//            Column::name('property.is_deal_save_checked->is_checked')
-//                ->label('Deal Saved?'),
+//            Column::callback(['updated_by'], function ($updated_by) {
+//                return User::getUserNameByID($updated_by);
+//            })->label('Updated By'),
 
 
-            Column::callback(['updated_by'], function ($updated_by) {
-                return User::getUserNameByID($updated_by);
-            })->label('Updated By'),
 
-//            Column::name('applicant_name')
-//                ->label('Applicant Name')
-//                ->filterable(),
-//
-//            Column::name('applicant_email')
-//                ->filterable(),
-//
-//            Column::name('applicant_phone')
-//                ->label('Applicant Phone'),
-//
-//            Column::name('partner_name')
-//                ->label('Partner Name'),
-//
-//            Column::name('partner_email')
-//                ->label('Partner Email'),
-//
-//            Column::name('partner_phone')
-//                ->label('Partner Phone'),
-
-//            Column::name('co_applicant_name')
-//                ->label('Co applicant Name'),
-//
-//            Column::name('co_applicant_email')
-//                ->label('Co applicant Email'),
-//
-//            Column::name('co_applicant_phone')
-//                ->label('Co applicant Phone'),
-
-            Column::name('client.additional_tenant_name')
-                ->label('Co applicant Phone'),
-
-            Column::callback(['client.welcome_payment'], function ($welcome_down_payment_id) {
-                return YesNoDropdown::getValueByKey($welcome_down_payment_id);
+            Column::callback('pre_closing.welcome_payment_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
             })->label('Welcome Payment'),
 
-            Column::callback(['client.mortgage_type_id'], function ($mortgage_type_id) {
-                return MortgageTypeDropdown::getValueByKey($mortgage_type_id);
-            })->label('Mortgage TYpe'),
+
+            Column::callback('pre_closing.rental_verification_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Rental Verification'),
+
+            Column::callback('pre_closing.deal_save_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Deal Save?'),
+
+            Column::callback('pre_closing.letter_of_commitment_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Letter of Commitment'),
+
+            Column::callback('pre_closing.on_boarding_fee_payment_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('On Boarding Fee'),
+
+            Column::callback('pre_closing.inspection_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Inspection'),
+
+            Column::callback('pre_closing.termite_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Termite'),
+
+            Column::callback('pre_closing.appraisal_value_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Appraisal'),
 
 
-            Column::callback(['client.rental_verification_checked'], function ($rental_verification_check) {
-                return YesNoDropdown::getValueByKey($rental_verification_check);
-            })->label('Rental Verification Check'),
+            Column::callback('pre_closing.renter_insurance_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Renter Insurance'),
 
-//            Column::name('property_new_construction_builder_name')
-//                ->label('Builder Name'),
+            Column::callback('pre_closing.flood_certificate_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Flood Certificate'),
+
+            Column::callback('pre_closing.warranty_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Warranty'),
+
+            Column::callback('pre_closing.lease_signed_checked',function($field){
+                if($field){
+                    return view('livewire.property.tables.actions.check-icon');
+                }
+            })->label('Lease'),
+
+
 
         ];
     }
