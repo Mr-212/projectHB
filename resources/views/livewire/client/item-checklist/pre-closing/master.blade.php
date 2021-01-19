@@ -60,7 +60,11 @@
     <div class="col-md-12 col-lg-12 pt-2" >
         <div class="row">
             <div class="col-md-6 col-lg-6">
+                {{--@error('client_pre_closing.on_boarding_fee_payment_checked') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+
                 @error('client_pre_closing.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+
                 <div class="">
                     <input type="checkbox"  value="" wire:model="client_pre_closing.rental_verification_checked" wire:click="markChecklist('client_pre_closing','rental_verification_checked')" />
                     <label>Rental Verification</label>
@@ -91,8 +95,9 @@
 @include('livewire.client.item-checklist.pre-closing.letter_of_commitment')
 
     <div class="col-md-12 col-lg-12 pt-2">
-        <div class="col-md-6 col-lg-6">
+
             <div class="row">
+                <div class="col-md-6 col-lg-6">
                 @error('client_pre_closing.on_boarding_fee_payment_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
                 <div class="">
                     <input  class="" type="checkbox" name="rent" wire:model="client_pre_closing.on_boarding_fee_payment_checked" wire:click="markChecklist('client_pre_closing','on_boarding_fee_payment_checked')" />

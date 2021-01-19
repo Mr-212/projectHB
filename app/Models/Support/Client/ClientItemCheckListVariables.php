@@ -9,8 +9,6 @@
 namespace App\Models\Support\Client;
 
 
-use Illuminate\Validation\Rule;
-
 class ClientItemCheckListVariables
 {
 
@@ -71,7 +69,7 @@ class ClientItemCheckListVariables
 
 
             //pre closing rules
-            'client_pre_closing.rental_verification_checked' =>'required',
+            "client_pre_closing.rental_verification_checked" => 'required',
             'client_pre_closing.rental_verification_checked_by' => '',
             'client_pre_closing.rental_verification_checked_at' => '',
             'client_pre_closing.rental_verification_checked_comment' => '',
@@ -99,7 +97,7 @@ class ClientItemCheckListVariables
             "client_pre_closing.letter_of_commitment_checked_at" =>'',
             "client_pre_closing.letter_of_commitment_checked_by" =>'',
 
-            "client_pre_closing.on_boarding_fee_payment_checked" =>'',
+            "client_pre_closing.on_boarding_fee_payment_checked" =>'required|bool',
             "client_pre_closing.on_boarding_fee_payment_checked_at" =>'',
             "client_pre_closing.on_boarding_fee_payment_checked_by" =>'',
 
