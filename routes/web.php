@@ -45,9 +45,16 @@ Route::get('/do-migration',function (){
 });
 
 Route::get('/do-db-seeder',function (){
+
+    Artisan::call('db:seed', [
+        '--class' => 'Database\Seeders\UserSeeder'
+    ]);
+
    Artisan::call('db:seed', [
         '--class' => 'Database\Seeders\RolePermissionSeeder'
     ]);
+
+
 
    dd('migration done');
 });
