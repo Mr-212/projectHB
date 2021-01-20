@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
 
 
 
-
+    Route::get('/dashboard', [DashBoardController::class,'index'])->name('dashboard');
     Route::prefix('system_calls')->group(function(){
 //        Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
         Route::get('/do-clear',function (){
