@@ -68,7 +68,7 @@ class ClientPropertyChecklistHandler
                 $this->property->save();
             }
             if(isset($this->pre_closing) && $this->pre_closing->isDirty()) {
-                $this->pre_closing->client_id = $this->property->client_id?: ($this->client->id ?: null);
+//                $this->pre_closing->client_id = $this->property->client_id?: ($this->client->id ?: null);
                 $this->pre_closing->property_id = $this->pre_closing->property_id ?: ($this->property->id ?: null);
 
                 $this->pre_closing->save();

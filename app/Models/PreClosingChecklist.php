@@ -13,8 +13,8 @@ class PreClosingChecklist extends Model
 {
 
     protected $table = 'pre_closing_checklist';
-    protected $fillable = [
 
+    protected $fillable = [
         "client_id",
         "property_id",
 
@@ -24,6 +24,7 @@ class PreClosingChecklist extends Model
 
         "rental_verification_checked",
         "rental_verification_checked_at",
+        "rental_verification_checked_by",
 
         "deal_save_checked",
         "deal_save_checked_at",
@@ -41,7 +42,7 @@ class PreClosingChecklist extends Model
         "letter_of_commitment_checked_by" ,
 
         "on_boarding_fee_payment_checked",
-        "on_boarding_fee_payment_checked",
+        "on_boarding_fee_payment_checked_by",
         "on_boarding_fee_payment_checked_at",
         "on_boarding_fee_payment_checked_comment",
 
@@ -123,7 +124,6 @@ class PreClosingChecklist extends Model
         'deleted_by',
         ];
 
-    protected $guarded = ['id'];
 
     protected $casts = [
         'welcome_payment_checked_at' => ItemCheckListDateTimeCast::class,

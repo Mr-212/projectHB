@@ -5,18 +5,6 @@
         </div>
     </div>
     <div>
-        {{--@if ($errors->any())--}}
-
-            {{--@foreach ($errors->all() as $error)--}}
-                {{--<div class="alert alert-danger alert-dismissible" role="alert">--}}
-                    {{--<strong>{{$error}}</strong>--}}
-                    {{--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
-                        {{--<span aria-hidden="true">&times;</span>--}}
-                    {{--</button>--}}
-                {{--</div>--}}
-
-           {{--@endforeach--}}
-        {{--@endif--}}
     </div>
 
 
@@ -56,7 +44,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                    <button type="button" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>

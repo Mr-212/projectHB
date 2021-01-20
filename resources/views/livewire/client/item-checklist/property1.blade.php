@@ -7,7 +7,7 @@
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                {{--@error('property.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+                @error('property.mortgage_type_id') <span class="error alert-danger">{{ $message }}</span> @enderror
                 <div class="">
                     <label>Mortgage Type ?</label>
                     <select class="form-control" name="deal_mortgage_type" wire:model="property.mortgage_type_id" wire:ignore>
@@ -70,7 +70,7 @@
     {{--</div>--}}
 
    <div class="col-md-6 col-lg-6" >
-       {{--@error('property.house_number_and_street') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+       @error('property.house_number_and_street') <span class="error alert-danger">{{ $message }}</span> @enderror
 
        <div class="">
            <label>Property house number and street</label>
@@ -79,7 +79,7 @@
    </div>
 
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.county') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.county') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <label>Property County</label>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.state') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.state') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <label>Property State</label>
@@ -106,7 +106,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.zip') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.zip') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <label>Property Zip</label>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <label>Purchase Price</label>
@@ -159,7 +159,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.closing_cost') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.closing_cost') <span class="error alert-danger">{{ $message }}</span> @enderror
 
         <div class="">
             <label>Closing Cost</label>
@@ -193,7 +193,7 @@
     </div>
 
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.closing_date') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.closing_date') <span class="error alert-danger">{{ $message }}</span> @enderror
         <div class="">
             <label>Closing Date</label>
                 <input  class="form-control" type="date" name="closing_date" value="" wire:model="property.closing_date" />
@@ -201,7 +201,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        {{--@error('property.due_diligence_expire_date') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+        @error('property.due_diligence_expire_date') <span class="error alert-danger">{{ $message }}</span> @enderror
         <div class="">
             <label>Due Diligence Expires</label>
                 <input  class="form-control" type="date" name="dd_expire_date" value="" wire:model="property.due_diligence_expire_date" />

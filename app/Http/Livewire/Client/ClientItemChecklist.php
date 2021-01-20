@@ -15,13 +15,13 @@ use Livewire\Component;
 
 class ClientItemChecklist extends Component
 {
-    public  $client ,$property, $client_pre_closing,$client_property;
+    public  $client ,$property, $pre_closing,$client_property;
     public  $client_id,$property_id, $property_status,$client_property_id;
     public  $title, $new_property;
     protected  $client_property_pre_closing_handler = null;
 
 
-    protected $listeners = ['cancel_client'=>'cancel_client'];
+    protected $listeners = ['cancel_client'];
 
 
 
@@ -64,7 +64,7 @@ class ClientItemChecklist extends Component
         'property.new_construction_check' =>'',
         "property.new_construction_builder" =>'',
         'property.house_number_and_street' =>'required',
-        "property.county" =>'string',
+        "property.county" =>'string|required',
         "property.state" =>'string|required',
         "property.city" =>'string|required',
         "property.zip" =>'string',
@@ -77,9 +77,7 @@ class ClientItemChecklist extends Component
         "property.hoa_check" => '',
         "property.hoa_name" => '',
         "property.hoa_phone" => '',
-//
-//        "property.repair_request_check" => '',
-//        "property.repair_request_item_names" => '',
+
 
         "property.lender_check" => '',
         "property.lender_name" => '',
@@ -89,121 +87,123 @@ class ClientItemChecklist extends Component
 
 
         //pre closing rules
+        'pre_closing.rental_verification_checked' => '',
+        'pre_closing.rental_verification_checked_by' => '',
+        'pre_closing.rental_verification_checked_at' => '',
+        'pre_closing.rental_verification_checked_comment' => '',
 
-        'client_pre_closing.rental_verification_checked' => '',
-        'client_pre_closing.rental_verification_checked_by' => '',
-        'client_pre_closing.rental_verification_checked_at' => '',
-        'client_pre_closing.rental_verification_checked_comment' => '',
+        'pre_closing.welcome_payment_checked' => '',
+        'pre_closing.welcome_payment_checked_by' => '',
+        'pre_closing.welcome_payment_checked_at' => '',
+        'pre_closing.welcome_payment_checked_comment' => '',
 
-        'client_pre_closing.welcome_payment_checked' => '',
-        'client_pre_closing.welcome_payment_checked_by' => '',
-        'client_pre_closing.welcome_payment_checked_at' => '',
-        'client_pre_closing.welcome_payment_checked_comment' => '',
+        "pre_closing.deal_save_checked" =>'',
+        "pre_closing.deal_save_checked_by" =>'',
+        "pre_closing.deal_save_checked_at" =>'',
+        "pre_closing.deal_save_checked_comment" =>'',
 
-        "client_pre_closing.deal_save_checked" =>'',
-        "client_pre_closing.deal_save_checked_by" =>'',
-        "client_pre_closing.deal_save_checked_at" =>'',
-        "client_pre_closing.deal_save_checked_comment" =>'',
+        "pre_closing.rent" =>'',
+        "pre_closing.payment_option_select_checked" =>'',
+        "pre_closing.payment_option_3_month" =>'',
+        "pre_closing.payment_option_6_month" =>'',
+        "pre_closing.payment_option_12_month" =>'',
 
-        "client_pre_closing.rent" =>'',
-        "client_pre_closing.payment_option_select_checked" =>'',
-        "client_pre_closing.payment_option_3_month" =>'',
-        "client_pre_closing.payment_option_6_month" =>'',
-        "client_pre_closing.payment_option_12_month" =>'',
+        "pre_closing.payment_option_date" =>'',
+        "pre_closing.payment_option_date_checked" =>'',
 
-        "client_pre_closing.payment_option_date" =>'',
-        "client_pre_closing.payment_option_date_checked" =>'',
+        "pre_closing.letter_of_commitment_checked" =>'',
+        "pre_closing.letter_of_commitment_checked_at" =>'',
+        "pre_closing.letter_of_commitment_checked_by" =>'',
 
-        "client_pre_closing.letter_of_commitment_checked" =>'',
-        "client_pre_closing.letter_of_commitment_checked_at" =>'',
-        "client_pre_closing.letter_of_commitment_checked_by" =>'',
+        "pre_closing.on_boarding_fee_payment_checked" =>'',
+        "pre_closing.on_boarding_fee_payment_checked_at" =>'',
+        "pre_closing.on_boarding_fee_payment_checked_by" =>'',
 
-        "client_pre_closing.on_boarding_fee_payment_checked" =>'',
-        "client_pre_closing.on_boarding_fee_payment_checked_at" =>'',
-        "client_pre_closing.on_boarding_fee_payment_checked_by" =>'',
+        "pre_closing.inspection_checked" =>'',
+        "pre_closing.inspection_checked_at" =>'',
+        "pre_closing.inspection_checked_by" =>'',
 
-        "client_pre_closing.inspection_checked" =>'',
-        "client_pre_closing.inspection_checked_at" =>'',
-        "client_pre_closing.inspection_checked_by" =>'',
+//        "pre_closing.inspection_check_date" =>'',
+        'pre_closing.termite_checked' => '',
+        'pre_closing.termite_checked_by' => '',
+        'pre_closing.termite_checked_at' => '',
+        'pre_closing.termite_paid_by' => '',
 
-//        "client_pre_closing.inspection_check_date" =>'',
-        'client_pre_closing.termite_checked' => '',
-        'client_pre_closing.termite_checked_by' => '',
-        'client_pre_closing.termite_checked_at' => '',
-        'client_pre_closing.termite_paid_by' => '',
+        'pre_closing.septic_inspection_checked' => '',
 
-        'client_pre_closing.septic_inspection_checked' => '',
+        'pre_closing.repair_credit_checked' => '',
+        'pre_closing.repair_credit' => '',
 
-        'client_pre_closing.repair_credit_checked' => '',
-        'client_pre_closing.repair_credit' => '',
+        'pre_closing.appraisal_value_checked' => '',
+        'pre_closing.appraisal_value_checked_by' => '',
+        'pre_closing.appraisal_value_checked_at' => '',
+        'pre_closing.appraisal_value' => '',
 
-        'client_pre_closing.appraisal_value_checked' => '',
-        'client_pre_closing.appraisal_value_checked_by' => '',
-        'client_pre_closing.appraisal_value_checked_at' => '',
-        'client_pre_closing.appraisal_value' => '',
+        'pre_closing.driver_license_applicant_checked' => '',
+        'pre_closing.driver_license_applicant_checked_at' => '',
+        'pre_closing.driver_license_applicant_checked_by' => '',
 
-        'client_pre_closing.driver_license_applicant_checked' => '',
-        'client_pre_closing.driver_license_applicant_checked_at' => '',
-        'client_pre_closing.driver_license_applicant_checked_by' => '',
+        'pre_closing.driver_license_co_applicant_checked' => '',
+        'pre_closing.driver_license_co_applicant_checked_at' => '',
+        'pre_closing.driver_license_co_applicant_checked_by' => '',
 
-        'client_pre_closing.driver_license_co_applicant_checked' => '',
-        'client_pre_closing.driver_license_co_applicant_checked_at' => '',
-        'client_pre_closing.driver_license_co_applicant_checked_by' => '',
+        'pre_closing.soc_sec_card_applicant_checked' => '',
+        'pre_closing.soc_sec_card_applicant_checked_at' => '',
+        'pre_closing.soc_sec_card_applicant_checked_by' => '',
 
-        'client_pre_closing.soc_sec_card_applicant_checked' => '',
-        'client_pre_closing.soc_sec_card_applicant_checked_at' => '',
-        'client_pre_closing.soc_sec_card_applicant_checked_by' => '',
+        'pre_closing.soc_sec_card_co_applicant_checked' => '',
+        'pre_closing.soc_sec_card_co_applicant_checked_at' => '',
+        'pre_closing.soc_sec_card_co_applicant_checked_by' => '',
 
-        'client_pre_closing.soc_sec_card_co_applicant_checked' => '',
-        'client_pre_closing.soc_sec_card_co_applicant_checked_at' => '',
-        'client_pre_closing.soc_sec_card_co_applicant_checked_by' => '',
+        'pre_closing.renter_insurance_checked' => '',
+        'pre_closing.renter_insurance_checked_at' => '',
+        'pre_closing.renter_insurance_checked_by' => '',
+        'pre_closing.renter_insurance_name' => '',
 
-        'client_pre_closing.renter_insurance_checked' => '',
-        'client_pre_closing.renter_insurance_checked_at' => '',
-        'client_pre_closing.renter_insurance_checked_by' => '',
-        'client_pre_closing.renter_insurance_name' => '',
+        'pre_closing.flood_certificate_checked' => '',
+        'pre_closing.flood_certificate_checked_at' => '',
+        'pre_closing.flood_certificate_checked_by' => '',
 
-        'client_pre_closing.flood_certificate_checked' => '',
-        'client_pre_closing.flood_certificate_checked_at' => '',
-        'client_pre_closing.flood_certificate_checked_by' => '',
+        'pre_closing.landlord_insurance_checked' => '',
+        'pre_closing.landlord_insurance_checked_at' => '',
+        'pre_closing.landlord_insurance_checked_by' => '',
 
-        'client_pre_closing.landlord_insurance_checked' => '',
-        'client_pre_closing.landlord_insurance_checked_at' => '',
-        'client_pre_closing.landlord_insurance_checked_by' => '',
+        'pre_closing.warranty_checked' => '',
+        'pre_closing.warranty_checked_at' => '',
+        'pre_closing.warranty_checked_by' => '',
 
-        'client_pre_closing.warranty_checked' => '',
-        'client_pre_closing.warranty_checked_at' => '',
-        'client_pre_closing.warranty_checked_by' => '',
-
-        'client_pre_closing.warranty_company_name' => '',
-        'client_pre_closing.warranty_paid_by_seller_checked' => '',
-
-
-        'client_pre_closing.lease_signed_checked' => '',
-        'client_pre_closing.lease_signed_checked_at' => '',
-        'client_pre_closing.lease_signed_checked_by' => '',
-
-        'client_pre_closing.lease_expire_checked' => '',
-        'client_pre_closing.lease_expire_date' => '',
+        'pre_closing.warranty_company_name' => '',
+        'pre_closing.warranty_paid_by_seller_checked' => '',
 
 
-        'client_pre_closing.other_checked' => '',
-        'client_pre_closing.other_value' => '',
+        'pre_closing.lease_signed_checked' => '',
+        'pre_closing.lease_signed_checked_at' => '',
+        'pre_closing.lease_signed_checked_by' => '',
 
-        "client_pre_closing.letter_of_commitment_checked_comment" =>'',
-        "client_pre_closing.on_boarding_fee_payment_checked_comment" =>'',
-        "client_pre_closing.inspection_checked_comment" =>'',
-        "client_pre_closing.termite_checked_comment" =>'',
-        "client_pre_closing.appraisal_value_checked_comment" =>'',
-        "client_pre_closing.driver_license_applicant_checked_comment" =>'',
-        "client_pre_closing.driver_license_co_applicant_checked_comment" =>'',
-        "client_pre_closing.soc_sec_card_applicant_checked_comment" =>'',
-        "client_pre_closing.soc_sec_card_co_applicant_checked_comment" =>'',
-        "client_pre_closing.renter_insurance_checked_comment" =>'',
-        "client_pre_closing.landlord_insurance_checked_comment" =>'',
-        "client_pre_closing.flood_certificate_checked_comment" =>'',
-        "client_pre_closing.warranty_checked_comment" =>'',
-        "client_pre_closing.lease_signed_checked_comment" =>'',
+        'pre_closing.lease_expire_checked' => '',
+        'pre_closing.lease_expire_date' => '',
+
+
+        'pre_closing.other_checked' => '',
+        'pre_closing.other_value' => '',
+
+        "pre_closing.letter_of_commitment_checked_comment" =>'',
+        "pre_closing.on_boarding_fee_payment_checked_comment" =>'',
+        "pre_closing.inspection_checked_comment" =>'',
+        "pre_closing.termite_checked_comment" =>'',
+        "pre_closing.appraisal_value_checked_comment" =>'',
+        "pre_closing.driver_license_applicant_checked_comment" =>'',
+        "pre_closing.driver_license_co_applicant_checked_comment" =>'',
+        "pre_closing.soc_sec_card_applicant_checked_comment" =>'',
+        "pre_closing.soc_sec_card_co_applicant_checked_comment" =>'',
+        "pre_closing.renter_insurance_checked_comment" =>'',
+        "pre_closing.landlord_insurance_checked_comment" =>'',
+        "pre_closing.flood_certificate_checked_comment" =>'',
+        "pre_closing.warranty_checked_comment" =>'',
+        "pre_closing.lease_signed_checked_comment" =>'',
+
+
+
     ];
 
 //
@@ -227,19 +227,15 @@ class ClientItemChecklist extends Component
 
     public function hydrate(){
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);
-
-
-
-
     }
 
     public function dehydrate()
     {
 
-        if(empty($this->client_pre_closing->lease_expire_date)){
+        if(empty($this->pre_closing->lease_expire_date)){
             if($this->property->closing_date){
                 $date = Carbon::parse($this->property->closing_date)->endOfMonth()->addYear(1);
-                $this->client_pre_closing->lease_expire_date = $date->toDateString();
+                $this->pre_closing->lease_expire_date = $date->toDateString();
             }
         }
 
@@ -260,7 +256,7 @@ class ClientItemChecklist extends Component
         if($this->new_property) {
 //            if (!$this->client->isClientDropped()){
                 $this->property = new Property();
-                $this->client_pre_closing = new PreClosingChecklist();
+                $this->pre_closing = new PreClosingChecklist();
 //                }
 //            else {
 //                session()->flash('success', 'This client is added to dropouts');
@@ -269,7 +265,7 @@ class ClientItemChecklist extends Component
         }
         else{
             $this->property = $this->client_property_pre_closing_handler->getProperty();
-            $this->client_pre_closing= $this->client_property_pre_closing_handler->getPreClosingList();
+            $this->pre_closing= $this->client_property_pre_closing_handler->getPreClosingList();
         }
 
 
@@ -283,11 +279,11 @@ class ClientItemChecklist extends Component
             $this->client = $this->client_property->client;
 //            $this->client_id = $this->client->id;
             $this->property = $this->client_property->property;
-            $this->client_pre_closing = $this->client_property->pre_closing_checklist;
+            $this->pre_closing = $this->client_property->pre_closing_checklist;
             if(!$this->property)
                 $this->property = new Property();
-            if(!$this->client_pre_closing)
-                $this->client_pre_closing = new PreClosingChecklist();
+            if(!$this->pre_closing)
+                $this->pre_closing = new PreClosingChecklist();
 
         }
     }
@@ -309,7 +305,7 @@ class ClientItemChecklist extends Component
             $this->property->property_status_id = PropertyStatusConstant::HOUSE_BOOKED;
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
-            $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+            $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
 
             if ($this->client_property_pre_closing_handler->save()) {
                 return $this->redirect('/portfolio');
@@ -318,7 +314,6 @@ class ClientItemChecklist extends Component
         catch (ValidationException $e){
             $this->dispatchBrowserEvent('validation-errors');
             throw $e;
-
         }
         catch (\Exception $e){
            dd($e);
@@ -329,20 +324,26 @@ class ClientItemChecklist extends Component
 
     public function before_closing(){
 
-            $this->validate($this->rules);
+
             try {
-                $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
+                $this->validate();
+//                $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
                 $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
                 $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
                 $this->client_property_pre_closing_handler->setClient($this->client);
                 $this->client_property_pre_closing_handler->setProperty($this->property);
-                $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+                $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
 
                 if ($this->client_property_pre_closing_handler->save()) {
                     session()->flash('success', 'Item successfully updated.');
                     return $this->redirect('/items/outstanding/after_dd');
                 };
-            } catch (\Exception $e) {
+            }
+            catch (ValidationException $e){
+                $this->dispatchBrowserEvent('validation-errors');
+                throw $e;
+            }
+            catch (\Exception $e) {
                 dd($e);
             }
 
@@ -352,16 +353,22 @@ class ClientItemChecklist extends Component
 
     public function save_item(){
 
-        $this->validate($this->rules);
+
         try{
+            $this->validate($this->rules);
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
-            $this->client_property_pre_closing_handler->setPreClosingList($this->client_pre_closing);
+            $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
 
             if($this->client_property_pre_closing_handler->save()){
                 $this->dispatchBrowserEvent('update-saved',['message'=>'Page saved successfully.']);
             };
-        }catch (\Exception $e){
+        }
+        catch (ValidationException $e){
+            $this->dispatchBrowserEvent('validation-errors');
+            throw $e;
+        }
+        catch (\Exception $e){
             //dd($e);
             report($e);
 
@@ -394,11 +401,11 @@ class ClientItemChecklist extends Component
         foreach ($options_array as $k => $v){
             $key = $v['key'];
             if(array_key_exists($k,array_flip($values))){
-                if(!$this->client_pre_closing->$key)
-                    $this->client_pre_closing->$key = round($calculated_payment * ($v['formula']),2);
+                if(!$this->pre_closing->$key)
+                    $this->pre_closing->$key = round($calculated_payment * ($v['formula']),2);
             }
             else{
-                $this->client_pre_closing->$key = null;
+                $this->pre_closing->$key = null;
             }
 
         }
@@ -407,19 +414,25 @@ class ClientItemChecklist extends Component
 
 
     public function addClient(){
-        $this->validate(ClientItemCheckListVariables::validateClientRules());
-        $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
-        $this->client_property_pre_closing_handler->setClient($this->client);
-        if($this->client->save()){
-            session()->flash('success', 'Item successfully updated.');
-            return $this->redirect('/items/outstanding/before_dd');
-        };
+
+        try {
+            $this->validate(ClientItemCheckListVariables::validateClientRules());
+            $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
+            $this->client_property_pre_closing_handler->setClient($this->client);
+            if ($this->client->save()) {
+                session()->flash('success', 'Item successfully updated.');
+                return $this->redirect('/items/outstanding/before_dd');
+            };
+        }catch (ValidationException $e){
+            throw $e;
+
+        }catch (\Exception $e){
+            report($e);
+            dd($e);
+        }
     }
 
-    public function house_book_validate(){
-        $this->validate($this->rules);
 
-    }
 
     public function cancel_house(){
         if(!empty($this->property->id)) {

@@ -44,22 +44,20 @@ class ClientItemCheckListVariables
             'property.new_construction_check' =>'',
             "property.new_construction_builder" =>'',
             'property.house_number_and_street' =>'required',
-            "property.county" =>'string|required',
-            "property.state" =>'string|required',
-            "property.city" =>'string|required',
-            "property.zip" =>'string|required',
+            "property.county" => 'string|required',
+            "property.state" => 'string|required',
+            "property.city" => 'string|required',
+            "property.zip" => 'string|required',
 
-            "property.purchase_price" => 'integer|required',
-            "property.closing_cost" => 'integer|required',
-            "property.closing_credit_general" => 'integer|required',
+            "property.purchase_price" => '',
+            "property.closing_cost" => '',
+            "property.closing_credit_general" => '',
             "property.annual_property_tax" => '',
 
             "property.hoa_check" => '',
             "property.hoa_name" => '',
             "property.hoa_phone" => '',
-//
-//        "property.repair_request_check" => '',
-//        "property.repair_request_item_names" => '',
+
 
             "property.lender_check" => '',
             "property.lender_name" => '',
@@ -68,120 +66,119 @@ class ClientItemCheckListVariables
             "property.due_diligence_expire_date" => '',
 
 
-            //pre closing rules
-            "client_pre_closing.rental_verification_checked" => 'required',
-            'client_pre_closing.rental_verification_checked_by' => '',
-            'client_pre_closing.rental_verification_checked_at' => '',
-            'client_pre_closing.rental_verification_checked_comment' => '',
+            "pre_closing.rental_verification_checked" => 'accepted',
+            'pre_closing.rental_verification_checked_by' => '',
+            'pre_closing.rental_verification_checked_at' => '',
+            'pre_closing.rental_verification_checked_comment' => '',
 
-            'client_pre_closing.welcome_payment_checked' => 'bool|required',
-            'client_pre_closing.welcome_payment_checked_by' => '',
-            'client_pre_closing.welcome_payment_checked_at' => '',
-            'client_pre_closing.welcome_payment_checked_comment' => '',
+            'pre_closing.welcome_payment_checked' => 'accepted',
+            'pre_closing.welcome_payment_checked_by' => '',
+            'pre_closing.welcome_payment_checked_at' => '',
+            'pre_closing.welcome_payment_checked_comment' => '',
 
-            "client_pre_closing.deal_save_checked" =>'',
-            "client_pre_closing.deal_save_checked_by" =>'',
-            "client_pre_closing.deal_save_checked_at" =>'',
-            "client_pre_closing.deal_save_checked_comment" =>'',
+            "pre_closing.deal_save_checked" =>'',
+            "pre_closing.deal_save_checked_by" =>'',
+            "pre_closing.deal_save_checked_at" =>'',
+            "pre_closing.deal_save_checked_comment" =>'',
 
-            "client_pre_closing.rent" =>'',
-            "client_pre_closing.payment_option_select_checked" =>'',
-            "client_pre_closing.payment_option_3_month" =>'',
-            "client_pre_closing.payment_option_6_month" =>'',
-            "client_pre_closing.payment_option_12_month" =>'',
+            "pre_closing.rent" =>'',
+            "pre_closing.payment_option_select_checked" =>'',
+            "pre_closing.payment_option_3_month" =>'',
+            "pre_closing.payment_option_6_month" =>'',
+            "pre_closing.payment_option_12_month" =>'',
 
-            "client_pre_closing.payment_option_date" =>'',
-            "client_pre_closing.payment_option_date_checked" =>'',
+            "pre_closing.payment_option_date" =>'',
+            "pre_closing.payment_option_date_checked" =>'',
 
-            "client_pre_closing.letter_of_commitment_checked" =>'required|bool',
-            "client_pre_closing.letter_of_commitment_checked_at" =>'',
-            "client_pre_closing.letter_of_commitment_checked_by" =>'',
+            "pre_closing.letter_of_commitment_checked"=>"accepted",
+            "pre_closing.letter_of_commitment_checked_at" =>'',
+            "pre_closing.letter_of_commitment_checked_by" =>'',
 
-            "client_pre_closing.on_boarding_fee_payment_checked" =>'required|bool',
-            "client_pre_closing.on_boarding_fee_payment_checked_at" =>'',
-            "client_pre_closing.on_boarding_fee_payment_checked_by" =>'',
+            "pre_closing.on_boarding_fee_payment_checked" =>'accepted',
+            "pre_closing.on_boarding_fee_payment_checked_at" =>'',
+            "pre_closing.on_boarding_fee_payment_checked_by" =>'',
 
-            "client_pre_closing.inspection_checked" =>'required|bool',
-            "client_pre_closing.inspection_checked_at" =>'',
-            "client_pre_closing.inspection_checked_by" =>'',
-
-//        "client_pre_closing.inspection_check_date" =>'',
-            'client_pre_closing.termite_checked' => 'required|bool',
-            'client_pre_closing.termite_checked_by' => '',
-            'client_pre_closing.termite_checked_at' => '',
-            'client_pre_closing.termite_paid_by' => '',
-
-            'client_pre_closing.septic_inspection_checked' => '',
-
-            'client_pre_closing.repair_credit_checked' => '',
-            'client_pre_closing.repair_credit' => '',
-
-            'client_pre_closing.appraisal_value_checked' =>'required|bool',
-            'client_pre_closing.appraisal_value_checked_by' => '',
-            'client_pre_closing.appraisal_value_checked_at' => '',
-            'client_pre_closing.appraisal_value' => '',
-
-            'client_pre_closing.driver_license_applicant_checked' => '',
-            'client_pre_closing.driver_license_applicant_checked_at' => '',
-            'client_pre_closing.driver_license_applicant_checked_by' => '',
-
-            'client_pre_closing.driver_license_co_applicant_checked' => '',
-            'client_pre_closing.driver_license_co_applicant_checked_at' => '',
-            'client_pre_closing.driver_license_co_applicant_checked_by' => '',
-
-            'client_pre_closing.soc_sec_card_applicant_checked' => '',
-            'client_pre_closing.soc_sec_card_applicant_checked_at' => '',
-            'client_pre_closing.soc_sec_card_applicant_checked_by' => '',
-
-            'client_pre_closing.soc_sec_card_co_applicant_checked' => '',
-            'client_pre_closing.soc_sec_card_co_applicant_checked_at' => '',
-            'client_pre_closing.soc_sec_card_co_applicant_checked_by' => '',
-
-            'client_pre_closing.renter_insurance_checked' =>'required|bool',
-            'client_pre_closing.renter_insurance_checked_at' => '',
-            'client_pre_closing.renter_insurance_checked_by' => '',
-            'client_pre_closing.renter_insurance_name' => '',
-
-            'client_pre_closing.flood_certificate_checked' => 'required|bool',
-            'client_pre_closing.flood_certificate_checked_at' => '',
-            'client_pre_closing.flood_certificate_checked_by' => '',
-
-            'client_pre_closing.landlord_insurance_checked' => 'required|bool',
-            'client_pre_closing.landlord_insurance_checked_at' => '',
-            'client_pre_closing.landlord_insurance_checked_by' => '',
-
-            'client_pre_closing.warranty_checked' => 'required|bool',
-            'client_pre_closing.warranty_checked_at' => '',
-            'client_pre_closing.warranty_checked_by' => '',
-
-            'client_pre_closing.warranty_company_name' => '',
-            'client_pre_closing.warranty_paid_by_seller_checked' => '',
+            "pre_closing.inspection_checked" =>'required|bool',
+            "pre_closing.inspection_checked_at" =>'',
+            "pre_closing.inspection_checked_by" =>'',
 
 
-            'client_pre_closing.lease_signed_checked' => 'required|bool',
-            'client_pre_closing.lease_signed_checked_at' => '',
-            'client_pre_closing.lease_signed_checked_by' => '',
+            'pre_closing.termite_checked' => 'accepted',
+            'pre_closing.termite_checked_by' => '',
+            'pre_closing.termite_checked_at' => '',
+            'pre_closing.termite_paid_by' => '',
 
-            'client_pre_closing.lease_expire_checked' => '',
-            'client_pre_closing.lease_expire_date' => '',
+            'pre_closing.septic_inspection_checked' => '',
 
-            'client_pre_closing.other_checked' => '',
-            'client_pre_closing.other_value' => '',
+            'pre_closing.repair_credit_checked' => '',
+            'pre_closing.repair_credit' => '',
 
-            "client_pre_closing.letter_of_commitment_checked_comment" =>'',
-            "client_pre_closing.on_boarding_fee_payment_checked_comment" =>'',
-            "client_pre_closing.inspection_checked_comment" =>'',
-            "client_pre_closing.termite_checked_comment" =>'',
-            "client_pre_closing.appraisal_value_checked_comment" =>'',
-            "client_pre_closing.driver_license_applicant_checked_comment" =>'',
-            "client_pre_closing.driver_license_co_applicant_checked_comment" =>'',
-            "client_pre_closing.soc_sec_card_applicant_checked_comment" =>'',
-            "client_pre_closing.soc_sec_card_co_applicant_checked_comment" =>'',
-            "client_pre_closing.renter_insurance_checked_comment" =>'',
-            "client_pre_closing.landlord_insurance_checked_comment" =>'',
-            "client_pre_closing.flood_certificate_checked_comment" =>'',
-            "client_pre_closing.warranty_checked_comment" =>'',
-            "client_pre_closing.lease_signed_checked_comment" =>'',
+            'pre_closing.appraisal_value_checked' =>'accepted',
+            'pre_closing.appraisal_value_checked_by' => '',
+            'pre_closing.appraisal_value_checked_at' => '',
+            'pre_closing.appraisal_value' => '',
+
+            'pre_closing.driver_license_applicant_checked' => '',
+            'pre_closing.driver_license_applicant_checked_at' => '',
+            'pre_closing.driver_license_applicant_checked_by' => '',
+
+            'pre_closing.driver_license_co_applicant_checked' => '',
+            'pre_closing.driver_license_co_applicant_checked_at' => '',
+            'pre_closing.driver_license_co_applicant_checked_by' => '',
+
+            'pre_closing.soc_sec_card_applicant_checked' => '',
+            'pre_closing.soc_sec_card_applicant_checked_at' => '',
+            'pre_closing.soc_sec_card_applicant_checked_by' => '',
+
+            'pre_closing.soc_sec_card_co_applicant_checked' => '',
+            'pre_closing.soc_sec_card_co_applicant_checked_at' => '',
+            'pre_closing.soc_sec_card_co_applicant_checked_by' => '',
+
+            'pre_closing.renter_insurance_checked' =>'accepted',
+            'pre_closing.renter_insurance_checked_at' => '',
+            'pre_closing.renter_insurance_checked_by' => '',
+            'pre_closing.renter_insurance_name' => '',
+
+            'pre_closing.flood_certificate_checked' => 'accepted',
+            'pre_closing.flood_certificate_checked_at' => '',
+            'pre_closing.flood_certificate_checked_by' => '',
+
+            'pre_closing.landlord_insurance_checked' => 'accepted',
+            'pre_closing.landlord_insurance_checked_at' => '',
+            'pre_closing.landlord_insurance_checked_by' => '',
+
+            'pre_closing.warranty_checked' => 'accepted',
+            'pre_closing.warranty_checked_at' => '',
+            'pre_closing.warranty_checked_by' => '',
+
+            'pre_closing.warranty_company_name' => '',
+            'pre_closing.warranty_paid_by_seller_checked' => '',
+
+
+            'pre_closing.lease_signed_checked' => 'accepted',
+            'pre_closing.lease_signed_checked_at' => '',
+            'pre_closing.lease_signed_checked_by' => '',
+
+            'pre_closing.lease_expire_checked' => '',
+            'pre_closing.lease_expire_date' => '',
+
+            'pre_closing.other_checked' => '',
+            'pre_closing.other_value' => '',
+
+            "pre_closing.letter_of_commitment_checked_comment" =>'',
+            "pre_closing.on_boarding_fee_payment_checked_comment" =>'',
+            "pre_closing.inspection_checked_comment" =>'',
+            "pre_closing.termite_checked_comment" =>'',
+            "pre_closing.appraisal_value_checked_comment" =>'',
+            "pre_closing.driver_license_applicant_checked_comment" =>'',
+            "pre_closing.driver_license_co_applicant_checked_comment" =>'',
+            "pre_closing.soc_sec_card_applicant_checked_comment" =>'',
+            "pre_closing.soc_sec_card_co_applicant_checked_comment" =>'',
+            "pre_closing.renter_insurance_checked_comment" =>'',
+            "pre_closing.landlord_insurance_checked_comment" =>'',
+            "pre_closing.flood_certificate_checked_comment" =>'',
+            "pre_closing.warranty_checked_comment" =>'',
+            "pre_closing.lease_signed_checked_comment" =>'',
         ];
     }
 
