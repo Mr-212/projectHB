@@ -28,36 +28,7 @@ use App\Http\Livewire\Component\ClientPropertyChecklistLogComponent;
 |
 */
 
-Route::get('/do-clear',function (){
-   Artisan::call('view:clear');
-   Artisan::call('config:clear');
-   Artisan::call('config:cache');
-   Artisan::call('route:cache');
-   Artisan::call('optimize:clear');
-   Artisan::call('optimize');
-   dd('clear done');
-});
 
-Route::get('/do-migration',function (){
-   Artisan::call('migrate');
-
-   dd('migration done');
-});
-
-Route::get('/do-db-seeder',function (){
-
-    Artisan::call('db:seed', [
-        '--class' => 'Database\Seeders\UserSeeder'
-    ]);
-
-   Artisan::call('db:seed', [
-        '--class' => 'Database\Seeders\RolePermissionSeeder'
-    ]);
-
-
-
-   dd('migration done');
-});
 
 Route::get('/', function () {
     if(!\Illuminate\Support\Facades\Auth::user())
@@ -67,8 +38,34 @@ Route::get('/', function () {
 });
 //Route::post('login', [AuthController::class,'login']);
 Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function (){
-    Route::prefix('dashboard')->group(function(){
-        Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
+
+
+
+
+
+    Route::prefix('system_calls')->group(function(){
+//        Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
+        Route::get('/do-clear',function (){
+            Artisan::call('view:clear');
+            Artisan::call('config:clear');
+            Artisan::call('config:cache');
+            Artisan::call('route:cache');
+            Artisan::call('optimize:clear');
+            Artisan::call('optimize');
+            dd('clear done');
+        });
+
+        Route::get('/do-migration',function (){
+
+            Artisan::call('migrate');
+            dd('migration done');
+        });
+
+        Route::get('/do-db-seeder',function (){
+             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
+             Artisan::call('db:seed', ['--class' => 'Database\Seeders\RolePermissionSeeder']);
+             dd('seeder done');
+        });
     });
 
 
