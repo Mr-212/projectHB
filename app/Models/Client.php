@@ -97,47 +97,14 @@ class Client extends Model
     public function property(){
         return $this->belongsTo(Property::class,'id','client_id');
     }
-//    public function property(){
-//        return $this->belongsTo(Property::class,'id','client_id')
-//            ->where('properties.property_status_id',PropertyStatusConstant::CLIENT_DROPOUT);
-//    }
-//
-//    public function property(){
-//        return $this->belongsToMany(Property::class);
-//    }
-
-//    public function property($status_id = null){
-//            $query = $this->belongsToMany(Property::class,'client_properties','client_id','property_id');
-//            if($status_id)
-//               $query->wherePivot('status_id',$status_id);
-//           return $query;
-//    }
-//    public function property($status_id = null){
-//            $query = $this->belongsToMany(Property::class);
-//            if($status_id)
-//               $query->wherePivot('status_id',$status_id);
-//           return $query;
-//    }
-//    public function property($status_id = null){
-//            $query = $this->belongsToMany(Property::class);
-//            if($status_id)
-//               $query->wherePivot('status_id',$status_id);
-//           return $query;
-//    }
 
 
-//    public function property(){
-//        return $this->belongsTo(Property::class,'id','client_id');
-//    }
     public function pre_closing(){
         return $this->belongsTo(PreClosingChecklist::class,'id','client_id');
     }
 
     public function scopeBeforeDD($query){
-//        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
-//        return $query->whereHas('property', function (Builder $builder){
-//            $builder->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
-//        });
+
 
         return $query->whereHas('property', function ( $query){
             $query->where('property_status_id', null);
@@ -184,14 +151,19 @@ class Client extends Model
         });
 
     }
-    public function scopeDropoutClient($query){
+    public function scopeDropout($query){
          return $query->where('status', ClientStatusConstant::CLIENT_DROPOUT);
 
     }
     public function scopeDropoutProperty($query){
 
-        $query->leftJoin('properties as property','clients.id','property.client_id')
-            ->where('properties.property_status_id',PropertyStatusConstant::CLIENT_DROPOUT);
+        $query->leftJoin('properties',function ($join){
+             $join->on('clients.id','properties.client_id')
+                 ->where(function ($q){
+                     $q->where('property_status_id', PropertyStatusConstant::CLIENT_DROPOUT);
+                 });
+             })
+             ->leftjoin('pre_closing_checklist','pre_closing_checklist.property_id','properties.id');
     }
 //    public function scopeDropoutProperty($query){
 //

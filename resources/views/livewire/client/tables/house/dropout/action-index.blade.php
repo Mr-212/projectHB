@@ -5,8 +5,8 @@
     @php
 
 
-        if(isset($property_id)){
-        $url =  url("/house/dropout/{$property_id}");
+        if(isset($property_id) && $client_id){
+        $url =  url("/house/dropout/{$client_id}/{$property_id}");
         }
    // $url =  url("/items/checklist/{$client_id}");
 

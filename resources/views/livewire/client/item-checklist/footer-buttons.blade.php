@@ -1,7 +1,7 @@
 <div class="col-md-12 pt-4" >
     <div class="d-flex  justify-content-end">
 
-        @if($property_id || $client_id)
+        @if($property_id || $client_id && !$client->is_client_dropped)
             @if( empty($property->property_status_id) || $property->property_status_id ==\App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE )
                 <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
                 <a  class="btn btn-warning mx-1"  onclick="return before_closing()">Before Closing</a>

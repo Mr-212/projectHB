@@ -28,6 +28,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $guard_name = 'web';
+
     protected $table = 'users';
     //public $incrementing = true;
     protected $fillable = [

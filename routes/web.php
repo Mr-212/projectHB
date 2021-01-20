@@ -28,12 +28,28 @@ use App\Http\Livewire\Component\ClientPropertyChecklistLogComponent;
 |
 */
 
-Route::get('/clear',function (){
+Route::get('/do-clear',function (){
    Artisan::call('view:clear');
    Artisan::call('config:clear');
    Artisan::call('config:cache');
    Artisan::call('route:cache');
-   dd('done');
+   Artisan::call('optimize:clear');
+   Artisan::call('optimize');
+   dd('clear done');
+});
+
+Route::get('/do-migration',function (){
+   Artisan::call('migrate');
+
+   dd('migration done');
+});
+
+Route::get('/do-db-seeder',function (){
+   Artisan::call('db:seed', [
+        '--class' => 'Database\Seeders\RolePermissionSeeder'
+    ]);
+
+   dd('migration done');
 });
 
 Route::get('/', function () {
@@ -89,7 +105,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         Route::get('/cancelled/client/{client_id}/{new_property}', ClientItemChecklist::class);
 
         Route::get('/dropout', [ClientController::class,'get_dropout_client']);
-        Route::get('/dropout/{property_id}', ClientItemChecklist::class);
+        Route::get('/dropout/{client_id}/{property_id?}', ClientItemChecklist::class);
 
         Route::get('/evicted', [ClientController::class,'get_evicted_house']);
         Route::get('/evicted/{property_id}', ClientItemChecklist::class);

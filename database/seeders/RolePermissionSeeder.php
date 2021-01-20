@@ -23,7 +23,7 @@ class RolePermissionSeeder extends Seeder
 
         // create permissions
 
-        Permission::UpdateOrCreate(['name' => 'edit']);
+        Permission::UpdateOrCreate(['name' => 'update']);
         Permission::UpdateOrCreate(['name' => 'delete']);
         Permission::UpdateOrCreate(['name' => 'read']);
         Permission::UpdateOrCreate(['name' => 'create']);
@@ -32,36 +32,37 @@ class RolePermissionSeeder extends Seeder
 
         // this can be done as separate statements
         $role = Role::UpdateOrCreate(['name' => GeneralConstants::ADMIN]);
-        $role->givePermissionTo(Permission::all());
+        $role->syncPermissions(Permission::all());
 
         $role = Role::UpdateOrCreate(['name' => GeneralConstants::SUPER_ADMIN]);
-        $role->givePermissionTo(Permission::all());
+        $role->syncPermissions(Permission::all());
 
         $role = Role::UpdateOrCreate(['name' => GeneralConstants::USER])
             ->givePermissionTo('read');
 
 
-        if(User::where('email','admin@techloyce.com')->exists()){
-            $role = Role::where('name',GeneralConstants::SUPER_ADMIN)->first();
-            $user = User::where('email','admin@techloyce.com')->first();
-            DB::table('role_users')->updateOrInsert(['user_id'=>$user->id,'role_id'=>$role->id]);
+        if(User::where('email','super-admin@dreamamerica.com')->exists()){
+            $user = User::where('email','super-admin@dreamamerica.com')->first();
+            $user->assignRole(GeneralConstants::SUPER_ADMIN);
 
         }
 
-        if(User::where('email','admin@techloyce.com')->exists()){
-            $role = Role::where('name',GeneralConstants::ADMIN)->first();
-            $user = User::where('email','admin@techloyce.com')->first();
-//            DB::table('role_users')->updateOrInsert(['user_id'=>$user->id,'role_id'=>$role->id]);
+        if(User::where('email','admin@dreamamerica.com')->exists()){
+            $user = User::where('email','admin@dreamamerica.com')->first();
             $user->assignRole(GeneralConstants::ADMIN);
-
         }
-        if(User::where('email','client@techloyce.com')->exists()){
-            $role = Role::where('name',GeneralConstants::USER)->first();
-            $user = User::where('email','client@techloyce.com')->first();
+        if(User::where('email','user@dreamamerica.com')->exists()){
+            $user = User::where('email','user@dreamamerica.com')->first();
             $user->assignRole(GeneralConstants::USER);
-//            DB::table('role_users')->updateOrInsert(['user_id'=>$user->id,'role_id'=>$role->id]);
-
         }
+         if(User::where('email','admin@techloyce.com')->exists()){
+             $user = User::where('email','admin@techloyce.com')->first();
+             $user->assignRole(GeneralConstants::ADMIN);
+         }
+         if(User::where('email','user@techloyce.com')->exists()){
+             $user = User::where('email','user@techloyce.com')->first();
+             $user->assignRole(GeneralConstants::USER);
+         }
 
     }
 }
