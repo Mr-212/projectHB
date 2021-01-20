@@ -17,9 +17,9 @@ class UserSeeder extends Seeder
     public function run()
     {
 
-      Schema::disableForeignKeyConstraints();
-        User::truncate();
-        Schema::enableForeignKeyConstraints();
+//        Schema::disableForeignKeyConstraints();
+//        User::truncate();
+//        Schema::enableForeignKeyConstraints();
 
         User::updateOrCreate(['email' =>'super-admin@dreamamerica.com'],[
 

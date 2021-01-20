@@ -62,7 +62,7 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         });
 
         Route::get('/do-db-seeder',function (){
-             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
+//             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
              Artisan::call('db:seed', ['--class' => 'Database\Seeders\RolePermissionSeeder']);
              dd('seeder done');
         });
