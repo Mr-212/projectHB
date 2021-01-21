@@ -43,11 +43,14 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
 //        Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
         Route::get('/do-clear',function (){
             Artisan::call('view:clear');
+            Artisan::call('cache:clear');
             Artisan::call('config:clear');
             Artisan::call('config:cache');
             Artisan::call('route:cache');
             Artisan::call('optimize:clear');
             Artisan::call('optimize');
+            Artisan::call('permission:cache-reset');
+
             dd('clear done');
         });
 
