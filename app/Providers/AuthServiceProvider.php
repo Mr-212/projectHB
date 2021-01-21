@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Constants\GeneralConstants;
 use App\Models\Team;
 use App\Policies\TeamPolicy;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
