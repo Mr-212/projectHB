@@ -18,7 +18,7 @@ class DropoutClientTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::query()->with('property','pre_closing')->Dropout()->DropoutProperty();
+        return Client::query()->with('property','pre_closing')->Dropout()->DropoutPropertyQuery();
 
 
 //            Client::query()->leftJoin('properties as property','clients.id','property.client_id')
@@ -84,7 +84,7 @@ class DropoutClientTable extends LivewireDatatable
             })->label('Welcome Payment'),
 
             Column::name('co_applicant_name')
-                ->label('Co applicant Name'),
+                ->label('Co Applicant Name'),
 
             Column::name('partner_name')
                 ->label('Partner Name'),

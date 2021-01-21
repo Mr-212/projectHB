@@ -126,7 +126,8 @@ class Client extends Model
                     ->where(function ($q){
                         $q->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE)
                             ->orWhereNULL('property_status_id');
-                    });
+                    })
+                    ->whereNULL('properties.deleted_at');
             })->leftjoin('pre_closing_checklist','pre_closing_checklist.property_id','properties.id');
     }
 
@@ -155,13 +156,14 @@ class Client extends Model
          return $query->where('status', ClientStatusConstant::CLIENT_DROPOUT);
 
     }
-    public function scopeDropoutProperty($query){
+    public function scopeDropoutPropertyQuery($query){
 
         $query->leftJoin('properties',function ($join){
              $join->on('clients.id','properties.client_id')
                  ->where(function ($q){
                      $q->where('property_status_id', PropertyStatusConstant::CLIENT_DROPOUT);
-                 });
+                 })
+                 ->whereNULL('properties.deleted_at');
              })
              ->leftjoin('pre_closing_checklist','pre_closing_checklist.property_id','properties.id');
     }

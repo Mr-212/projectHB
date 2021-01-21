@@ -7,11 +7,13 @@ use App\Models\Casts\ItemCheckListDateTimeCast;
 use App\Models\Support\Client\ClientItemCheckListVariables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 class Property extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'properties';
     protected $fillable = [

@@ -15,7 +15,7 @@
     </a>
 
     @role('Admin')
-       @livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))
+       {{--@livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))--}}
     @endrole
 
     {{--@if(isset($property_status_id) && $property_status_id == PropertyStatusConstant::HOUSE_VACANT)--}}

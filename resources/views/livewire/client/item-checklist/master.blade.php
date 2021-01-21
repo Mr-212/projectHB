@@ -44,7 +44,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -103,9 +103,9 @@
             triggerPaymentOptions();
 
 
-            // $('#validation-errors-modal').on('hidden.bs.modal',function () {
-            //     $(this).find('.modal-body .error-div').html('');
-            // })
+            $('#validation-errors-modal').on('hidden.bs.modal',function () {
+                $(this).find('.error-div').html('');
+            })
 
         });
 

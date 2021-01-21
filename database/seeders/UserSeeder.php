@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('super-admin123'),
             'created_by'=> 1,
             'updated_by'=> 1,
+            'is_active'=> 1,
 
         ]);
 
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('admin123'),
             'created_by'=> 1,
             'updated_by'=> 1,
+            'is_active'=> 1,
         ]);
 
         User::updateOrCreate(['email' =>'user@dreamamerica.com'],[
@@ -54,6 +56,7 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('user123'),
             'created_by'=> 1,
             'updated_by'=> 1,
+            'is_active'=> 1,
         ]);
 
         User::updateOrCreate(['email' =>'admin@techloyce.com'],[
@@ -65,6 +68,7 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('admin123'),
             'created_by'=> 1,
             'updated_by'=> 1,
+            'is_active'=> 1,
 //            'source'    =>'seeder_class'
         ]);
         User::updateOrCreate(['email' =>'user@techloyce.com'],[
@@ -76,6 +80,7 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('user123'),
             'created_by'=> 1,
             'updated_by'=> 1,
+            'is_active'=> 1,
 //            'source'    => 'seeder_class',
         ]);
 

@@ -17,10 +17,7 @@ class DeleteItemComponent extends Component
     public  $client_id, $property_id;
     protected  $client_property_pre_closing_handler = null;
 
-    protected $rules = [
-        'property.sold_price' => 'required|integer',
-        'property.sold_date' => 'required|string',
-        ];
+    protected $listeners = ['delete'];
 
     public function mount($property_id){
         $this->property_id = $property_id;
@@ -44,16 +41,12 @@ class DeleteItemComponent extends Component
     }
 
     public function delete(){
-        $this->validate();
+
         try {
-            $this->property->property_status_id = PropertyStatusConstant::HOUSE_SOLD;
-            $this->property->sold_price_entered_by= Auth::id();
-            $this->property->sold_price_entered_at = Carbon::now();
-            if ($this->property->save()) {
-                $this->dispatchBrowserEvent("property-sold-{$this->property_id}", ['error' => false, 'message' => 'House successfully moved to sold section.']);
-                sleep(0.5);
-                return $this->redirect('/house/sold');
-            }
+            $is_deleted = $this->property->delete();
+            if($is_deleted)
+                $this->dispatchBrowserEvent("delete-response-{$this->property_id}", ['message' => 'Property deleted successfully.']);
+
         }catch (\Throwable $e){
             report($e);
         }

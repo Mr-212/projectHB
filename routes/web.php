@@ -39,11 +39,7 @@ Route::get('/', function () {
 //Route::post('login', [AuthController::class,'login']);
 Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function (){
 
-
-
-
-    Route::get('/dashboard', [DashBoardController::class,'index'])->name('dashboard');
-    Route::prefix('system_calls')->group(function(){
+    Route::prefix('system_calls')->middleware(['role:Super Admin'])->group(function(){
 //        Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
         Route::get('/do-clear',function (){
             Artisan::call('view:clear');
@@ -62,13 +58,25 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
         });
 
         Route::get('/do-db-seeder',function (){
-//             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
-             Artisan::call('db:seed', ['--class' => 'Database\Seeders\RolePermissionSeeder']);
+             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
+//             Artisan::call('db:seed', ['--class' => 'Database\Seeders\RolePermissionSeeder']);
              dd('seeder done');
         });
     });
 
+    Route::get('/dashboard', [DashBoardController::class,'index'])->name('dashboard');
+    Route::prefix('user')->middleware(['role:Super Admin'])->group(function(){
 
+
+//        Route::get('/',function (){
+//            return view('user.show');
+//        });
+
+
+//        Route::get('/add',function (){
+//            return view('user.add');
+//        });
+    });
 
     Route::prefix('items')->group(function(){
 //        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);

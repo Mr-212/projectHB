@@ -42,7 +42,8 @@ class PropertyLogObserver
      */
     public function deleted(Property $propertyLogs)
     {
-        //
+        PropertyLogs::create(['property_id'=> $propertyLogs->id, 'client_id'=>$propertyLogs->client_id, 'action_type' => 'delete', 'original_data'=>$propertyLogs->getOriginal(),'new_data' => $propertyLogs->toArray(),'changes' => $propertyLogs->getChanges(),'updated_by' => Auth::id()]);
+
     }
 
     /**
@@ -53,7 +54,8 @@ class PropertyLogObserver
      */
     public function restored(Property $propertyLogs)
     {
-        //
+        PropertyLogs::create(['property_id'=> $propertyLogs->id, 'client_id'=>$propertyLogs->client_id, 'action_type' => 'restore', 'original_data'=>$propertyLogs->getOriginal(),'new_data' => $propertyLogs->toArray(),'changes' => $propertyLogs->getChanges(),'updated_by' => Auth::id()]);
+
     }
 
     /**
@@ -64,6 +66,7 @@ class PropertyLogObserver
      */
     public function forceDeleted(Property $propertyLogs)
     {
-        //
+        PropertyLogs::create(['property_id'=> $propertyLogs->id, 'client_id'=>$propertyLogs->client_id, 'action_type' => 'force_delete', 'original_data'=>$propertyLogs->getOriginal(),'new_data' => $propertyLogs->toArray(),'changes' => $propertyLogs->getChanges(),'updated_by' => Auth::id()]);
+
     }
 }

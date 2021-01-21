@@ -60,7 +60,7 @@
             <div class="col-md-6 col-lg-6">
                 @error('pre_closing.rental_verification_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
                 <div class="">
-                    <input type="checkbox"  value="{{$pre_closing->rental_verification_checked}}" name="rental_verification_checked" class="" wire:model="pre_closing.rental_verification_checked" wire:click="markChecklist('pre_closing','rental_verification_checked')" />
+                    <input type="checkbox"  name="rental_verification_checked" class="" wire:model="pre_closing.rental_verification_checked" wire:click="markChecklist('pre_closing','rental_verification_checked')" />
                     <label>Rental Verification</label>
 
                 </div>

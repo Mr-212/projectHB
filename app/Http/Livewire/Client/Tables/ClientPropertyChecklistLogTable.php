@@ -22,7 +22,8 @@ class ClientPropertyChecklistLogTable extends LivewireDatatable
     {
 
         if($this->property_id){
-            return PropertyLogs::query()->leftJoin('client_logs','client_logs.client_id','property_logs.client_id')
+            return PropertyLogs::query()
+                ->leftJoin('client_logs','client_logs.client_id','property_logs.client_id')
                 ->leftJoin('pre_closing_logs','pre_closing_logs.property_id','property_logs.property_id')
                 ->where('property_logs.property_id',$this->property_id)
                 ->groupBy('property_logs.id','client_logs.id','pre_closing_logs.id')
@@ -40,8 +41,6 @@ class ClientPropertyChecklistLogTable extends LivewireDatatable
     public function columns()
     {
         return [
-
-
             Column::name('client_logs.changes')
                 ->label('Client Changes'),
 

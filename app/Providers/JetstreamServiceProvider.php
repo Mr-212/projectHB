@@ -74,8 +74,8 @@ class JetstreamServiceProvider extends ServiceProvider
     protected function customAuthentication(){
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
-//            dd($user->teams);
-            if ($user &&
+
+            if ($user && $user->is_active &&
                 Hash::check($request->password, $user->password)) {
                 return $user;
             }

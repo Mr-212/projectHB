@@ -31,5 +31,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
         });
+
+        Gate::after(function ($user, $ability) {
+            return $user->hasRole(GeneralConstants::SUPER_ADMIN); // note this returns boolean
+        });
     }
 }

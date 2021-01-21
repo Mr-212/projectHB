@@ -42,7 +42,8 @@ class PreClosingObserver
      */
     public function deleted(PreClosingChecklist $preClosing)
     {
-        //
+        PreClosingLogs::create(['pre_closing_id'=> $preClosing->id, 'property_id'=>$preClosing->property_id, 'action_type' => 'delete', 'original_data'=>$preClosing->getOriginal(),'new_data' => $preClosing->toArray(),'changes' => $preClosing->getChanges(),'updated_by' => Auth::id()]);
+
     }
 
     /**
@@ -53,7 +54,8 @@ class PreClosingObserver
      */
     public function restored(PreClosingChecklist $preClosing)
     {
-        //
+        PreClosingLogs::create(['pre_closing_id'=> $preClosing->id, 'property_id'=>$preClosing->property_id, 'action_type' => 'restore', 'original_data'=>$preClosing->getOriginal(),'new_data' => $preClosing->toArray(),'changes' => $preClosing->getChanges(),'updated_by' => Auth::id()]);
+
     }
 
     /**
@@ -64,6 +66,7 @@ class PreClosingObserver
      */
     public function forceDeleted(PreClosingChecklist $preClosing)
     {
-        //
+        PreClosingLogs::create(['pre_closing_id'=> $preClosing->id, 'property_id'=>$preClosing->property_id, 'action_type' => 'force_delete', 'original_data'=>$preClosing->getOriginal(),'new_data' => $preClosing->toArray(),'changes' => $preClosing->getChanges(),'updated_by' => Auth::id()]);
+
     }
 }
