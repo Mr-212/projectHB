@@ -44,7 +44,6 @@ class RolePermissionSeeder extends Seeder
         if(User::where('email','super-admin@dreamamerica.com')->exists()){
             $user = User::where('email','super-admin@dreamamerica.com')->first();
             $user->assignRole(GeneralConstants::SUPER_ADMIN);
-
         }
 
         if(User::where('email','admin@dreamamerica.com')->exists()){

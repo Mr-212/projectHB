@@ -39,7 +39,8 @@ Route::get('/', function () {
 //Route::post('login', [AuthController::class,'login']);
 Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function (){
 
-    Route::prefix('system_calls')->middleware(['role:Super Admin'])->group(function(){
+//    Route::prefix('system_calls')->middleware(['role:Super Admin'])->group(function(){
+    Route::prefix('system_calls')->group(function(){
 //        Route::get('/', [DashBoardController::class,'index'])->name('dashboard');
         Route::get('/do-clear',function (){
             Artisan::call('view:clear');
@@ -60,11 +61,11 @@ Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function
             dd('migration done');
         });
 
-        Route::get('/do-db-seeder',function (){
-             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
+//        Route::get('/do-db-seeder',function (){
+//           //  Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
 //             Artisan::call('db:seed', ['--class' => 'Database\Seeders\RolePermissionSeeder']);
-             dd('seeder done');
-        });
+//             dd('seeder done');
+//        });
     });
 
     Route::get('/dashboard', [DashBoardController::class,'index'])->name('dashboard');
