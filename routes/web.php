@@ -37,7 +37,7 @@ Route::get('/', function () {
         return redirect('/items/outstanding/before_dd');
 });
 //Route::post('login', [AuthController::class,'login']);
-Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function (){
+Route::middleware(['web','auth:sanctum', 'verified','before_request'])->group(function (){
 
     Route::prefix('system_calls')->middleware(['role:Super Admin'])->group(function(){
 //    Route::prefix('system_calls')->group(function(){
