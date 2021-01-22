@@ -28,11 +28,11 @@
             {{--<img class="" src="{{url('system/log.svg')}}" >--}}
         {{--</svg>--}}
     {{--</a>--}}
-        @role('Admin')
+        @hasanyrole('Admin|Super Admin')
     {{--@can('update')--}}
             @livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))
             {{--@endcan--}}
-        @endrole
+        @endhasanyrole
 
         {{--@livewire('component.client-property-checklist-log-component',['property_id'=>$property_id],key($property_id))--}}
     @endif

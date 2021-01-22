@@ -31,13 +31,9 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::before(function ($user, $ability) {
 
-//            dd(Auth::user());
             return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
-//            if($user->hasRole(GeneralConstants::SUPER_ADMIN) )
-//                return true;
-////            return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
         });
-
+//
         Gate::after(function ($user, $ability) {
             return $user->hasRole(GeneralConstants::SUPER_ADMIN); // note this returns boolean
         });
