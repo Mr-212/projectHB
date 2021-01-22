@@ -30,15 +30,16 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user, $ability) {
+
 //            dd(Auth::user());
-//            return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
-            if($user->hasRole(GeneralConstants::SUPER_ADMIN) )
-                return true;
-//            return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
+            return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
+//            if($user->hasRole(GeneralConstants::SUPER_ADMIN) )
+//                return true;
+////            return $user->hasRole(GeneralConstants::SUPER_ADMIN) ? true : null;
         });
 
-//        Gate::after(function ($user, $ability) {
-//            return $user->hasRole(GeneralConstants::SUPER_ADMIN); // note this returns boolean
-//        });
+        Gate::after(function ($user, $ability) {
+            return $user->hasRole(GeneralConstants::SUPER_ADMIN); // note this returns boolean
+        });
     }
 }
