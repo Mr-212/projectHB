@@ -29,12 +29,11 @@ class User extends Authenticatable
      * @var array
      */
 
-    protected $guard_name = 'web';
-
     protected $table = 'users';
-    //public $incrementing = true;
+
+
     protected $fillable = [
-        'name', 'email','password','created_by','updated_by'
+        'name', 'email','password','created_by','updated_by','is_active'
     ];
 
     /**

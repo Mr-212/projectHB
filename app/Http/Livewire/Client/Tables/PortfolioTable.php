@@ -15,6 +15,10 @@ use App\Constants\Dropdowns\MortgageTypeDropdown;
 
 class PortfolioTable extends LivewireDatatable
 {
+
+
+//    public $afterTableSlot = 'components.selected';
+//    public $hideable = 'select';
     public function builder()
     {
 
