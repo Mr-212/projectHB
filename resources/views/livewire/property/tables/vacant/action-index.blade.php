@@ -19,6 +19,10 @@
         {{--@livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))--}}
     @endhasanyrole
 
+    @role('Super Admin')
+        @livewire('component.client-property-checklist-log-component',['property_id'=>$property_id],key($property_id))
+    @endrole
+
     {{--<a class="btn btn-info btn-sm" href="#property-vacant-action-{{$property_id}}" data-toggle="modal" data-target="#property-vacant-action-{{$property_id}}">--}}
         {{--Action--}}
     {{--</a>--}}

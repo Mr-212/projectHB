@@ -11,7 +11,12 @@
         </a>
 
     @hasanyrole('Admin|Super Admin')
-    @livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))
+        @livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))
     @endhasanyrole
+
+
+    @role('Super Admin')
+        @livewire('component.client-property-checklist-log-component',['property_id'=>$property_id],key($property_id))
+    @endrole
 
 </div>

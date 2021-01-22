@@ -23,16 +23,20 @@
     {{--@endif--}}
 
     @if(isset($property_id) && $property_id)
-    {{--<a href="{{url("/items/log/{$property_id}")}}"  class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded">--}}
-        {{--<svg class="w-4 h-1" fill="currentColor" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">--}}
-            {{--<img class="" src="{{url('system/log.svg')}}" >--}}
-        {{--</svg>--}}
-    {{--</a>--}}
+        {{--<a href="{{url("/items/log/{$property_id}")}}"  class="p-1 text-blue-600 hover:bg-blue-600 hover:text-white rounded">--}}
+            {{--<svg class="w-4 h-1" fill="currentColor" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">--}}
+                {{--<img class="" src="{{url('system/log.svg')}}" >--}}
+            {{--</svg>--}}
+        {{--</a>--}}
         @hasanyrole('Admin|Super Admin')
             @livewire('component.delete-item-component',['property_id'=>$property_id],key($property_id))
         @endhasanyrole
 
-        {{--@livewire('component.client-property-checklist-log-component',['property_id'=>$property_id],key($property_id))--}}
+        @role('Super Admin')
+            @livewire('component.client-property-checklist-log-component',['property_id'=>$property_id],key($property_id))
+        @endrole
+
+
     @endif
 
     {{--<button wire:click="delete" class="p-1 text-red-600 hover:bg-red-600 hover:text-white rounded">--}}
