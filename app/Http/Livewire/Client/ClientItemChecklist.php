@@ -312,6 +312,8 @@ class ClientItemChecklist extends Component
             };
         }
         catch (ValidationException $e){
+
+//            dd($e->validator);
             $this->dispatchBrowserEvent('validation-errors');
             throw $e;
         }

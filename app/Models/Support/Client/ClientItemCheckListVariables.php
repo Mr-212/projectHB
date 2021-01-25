@@ -9,6 +9,9 @@
 namespace App\Models\Support\Client;
 
 
+use App\Rules\AcceptedWithCondition;
+use Illuminate\Validation\Rule;
+
 class ClientItemCheckListVariables
 {
 
@@ -118,7 +121,10 @@ class ClientItemCheckListVariables
             'pre_closing.appraisal_value_checked_at' => '',
             'pre_closing.appraisal_value' => '',
 
-            'pre_closing.driver_license_applicant_checked' => '',
+//            'pre_closing.driver_license_applicant_checked' => 'exclude_unless:client.co_applicant_email,null|accepted',
+            'pre_closing.driver_license_applicant_checked' => 'accepted_if_not_null:client.co_applicant_email',
+//
+//            'pre_closing.driver_license_applicant_checked' => [new AcceptedWithCondition('client.co_applicant_email',null)],
             'pre_closing.driver_license_applicant_checked_at' => '',
             'pre_closing.driver_license_applicant_checked_by' => '',
 

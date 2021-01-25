@@ -235,9 +235,15 @@
 
     <div class="col-md-12 col-lg-12">
         <div class="row">
+
             <div class="col-md-6 col-lg-6">
-                <input class="" type="checkbox" name="item_checklist_driver_license_applicant" value="" wire:model="pre_closing.driver_license_applicant_checked" wire:click="markChecklist('pre_closing','driver_license_applicant_checked')">
-                <label>Driver license applicant</label>
+                @error('pre_closing.driver_license_applicant_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div>
+                    <input class="" type="checkbox" name="item_checklist_driver_license_applicant" value="" wire:model="pre_closing.driver_license_applicant_checked" wire:click="markChecklist('pre_closing','driver_license_applicant_checked')">
+                    <label>Driver license applicant</label>
+                </div>
+
             </div>
 
         </div>
@@ -258,9 +264,11 @@
 
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <input  class="" type="checkbox" name="item_checklist_co_driver_license_applicant" value="" wire:model="pre_closing.driver_license_co_applicant_checked" wire:click="markChecklist('pre_closing','driver_license_co_applicant_checked')">
-                <label>Co Driver license applicant</label>
-
+                @error('pre_closing.driver_license_co_applicant_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div>
+                    <input  class="" type="checkbox" name="item_checklist_co_driver_license_applicant" value="" wire:model="pre_closing.driver_license_co_applicant_checked" wire:click="markChecklist('pre_closing','driver_license_co_applicant_checked')">
+                    <label>Co Driver license applicant</label>
+                </div>
             </div>
         </div>
         @if($pre_closing->driver_license_co_applicant_checked)
@@ -280,9 +288,14 @@
 
     <div class="col-md-12 col-lg-12">
         <div class="row">
+
             <div class="col-md-6 col-lg-6">
-                <input class="" type="checkbox" name="item_checklist_soc_sec_card_applicant" value="" wire:model="pre_closing.soc_sec_card_applicant_checked" wire:click="markChecklist('pre_closing','soc_sec_card_applicant_checked')">
-                <label>Soc Sec card Applicant</label>
+                @error('pre_closing.soc_sec_card_applicant_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div>
+                    <input class="" type="checkbox" name="item_checklist_soc_sec_card_applicant" value="" wire:model="pre_closing.soc_sec_card_applicant_checked" wire:click="markChecklist('pre_closing','soc_sec_card_applicant_checked')">
+                    <label>Soc Sec card Applicant</label>
+                </div>
+
             </div>
         </div>
         @if($pre_closing->soc_sec_card_applicant_checked)
@@ -301,6 +314,8 @@
         <div class="row">
 
             <div class="col-md-6 col-lg-6">
+                @error('pre_closing.soc_sec_card_co_applicant_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+
                 <div class="">
                     <input  class="" type="checkbox" name="item_checklist_soc_sec_card_co_applicant" value="" wire:model="pre_closing.soc_sec_card_co_applicant_checked" wire:click="markChecklist('pre_closing','soc_sec_card_co_applicant_checked')">
                     <label>Soc Sec card Co Applicant</label>
