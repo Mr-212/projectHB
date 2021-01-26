@@ -30,6 +30,7 @@ use App\Http\Livewire\Component\ClientPropertyChecklistLogComponent;
 
 
 
+
 Route::get('/', function () {
     if(!\Illuminate\Support\Facades\Auth::user())
         return view('auth.login');
@@ -37,7 +38,7 @@ Route::get('/', function () {
         return redirect('/items/outstanding/before_dd');
 });
 //Route::post('login', [AuthController::class,'login']);
-Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->group(function (){
+Route::middleware(['auth:sanctum', 'verified','before_request'])->group(function (){
 
     Route::prefix('system_calls')->middleware(['role:Super Admin'])->group(function(){
 //    Route::prefix('system_calls')->group(function(){
@@ -72,14 +73,14 @@ Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->g
     Route::prefix('user')->middleware(['role:Super Admin'])->group(function(){
 
 
-//        Route::get('/',function (){
-//            return view('user.show');
-//        });
+        Route::get('/',function (){
+            return view('user.show');
+        });
 
 
-//        Route::get('/add',function (){
-//            return view('user.add');
-//        });
+        Route::get('/add',function (){
+            return view('user.add');
+        });
     });
 
     Route::prefix('items')->group(function(){
