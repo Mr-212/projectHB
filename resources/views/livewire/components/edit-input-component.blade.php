@@ -1,6 +1,6 @@
 
 <div class="row">
-    <input  class="form-control" type="{{$input_type}}" value="{{$value}}"  id="input-{{$property_id}}">
+    <input  class="form-control" type="{{$input_type}}" value="{{$value}}"  id="input-{{$property_id}}" data-toggle="tooltip" title="{{$value}}">
 
 </div>
 

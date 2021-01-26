@@ -5,7 +5,7 @@
     @endif
 
 
-    @if(isset($closing_cost) && isset($key))
-            @livewire('component.edit-input-component',['input_type' =>'number','key' => $key, 'value'=>$closing_cost, "property_id" => $property_id])
+    @if(isset($rent) && isset($key))
+            @livewire('component.edit-input-component',['input_type' =>'number','key' => $key, 'value'=>$rent, "property_id" => $property_id,'object_type'=>'pre_closing'])
     @endif
 </div>

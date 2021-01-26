@@ -112,7 +112,9 @@ class Property extends Model
     }
 
     public function scopePortfolio($query){
-        return $query->where('property_status_id', PropertyStatusConstant::HOUSE_BOOKED);
+        return
+            $query->where('property_status_id', PropertyStatusConstant::HOUSE_BOOKED)
+            ->orWhere('property_status_id', PropertyStatusConstant::HOUSE_VACANT);
 //            ->orderBy('updated_at','desc');
     }
     public function scopeCancelledHouse($query){
@@ -127,6 +129,7 @@ class Property extends Model
         return $query->where('property_status_id', PropertyStatusConstant::HOUSE_EVICTED);
 //            ->orderBy('updated_at','desc');
     }
+
 
     public function last_updated_by()
     {

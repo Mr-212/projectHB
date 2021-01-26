@@ -205,13 +205,20 @@ class ClientItemChecklist extends Component
 
 
     ];
+    protected $validationAttributes = [
+        'pre_closing.driver_license_applicant_checked' => 'Driver License Applicant',
+        'pre_closing.driver_license_co_applicant_checked' => 'Driver License Co Applicant',
+        'pre_closing.soc_sec_card_applicant_checked' => 'Soc Sec Card Applicant',
+        'pre_closing.soc_sec_card_co_applicant_checked' => 'Soc Sec Card Co Applicant'
+    ];
 
-//
-//    protected $validationAttributes = [
-//        'client.data.additional_tenant_name' => 'Additional Tenant Name',
-//        'client.data.mortgage_type' => 'Mortgage Type',
-//        'client.data.rental_verification' => 'Rental Verification',
-//    ];
+    protected $messages = [
+        'pre_closing.driver_license_applicant_checked.in'    => 'The :attribute  must be checked.',
+        'pre_closing.driver_license_co_applicant_checked.in' => 'The :attribute  must be checked.',
+        'pre_closing.soc_sec_card_applicant_checked.in'      => 'The :attribute  must be checked.',
+        'pre_closing.soc_sec_card_co_applicant_checked.in'   => 'The :attribute  must be checked.',
+
+    ];
 
 
     public function mount($client_id = null, $property_id = null, $new_property = false){
@@ -328,7 +335,7 @@ class ClientItemChecklist extends Component
 
 
             try {
-                $this->validate();
+                $this->validate(ClientItemCheckListVariables::getValidationRulesForBeforeClosing());
 //                $this->client->stage = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;
                 $this->client->status = ClientStatusConstant::CLIENT_ACTIVE;
                 $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE_EXPIRE;

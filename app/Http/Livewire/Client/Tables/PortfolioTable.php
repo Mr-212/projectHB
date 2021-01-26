@@ -42,8 +42,6 @@ class PortfolioTable extends LivewireDatatable
             })->label('Stage'),
 
 
-
-
             Column::callback(['house_number_and_street','id'],function ($field,$property_id){
                 return view('livewire.property.tables.portfolio.action-property',compact('field','property_id'));
             })->label('House Address'),
@@ -70,9 +68,16 @@ class PortfolioTable extends LivewireDatatable
             })->label('Purchase Price'),
 
 
-            Column::callback(['id','closing_cost'],function ($property_id, $closing_cost){
-                return view('livewire.property.tables.portfolio.action-property',['closing_cost' => $closing_cost,'property_id'=>$property_id,'key'=>'closing_cost']);
-            })->label('Closing Cost'),
+//            Column::callback(['id','closing_cost'],function ($property_id, $closing_cost){
+//                return view('livewire.property.tables.portfolio.action-property',['closing_cost' => $closing_cost,'property_id'=>$property_id,'key'=>'closing_cost']);
+//            })->label('Closing Cost'),
+
+            Column::callback(['id','pre_closing.rent'],function ($property_id, $rent){
+                return view('livewire.property.tables.portfolio.action-property',['rent' => $rent,'property_id'=>$property_id,'key'=>'rent']);
+            })->label('Rent'),
+
+//            Column::name('pre_closing.rent')
+//              ->label('Rent'),
 
 //            Column::name('closing_cost')
 //                ->label('Closing Cost'),

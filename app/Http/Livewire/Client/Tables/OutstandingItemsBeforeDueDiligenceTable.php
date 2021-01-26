@@ -36,16 +36,16 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
                 ->label('property'),
 
 
-            Column::callback('status',function($stage){
-                return ClientStatusConstant::getValueByKey($stage);
-            })->label('Client Status'),
+//            Column::callback('status',function($stage){
+//                return ClientStatusConstant::getValueByKey($stage);
+//            })->label('Client Status'),
 
             Column::name('applicant_name')
                 ->label('Applicant Name')
                 ->filterable(),
 
-            Column::name('applicant_email')
-                ->filterable(),
+//            Column::name('applicant_email')
+//                ->filterable(),
 
 
             Column::callback('pre_closing.welcome_payment_checked',function($field){

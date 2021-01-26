@@ -15,7 +15,7 @@ class EditInputComponent extends Component
 {
     public  $client ,$client_property, $object;
     public  $property_id;
-    public  $key,$input_type,$value;
+    public  $key,$input_type,$value,$object_type;
     public  $wire_id;
     protected  $client_property_pre_closing_handler;
 
@@ -30,12 +30,13 @@ class EditInputComponent extends Component
 
 
 
-    public function mount($input_type, $key, $value, $property_id){
+    public function mount($input_type, $key, $value, $property_id,$object_type){
         $this->wire_id = $this->id;
+
         $this->property_id = $property_id;
-//        $this->object = $object;
         $this->key = $key;
         $this->value = $value;
+        $this->object_type = $object_type;
         $this->input_type = $input_type;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler(null,$this->property_id);
         $this->getClientProperty();
@@ -52,8 +53,12 @@ class EditInputComponent extends Component
     public function getClientProperty(){
 
 //        $this->client = $this->client_property_pre_closing_handler->getClient();
-        if($this->property_id)
-            $this->object = $this->client_property_pre_closing_handler->getProperty();
+        if($this->property_id) {
+            if($this->object_type == 'property')
+                $this->object = $this->client_property_pre_closing_handler->getProperty();
+            if($this->object_type == 'pre_closing')
+                $this->object = $this->client_property_pre_closing_handler->getPreClosingList();
+        }
 //        $this->client_pre_closing = $this->client_property_pre_closing_handler->getPreClosingList();
 
     }
@@ -87,7 +92,10 @@ class EditInputComponent extends Component
         if($this->value) {
             $key = $this->key;
             $this->object->$key = $this->value;
-            $this->client_property_pre_closing_handler->setProperty($this->object);
+            if($this->object_type == 'property')
+                $this->client_property_pre_closing_handler->setProperty($this->object);
+            if($this->object_type == 'pre_closing')
+                $this->client_property_pre_closing_handler->setPreClosingList($this->object);
             if ($this->client_property_pre_closing_handler->save()) {
                 $this->dispatchBrowserEvent("input-{$this->wire_id}", ['message' => 'Value updated to '.$this->value. ' successfully.']);
             }
