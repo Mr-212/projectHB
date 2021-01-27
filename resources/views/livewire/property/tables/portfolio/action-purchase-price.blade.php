@@ -1,7 +1,5 @@
 
 <div class="row">
-
-
         <a class="" href="#action-purchase-price-{{$property_id}}" data-toggle="modal" data-target="#action-purchase-price-{{$property_id}}">
            {{$purchase_price ? : "N/A"}}
         </a>

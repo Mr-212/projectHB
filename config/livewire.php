@@ -95,6 +95,6 @@ return [
     |
     */
 
-    'manifest_path' => null,
+    'php ' => null,
 
 ];

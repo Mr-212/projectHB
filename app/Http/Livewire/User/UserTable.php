@@ -33,9 +33,6 @@ class UserTable extends LivewireDatatable
     public function columns()
     {
         return [
-
-
-
             NumberColumn::name('id')
                 ->defaultSort('desc')
                 ->label('ID'),
@@ -46,7 +43,6 @@ class UserTable extends LivewireDatatable
 
 
             Column::callback(['is_active','id'],function($is_active, $id){
-
                 return view('user.user-is-active',compact('is_active','id'));
             })->label('Active'),
 
@@ -61,8 +57,6 @@ class UserTable extends LivewireDatatable
     }
 
     public function is_active($id,$is_active){
-//        dd($is_active);
-
         User::where('id',$id)->update(['is_active' => $is_active]);
     }
 

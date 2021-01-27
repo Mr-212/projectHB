@@ -1,15 +1,15 @@
-<style>
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+{{--<style>--}}
+    {{--input::-webkit-outer-spin-button,--}}
+    {{--input::-webkit-inner-spin-button {--}}
+        {{---webkit-appearance: none;--}}
+        {{--margin: 0;--}}
+    {{--}--}}
 
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-</style>
+    {{--/* Firefox */--}}
+    {{--input[type=number] {--}}
+        {{---moz-appearance: textfield;--}}
+    {{--}--}}
+{{--</style>--}}
 
 
 <div>
@@ -130,7 +130,7 @@
                                 @elseif($column['type'] === 'checkbox')
                                     @include('datatables::checkbox', ['value' => $result->checkbox_attribute])
                                 @else
-                                    <div class="w-100 mw-100 px-3 py-2 whitespace-no-wrap text-sm leading-5 text-gray-900 table-cell @if($column['align'] === 'right') text-right @elseif($column['align'] === 'center') text-center @else text-left @endif">
+                                    <div class="w-100 mw-100 px-6 py-2 whitespace-no-wrap text-sm leading-5 text-gray-900 table-cell @if($column['align'] === 'right') text-right @elseif($column['align'] === 'center') text-center @else text-left @endif">
                                         {!! $result->{$column['name']} !!}
                                     </div>
                                 @endif
