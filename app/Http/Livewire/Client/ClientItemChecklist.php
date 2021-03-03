@@ -73,10 +73,16 @@ class ClientItemChecklist extends Component
         "property.closing_cost" => 'integer',
         "property.closing_credit_general" => '',
         "property.annual_property_tax" => '',
+        "property.gross_monthly_rent" => '',
+        "property.annual_insurance_fee" =>'',
+        "property.net_monthly_rent" =>'',
+        "property.yield" =>'',
+        'property.repair_credit' => '',
 
         "property.hoa_check" => '',
         "property.hoa_name" => '',
         "property.hoa_phone" => '',
+        "property.hoa_annual_fee" => '',
 
 
         "property.lender_check" => '',
@@ -250,6 +256,9 @@ class ClientItemChecklist extends Component
             $this->property->closing_cost = ClientItemCheckListVariables::DEFAULT_CLOSING_COST;
         }
 
+        $this->property->net_monthly_rent = $this->calculate_net_monthly_rent();
+        $this->property->yield = $this->calculate_yield();
+
     }
 
 
@@ -319,13 +328,11 @@ class ClientItemChecklist extends Component
             };
         }
         catch (ValidationException $e){
-
-//            dd($e->validator);
             $this->dispatchBrowserEvent('validation-errors');
             throw $e;
         }
         catch (\Exception $e){
-           dd($e);
+           report($e);
         }
 
 
@@ -383,6 +390,22 @@ class ClientItemChecklist extends Component
 
         }
 
+    }
+
+    private function calculate_net_monthly_rent(){
+        $net_monthly_rent = null;
+        if(!empty($this->property->gross_monthly_rent) && !empty($this->property->annual_property_tax) && !empty($this->property->hoa_annual_fee) && !empty($this->property->annual_insurance_fee)){
+            $net_monthly_rent = round($this->property->gross_monthly_rent - ($this->property->annual_property_tax / 12) - ($this->property->hoa_annual_fee - 12) - ($this->property->annual_insurance_fee / 12),2);
+        }
+        return $net_monthly_rent;
+    }
+
+    private function calculate_yield(){
+        $yield = null;
+        if(!empty($this->property->net_monthly_rent) && !empty($this->property->purchase_price)){
+            $yield = round((($this->property->net_monthly_rent * 12) / $this->property->purchase_price),2);
+        }
+        return $yield;
     }
 
 

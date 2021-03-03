@@ -111,6 +111,11 @@
                 <span>HOA Contact</span>
                 <input  class="form-control" type="text" name="hoa_name" value="" placeholder="" wire:model="client.property_hoa_phone">
             </div>
+
+            <div class="col-md-6 col-lg-6">
+                <span>HOA Value</span>
+                <input  class="form-control" type="text" name="hoa_value" value="" placeholder="" wire:model="client.property_hoa_phone">
+            </div>
         </div>
     </div>
     <div class="col-md-12 col-lg-12">

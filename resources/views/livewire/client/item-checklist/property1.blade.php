@@ -131,42 +131,92 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-lg-6">
-        @error('property.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Purchase Price</label>
-            <input  class="form-control" type="number" name="item_check_list_purchase_price" value="" wire:model="property.purchase_price">
+    <div class="shadow p-2 col-md-12 price_block mt-2" >
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('property.purchase_price') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Purchase Price</label>
+                    <input  class="form-control" type="number" name="item_check_list_purchase_price" value="" wire:model="property.purchase_price">
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                @error('property.closing_credit_general') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Closing Credit General</label>
+                    <input  class="form-control" type="number" name="closing_credit" value="" wire:model="property.closing_credit_general">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('property.repair_credit') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Repair Credit</label>
+                    <input  class="form-control" type="number" name="repair_credit" value="" wire:model="property.repair_credit">
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                {{--@error('property.annual_property_tax') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+
+                <div class="">
+                    <label>Annual Property Tax</label>
+                    <input  class="form-control" type="number" name="annual_property_tax" value="" wire:model="property.annual_property_tax" >
+
+                </div>
+            </div>
 
         </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        @error('property.closing_credit_general') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Closing Credit General</label>
-            <input  class="form-control" type="number" name="closing_credit" value="" wire:model="property.closing_credit_general">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('property.closing_cost') <span class="error alert-danger">{{ $message }}</span> @enderror
 
+                <div class="">
+                    <label>Closing Cost</label>
+                    <input  class="form-control" type="number" name="closing_cost_price" value="{{$property->closing_cost ?:3500 }}" wire:model="property.closing_cost">
+
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6">
+                @error('property.gross_monthly_rent') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Gross Monthly Rent</label>
+                    <input  class="form-control" type="number" name="gross_monthly_rent" value="" wire:model="property.gross_monthly_rent">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('property.annual_insurance_fee') <span class="error alert-danger">{{ $message }}</span> @enderror
+
+                <div class="">
+                    <label>Annual Insurance Fee</label>
+                    <input  class="form-control" type="number" name="annual_insurance_fee" value="" wire:model="property.annual_insurance_fee">
+
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-6">
-        {{--@error('property.annual_property_tax') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
 
-        <div class="">
-            <label>Annual Property Tax</label>
-            <input  class="form-control" type="number" name="annual_property_tax" value="" wire:model="property.annual_property_tax" >
 
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-6">
-        @error('property.closing_cost') <span class="error alert-danger">{{ $message }}</span> @enderror
 
-        <div class="">
-            <label>Closing Cost</label>
-            <input  class="form-control" type="number" name="closing_cost_price" value="{{$property->closing_cost ?:3500 }}" wire:model="property.closing_cost">
 
-        </div>
-    </div>
+
+
+
 
 
 
@@ -189,8 +239,37 @@
                 <span>HOA Contact</span>
                 <input  class="form-control" type="text" name="hoa_name" value="" placeholder="" wire:model="property.hoa_phone">
             </div>
+
+            <div class="col-md-6 col-lg-6">
+                <span>HOA Annual Fee</span>
+                <input  class="form-control" type="text" name="hoa_name" value="" placeholder="" wire:model="property.hoa_annual_fee">
+            </div>
         </div>
     </div>
+
+        <div class="col-md-12 mt-2 mb-2">
+            <div class="row">
+                @if(isset($this->property->net_monthly_rent) && !empty($this->property->net_monthly_rent))
+                <div class="col-md-6 col-lg-6">
+                    <div class="">
+                        <label>Net Monthly Rent</label>
+                        <input  class="form-control" type="number" name="net_monthly_rent" value="" wire:model="property.net_monthly_rent" disabled="true">
+
+                    </div>
+                </div>
+                @endif
+                    @if(isset($this->property->yield) && !empty($this->property->yield))
+                <div class="col-md-6 col-lg-6">
+                    <div class="">
+                        <label>Yield</label>
+                        <input  class="form-control" type="number" name="yield" value="" wire:model="property.yield" disabled="true">
+
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+
 
     <div class="col-md-6 col-lg-6">
         @error('property.closing_date') <span class="error alert-danger">{{ $message }}</span> @enderror
@@ -226,4 +305,6 @@
         </div>
 
     </div>
+
+
 </div>

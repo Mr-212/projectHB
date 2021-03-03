@@ -56,10 +56,16 @@ class ClientItemCheckListVariables
             "property.closing_cost" => '',
             "property.closing_credit_general" => '',
             "property.annual_property_tax" => '',
+            "property.gross_monthly_rent" => '',
+            "property.annual_insurance_fee" =>'',
+            "property.net_monthly_rent" =>'',
+            "property.yield" =>'',
+            'property.repair_credit' => '',
 
             "property.hoa_check" => '',
             "property.hoa_name" => '',
             "property.hoa_phone" => '',
+            "property.hoa_annual_fee" => '',
 
 
             "property.lender_check" => '',
@@ -219,10 +225,17 @@ class ClientItemCheckListVariables
             "property.closing_cost" => '',
             "property.closing_credit_general" => '',
             "property.annual_property_tax" => '',
+            "property.gross_monthly_rent" => '',
+            "property.annual_insurance_fee" =>'',
+            "property.net_monthly_rent" =>'',
+            "property.yield" =>'',
+            'property.repair_credit' => '',
+
 
             "property.hoa_check" => '',
             "property.hoa_name" => '',
             "property.hoa_phone" => '',
+            "property.hoa_annual_fee" => '',
 
 
             "property.lender_check" => '',
@@ -276,8 +289,8 @@ class ClientItemCheckListVariables
 
             'pre_closing.septic_inspection_checked' => '',
 
-            'pre_closing.repair_credit_checked' => '',
-            'pre_closing.repair_credit' => '',
+//            'pre_closing.repair_credit_checked' => '',
+//            'pre_closing.repair_credit' => '',
 
             'pre_closing.appraisal_value_checked' =>'accepted',
             'pre_closing.appraisal_value_checked_by' => '',
