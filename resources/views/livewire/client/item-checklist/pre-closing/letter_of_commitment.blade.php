@@ -117,6 +117,44 @@
 
 
     </div>
+    <div class="row">
+
+
+
+    <div class="col-md-12 col-lg-12 pt-2">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                @error('pre_closing.monthly_payment_option_checked') <span class="error alert-danger">{{ $message }}</span> @enderror
+                <div class="">
+                    <input type="checkbox"  class="" name="" wire:model="pre_closing.monthly_payment_option_checked"  wire:click="markChecklist('pre_closing','monthly_payment_option_checked')">
+                    <label>Monthly Payment Option</label>
+
+                </div>
+            </div>
+        </div>
+
+        @if($pre_closing->monthly_payment_option_checked)
+            <x-checkedt-at-comment>
+                <x-slot name="checked">
+                    pre_closing.monthly_payment_option_checked_at
+                </x-slot>
+
+                <x-slot name="comment">
+                    pre_closing.monthly_payment_option_checked_comment
+                </x-slot>
+            </x-checkedt-at-comment>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Amount</label>
+                    <input type="text"  class="form-control" name="" wire:model="pre_closing.monthly_payment_option_checked_amount"  >
+
+                </div>
+            </div>
+        @endif
+
+    </div>
+    </div>
     {{--@endif--}}
 
 </div>

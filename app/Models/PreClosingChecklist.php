@@ -33,6 +33,7 @@ class PreClosingChecklist extends Model
         "payment_option_3_month" ,
         "payment_option_6_month" ,
         "payment_option_12_month" ,
+        'monthly_payment_option_checked_at',
 
         "option_payment_date" ,
         "option_payment_date_checked" ,
@@ -143,6 +144,7 @@ class PreClosingChecklist extends Model
         "landlord_insurance_checked_at" => ItemCheckListDateTimeCast::class,
         "warranty_checked_at" => ItemCheckListDateTimeCast::class,
         "lease_signed_checked_at" => ItemCheckListDateTimeCast::class,
+        "monthly_payment_option_checked_at" => ItemCheckListDateTimeCast::class,
         "lease_expire_date" => "date:Y-m-d",
     ];
     protected $attributes = [

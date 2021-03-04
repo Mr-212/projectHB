@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class ItemCheckListDateTimeCast implements CastsAttributes
 {
 
-    const FORMAT = "Y-m-d  h:i:s A T";
+    const FORMAT = "Y-m-d  h:i:s A";
     const UTC_TZ = "UTC";
 
     private function getUserTZ(){

@@ -118,6 +118,13 @@ class ClientItemChecklist extends Component
         "pre_closing.payment_option_date" =>'',
         "pre_closing.payment_option_date_checked" =>'',
 
+
+        "pre_closing.monthly_payment_option_checked" =>'',
+        "pre_closing.monthly_payment_option_checked_by" =>'',
+        "pre_closing.monthly_payment_option_checked_at" =>'',
+        "pre_closing.monthly_payment_option_checked_comment" =>'',
+        "pre_closing.monthly_payment_option_checked_amount" =>'',
+
         "pre_closing.letter_of_commitment_checked" =>'',
         "pre_closing.letter_of_commitment_checked_at" =>'',
         "pre_closing.letter_of_commitment_checked_by" =>'',

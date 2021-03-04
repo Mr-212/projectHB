@@ -15,6 +15,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Livewire\Client\AddClientComponent;
 use App\Http\Livewire\Property\HouseVacantComponent;
 use App\Http\Livewire\Component\ClientPropertyChecklistLogComponent;
+use App\Http\Controllers\ImportController;
 
 
 /*
@@ -135,6 +136,11 @@ Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->g
         Route::get('/move_out/{property_id}', ClientItemChecklist::class);
 
 //        Route::get('/outstanding/{dd}',OutstandingItemsBeforeDd::class);
+    });
+
+
+    Route::prefix('imports')->group(function(){
+          Route::get('/property_and_checklist', [ImportController::class, 'importPropertyAndChecklist']);
     });
 
 
