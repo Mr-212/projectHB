@@ -113,6 +113,7 @@ class ClientItemChecklist extends Component
         "pre_closing.payment_option_3_month" =>'',
         "pre_closing.payment_option_6_month" =>'',
         "pre_closing.payment_option_12_month" =>'',
+        "pre_closing.total_payment_options" =>'',
 
         "pre_closing.payment_option_date" =>'',
         "pre_closing.payment_option_date_checked" =>'',
@@ -258,6 +259,7 @@ class ClientItemChecklist extends Component
 
         $this->property->net_monthly_rent = $this->calculate_net_monthly_rent();
         $this->property->yield = $this->calculate_yield();
+        $this->pre_closing->total_payment_options = $this->calculate_total_payment_option();
 
     }
 
@@ -441,6 +443,28 @@ class ClientItemChecklist extends Component
             }
 
         }
+
+    }
+
+    public function calculate_total_payment_option(){
+        $total_payment_options = 0;
+        $options_array = ClientItemCheckListVariables::getPaymentOptionList();
+
+        foreach ($options_array as $k => $v){
+                    $key = $v['key'];
+                    $total_payment_options +=  $this->pre_closing->$key;
+        }
+
+        if($total_payment_options > 0)
+            round($total_payment_options,2);
+
+        return $total_payment_options;
+
+
+
+
+
+
 
     }
 

@@ -73,7 +73,7 @@
     <div class="col-md-12 col-lg-12">
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <label>Renters insurance?</label>
+                <label>Renters Insurance?</label>
                 <input  class="" type="checkbox" name="item_checklist_renters_insurance_checkbox" value=""  wire:model="client.renter_insurance_check">
             </div>
 

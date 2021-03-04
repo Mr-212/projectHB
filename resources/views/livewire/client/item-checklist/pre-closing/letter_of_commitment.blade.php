@@ -103,6 +103,17 @@
                     </div>
                 @endif
          </div>
+        <div class="row">
+            @if(isset($this->pre_closing->total_payment_options) && !empty($this->pre_closing->total_payment_options))
+                <div class="col-md-6 col-lg-6">
+                    <div class="">
+                        <label>Total Payment Options</label>
+                        <input  class="form-control" type="number" name="total_payment_options" value="" wire:model="pre_closing.total_payment_options" disabled="true">
+
+                    </div>
+                </div>
+            @endif
+        </div>
 
 
     </div>
