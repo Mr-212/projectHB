@@ -64,30 +64,30 @@
 
     </div>
 
-    <div class="col-md-12 col-lg-12">
-        <div class="row" >
+    {{--<div class="col-md-12 col-lg-12">--}}
+        {{--<div class="row" >--}}
 
 
-            <div class="col-md-6 col-lg-6">
+            {{--<div class="col-md-6 col-lg-6">--}}
                 {{--@error('deal.data.additional_tenant_name') <span class="error">{{ $message }}</span> @enderror--}}
-                <label>Additional Tenants ?</label>
-                <select class="form-control" name="deal_additional_tenants" id="deal_additional_tenants"  wire:model="client.additional_tenant_check" value="{{$client->additional_tenant_check}}"  onclick="hideShow(this.value,'.deal_additional_tenant_div')" wire:ignore>
-                    @foreach(YesNoDropDown::getList() as $key => $val)
-                        <option value="{{$key}}" {{$key == $client->additional_tenant_check ? 'selected':''}}>{{$val}}</option>
-                    @endforeach
+                {{--<label>Additional Tenants ?</label>--}}
+                {{--<select class="form-control" name="deal_additional_tenants" id="deal_additional_tenants"  wire:model="client.additional_tenant_check" value="{{$client->additional_tenant_check}}"  onclick="hideShow(this.value,'.deal_additional_tenant_div')" wire:ignore>--}}
+                    {{--@foreach(YesNoDropDown::getList() as $key => $val)--}}
+                        {{--<option value="{{$key}}" {{$key == $client->additional_tenant_check ? 'selected':''}}>{{$val}}</option>--}}
+                    {{--@endforeach--}}
 
-                </select>
-            </div>
+                {{--</select>--}}
+            {{--</div>--}}
 
-            <div class="col-md-6 col-lg-6 deal_additional_tenant_div {{$client->additional_tenant_check ? '':'d-none'}}" wire:ignore >
-                @error('client.additional_tenant_name') <span class="error alert-danger">{{ $message }}</span> @enderror
-                <div class="">
-                    <label>Name</label>
-                    <input class="form-control" type="text" name="client_additional_tenant_name" value="{{$client->additional_tenant_name}}" wire:model="client.additional_tenant_name">
-                </div>
-            </div>
-        </div>
-    </div>
+            {{--<div class="col-md-6 col-lg-6 deal_additional_tenant_div {{$client->additional_tenant_check ? '':'d-none'}}" wire:ignore >--}}
+                {{--@error('client.additional_tenant_name') <span class="error alert-danger">{{ $message }}</span> @enderror--}}
+                {{--<div class="">--}}
+                    {{--<label>Name</label>--}}
+                    {{--<input class="form-control" type="text" name="client_additional_tenant_name" value="{{$client->additional_tenant_name}}" wire:model="client.additional_tenant_name">--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
 
 

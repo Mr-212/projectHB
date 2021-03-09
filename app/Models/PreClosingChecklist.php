@@ -33,6 +33,7 @@ class PreClosingChecklist extends Model
         "payment_option_3_month" ,
         "payment_option_6_month" ,
         "payment_option_12_month" ,
+        'total_payment_options',
         'monthly_payment_option_checked_at',
 
         "option_payment_date" ,

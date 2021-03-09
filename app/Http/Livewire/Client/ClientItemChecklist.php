@@ -36,8 +36,8 @@ class ClientItemChecklist extends Component
         'client.co_applicant_email' =>'',
         'client.co_applicant_phone' =>'',
 
-        'client.additional_tenant_check' => '',
-        'client.additional_tenant_name' => '',
+//        'client.additional_tenant_check' => '',
+//        'client.additional_tenant_name' => '',
 //        'client.mortgage_type_id' => '',
 //        'client.rental_verification_checked' => '',
 //        'client.rental_verification_checked_by' => '',
@@ -59,7 +59,8 @@ class ClientItemChecklist extends Component
 //        "property.deal_save_checked_comment" =>'',
 
 
-
+        'property.additional_tenant_check' => '',
+        'property.additional_tenant_name' => '',
         'property.mortgage_type_id' => '',
         'property.new_construction_check' =>'',
         "property.new_construction_builder" =>'',

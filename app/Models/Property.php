@@ -17,7 +17,10 @@ class Property extends Model
 
     protected $table = 'properties';
     protected $fillable = [
-
+        "property_status_id",
+        'additional_tenant_name',
+        'additional_tenant_check',
+        
         "client_id",
         "deal_save_checked",
         "deal_save_checked_at",
@@ -36,13 +39,22 @@ class Property extends Model
         "closing_cost" ,
         "closing_credit_general" ,
         "annual_property_tax" ,
+        "gross_monthly_rent" ,
+        "annual_insurance_fee" ,
+        "net_monthly_rent" ,
+
+        'lender_name',
+        'new_construction_builder',
+
 
         "hoa_check" ,
         "hoa_name" ,
         "hoa_phone" ,
+        "hoa_annual_fee" ,
 
         "repair_request_check" ,
         "repair_request_item_names" ,
+        "repair_credit" ,
 
         "lender_check" ,
         "lender_name" ,
@@ -68,12 +80,6 @@ class Property extends Model
 
 
     ];
-
-    public function __construct($client_id = null, array $attributes = array())
-    {
-        parent::__construct($attributes);
-
-    }
 
     public static function boot()
     {

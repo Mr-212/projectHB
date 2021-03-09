@@ -23,4 +23,8 @@ class Base
 
         return array_search($val ,array_flip(static::$array));
     }
+    public static function getKeyByValue($val){
+
+        return array_search($val ,static::$array);
+    }
 }
