@@ -14,7 +14,9 @@ class RemoveUuidUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('uuid');
+
+            if(Schema::hasColumn('users','uuid'))
+                $table->dropColumn('uuid');
         });
     }
 
@@ -26,7 +28,8 @@ class RemoveUuidUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->uuid('uuid');
+            if(!Schema::hasColumn('users','uuid'))
+                 $table->uuid('uuid');
         });
     }
 }
