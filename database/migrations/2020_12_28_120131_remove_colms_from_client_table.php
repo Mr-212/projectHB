@@ -17,8 +17,10 @@ class RemoveColmsFromClientTable extends Migration
 
             if(Schema::hasColumn('clients','letter_of_commitment_signed'))
                 $table->dropColumn('letter_of_commitment_signed');
-            if(Schema::hasColumn('clients','on_boarding_fee_payment_check'))
-                $table->dropColumn('on_boarding_fee_payment_check');
+
+//            if(Schema::hasColumn('clients','on_boarding_fee_payment_check'))
+//                $table->dropColumn('on_boarding_fee_payment_check');
+
             if(Schema::hasColumn('clients','property_annual_property_tax'))
             $table->dropColumn('property_annual_property_tax');
             if(Schema::hasColumn('clients','other_value'))
@@ -134,7 +136,7 @@ class RemoveColmsFromClientTable extends Migration
             $table->dropColumn('property_new_construction_check');
 
             if(Schema::hasColumn('clients','on_boarding_fee_payment_check'))
-            $table->dropColumn('on_boarding_fee_payment_check');
+                $table->dropColumn('on_boarding_fee_payment_check');
 
         });
     }
