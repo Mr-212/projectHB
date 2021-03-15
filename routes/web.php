@@ -64,7 +64,7 @@ Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->g
         });
 
         Route::get('/do-db-seeder',function (){
-           //  Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
+             Artisan::call('db:seed', ['--class' => 'Database\Seeders\UserSeeder']);
              Artisan::call('db:seed', ['--class' => 'Database\Seeders\RolePermissionSeeder']);
              dd('seeder done');
         });

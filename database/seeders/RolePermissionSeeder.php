@@ -68,5 +68,14 @@ class RolePermissionSeeder extends Seeder
              $user->assignRole(GeneralConstants::USER);
          }
 
+         if(User::where('email','chris@dreamamerica.com')->exists()){
+             $user = User::where('email','chris@dreamamerica.com')->first();
+             $user->assignRole(GeneralConstants::ADMIN);
+         }
+         if(User::where('email','kemp@dreamamerica.com')->exists()){
+             $user = User::where('email','kemp@dreamamerica.com')->first();
+             $user->assignRole(GeneralConstants::USER);
+         }
+
     }
 }
