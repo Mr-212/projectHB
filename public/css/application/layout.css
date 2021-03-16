@@ -1,0 +1,26 @@
+
+.left-sidebar > .topbar{
+    background: linear-gradient(to right, #0178BC 100%, #00bdda 100%);
+
+}
+.left-sidebar .navbar-brand{
+    margin: 0px;
+}
+
+.left-sidebar .dark-logo{
+    background: white ;
+    padding: 3px 10px 3px ;
+}
+
+/*.checkbox{*/
+    /*width: 23px;*/
+    /*height: 21px;*/
+    /*background: transparent url(http://i.stack.imgur.com/S4p2R.png ) no-repeat 0 50%*/
+/*}*/
+/*input[type=checkbox]:checked{*/
+    /*!*background: transparent url('/system/images/check-icon.png') no-repeat 80% 50%*!*/
+    /*background-size: 90%;*/
+    /*background:  url("../../system/images/check-icon.png") no-repeat 80% 50%;*/
+
+
+/*}*/
