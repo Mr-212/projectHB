@@ -2,5 +2,5 @@
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
-*.env
 CHANGELOG.md export-ignore
+.env merge=ours
