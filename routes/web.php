@@ -140,7 +140,7 @@ Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->g
 
 
     Route::prefix('imports')->group(function(){
-          Route::get('/property_and_checklist', [ImportController::class, 'importPropertyAndChecklist']);
+          //Route::get('/property_and_checklist', [ImportController::class, 'importPropertyAndChecklist']);
     });
 
 
