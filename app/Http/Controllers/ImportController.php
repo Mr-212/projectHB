@@ -15,13 +15,13 @@ class ImportController extends Controller
 
     public function importPropertyAndChecklist(){
         $file = public_path('/upload/imports/dream-portfolio.xlsx');
-//        if(file_exists($file)) {
-//                    PreClosingChecklist::truncate();
-//                    Property::truncate();
-//                    Client::truncate();
-//            $data = Excel::import(new PropertyAndChecklistImport(),$file);
-//          //  dd($data);
-//            dd('In import controller');
-//        }
+        if(file_exists($file)) {
+                    PreClosingChecklist::truncate();
+                    Property::truncate();
+                    Client::truncate();
+            $data = Excel::import(new PropertyAndChecklistImport(),$file);
+          //  dd($data);
+            dd('In import controller');
+        }
     }
 }
