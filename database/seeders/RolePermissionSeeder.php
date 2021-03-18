@@ -43,38 +43,38 @@ class RolePermissionSeeder extends Seeder
 
         if(User::where('email','super-admin@dreamamerica.com')->exists()){
             $user = User::where('email','super-admin@dreamamerica.com')->first();
-            $user->assignRole(GeneralConstants::SUPER_ADMIN);
+            $user->syncRoles(GeneralConstants::SUPER_ADMIN);
         }
 
         if(User::where('email','admin@dreamamerica.com')->exists()){
             $user = User::where('email','admin@dreamamerica.com')->first();
-            $user->assignRole(GeneralConstants::ADMIN);
+            $user->syncRoles(GeneralConstants::ADMIN);
         }
         if(User::where('email','user@dreamamerica.com')->exists()){
             $user = User::where('email','user@dreamamerica.com')->first();
-            $user->assignRole(GeneralConstants::USER);
+            $user->syncRoles(GeneralConstants::USER);
         }
          if(User::where('email','admin@techloyce.com')->exists()){
              $user = User::where('email','admin@techloyce.com')->first();
-             $user->assignRole(GeneralConstants::ADMIN);
+             $user->syncRoles(GeneralConstants::ADMIN);
          }
          if(User::where('email','user@techloyce.com')->exists()){
              $user = User::where('email','user@techloyce.com')->first();
-             $user->assignRole(GeneralConstants::USER);
+             $user->syncRoles(GeneralConstants::USER);
          }
 
          if(User::where('email','daniel@dreamamerica.com')->exists()){
              $user = User::where('email','daniel@dreamamerica.com')->first();
-             $user->assignRole(GeneralConstants::USER);
+             $user->syncRoles(GeneralConstants::USER);
          }
 
          if(User::where('email','chris@dreamamerica.com')->exists()){
              $user = User::where('email','chris@dreamamerica.com')->first();
-             $user->assignRole(GeneralConstants::ADMIN);
+             $user->syncRoles(GeneralConstants::ADMIN);
          }
          if(User::where('email','kemp@dreamamerica.com')->exists()){
              $user = User::where('email','kemp@dreamamerica.com')->first();
-             $user->assignRole(GeneralConstants::USER);
+             $user->syncRoles(GeneralConstants::USER);
          }
 
     }

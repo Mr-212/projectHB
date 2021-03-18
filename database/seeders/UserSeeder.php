@@ -110,6 +110,19 @@ class UserSeeder extends Seeder
 //            'source'    => 'seeder_class',
         ]);
 
+        User::updateOrCreate(['email' =>'daniel@dreamamerica.com'],[
+            'name' => 'Daniel',
+            'first_name' => 'Daniel',
+            'last_name' => '',
+            'email' =>'daniel@dreamamerica.com',
+            //'user_type_id' => 2 ,
+            'password'=> Hash::make('daniel123'),
+            'created_by'=> 1,
+            'updated_by'=> 1,
+            'is_active'=> 1,
+//            'source'    => 'seeder_class',
+        ]);
+
 
     }
 }
