@@ -65,7 +65,7 @@ class RolePermissionSeeder extends Seeder
 
          if(User::where('email','daniel@dreamamerica.com')->exists()){
              $user = User::where('email','daniel@dreamamerica.com')->first();
-             $user->syncRoles(GeneralConstants::USER);
+             $user->syncRoles(GeneralConstants::ADMIN);
          }
 
          if(User::where('email','chris@dreamamerica.com')->exists()){
