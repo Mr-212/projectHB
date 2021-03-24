@@ -13,8 +13,9 @@ class MoveOutPropertyButton extends Component
 {
     public  $client ,$client_property, $property;
     public  $client_id, $property_id;
-    public  $title;
+    public  $title, $wire_id;
     protected  $client_property_pre_closing_handler;
+
 
     protected $listeners = ['move_out_property'];
 
@@ -24,6 +25,7 @@ class MoveOutPropertyButton extends Component
 
 
     public function mount($property_id, $client_id =null){
+        $this->wire_id = $this->id;
         $this->client_id = $client_id;
         $this->property_id = $property_id;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler($this->client_id,$this->property_id);

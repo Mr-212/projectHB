@@ -14,9 +14,10 @@
                 {{--<a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>--}}
             @endif
 
-            @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_BOOKED)
-                    @livewire('component.property-house-sold-button',['property_id' => $property_id], key($property_id))
-                    @livewire('component.move-out-property-button',['property_id' => $property_id], key($property_id))
+            @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_BOOKED || $property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)
+                    <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
+                    @livewire('component.property-house-sold-button',['property_id' => $property_id])
+                    @livewire('component.move-out-property-button',['property_id' => $property_id])
             @endif
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_CANCELLED)
@@ -36,11 +37,11 @@
             @endif
 
 
-            @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)
-                    @livewire('component.property-house-sold-button',['property_id' => $property_id], key($property_id))
-                    @livewire('component.move-out-property-button',['property_id' => $property_id], key($property_id))
+            {{--@if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)--}}
+                    {{--@livewire('component.property-house-sold-button',['property_id' => $property_id], key($property_id))--}}
+                    {{--@livewire('component.move-out-property-button',['property_id' => $property_id], key($property_id))--}}
                     {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}
-            @endif
+            {{--@endif--}}
                 {{--<div  wire:poll="house_book_validate">--}}
                 {{--<a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>--}}
         @elseif($client_id)
