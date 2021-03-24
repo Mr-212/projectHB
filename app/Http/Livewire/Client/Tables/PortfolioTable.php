@@ -37,9 +37,9 @@ class PortfolioTable extends LivewireDatatable
                 ->defaultSort('desc')
                 ->label('ID'),
 
-            Column::callback('property_status_id',function($property_status_id){
-                return PropertyStatusConstant::getValueByKey($property_status_id);
-            })->label('Stage'),
+            // Column::callback('property_status_id',function($property_status_id){
+            //     return PropertyStatusConstant::getValueByKey($property_status_id);
+            // })->label('Stage'),
 
 
             Column::callback(['house_number_and_street','id'],function ($field,$property_id){
@@ -83,17 +83,24 @@ class PortfolioTable extends LivewireDatatable
 //                ->label('Closing Cost'),
 ////            ->editable(),
 
-            Column::name('closing_date')
-                ->label('Closing Date'),
+            Column::name('gross_monthly_rent')
+            ->label('Gross Monthly Rent'),
 
-            Column::name('due_diligence_expire_date')
-                ->label('Due Diligence Expire'),
+
+
+            Column::callback(['closing_date'],function($closing_date){
+                return date('Y-m-d',strtotime($closing_date));
+            })->label('Closing Date'),
+
+            // Column::name('due_diligence_expire_date')
+            //     ->label('Due Diligence Expire'),
 
             Column::name('client.applicant_name')
-                ->label('Applicant Name'),
+                ->label('Tenant name'),
 
             Column::name('client.applicant_email')
-                ->filterable(),
+                ->filterable()
+                ->label('tenant email'),
 //            Column::callback(['updated_by'], function ($updated_by) {
 //                return User::getUserNameByID($updated_by);
 //            })->label('Updated By'),
