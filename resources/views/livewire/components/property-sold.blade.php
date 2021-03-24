@@ -1,8 +1,8 @@
 
-<div class="">
+<div class="" wire:key="{{$wire_id}}">
    {{--<a onclick="openModal({{$property_id}})" class="btn btn-primary">Sold</a>--}}
     {{--<a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}">Sold</a>--}}
-    <a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary mx-1">Sold</a>
+    <a href="#property-modal-{{$property_id}}" data-toggle="modal" data-target="#property-modal-{{$property_id}}" class="btn btn-primary mx-1" >Sold</a>
 
     <div  wire:ignore.self class="modal fade" tabindex="-1" role="dialog" id="property-modal-{{$property_id}}" >
         <div  class="modal-dialog" role="document">
@@ -59,7 +59,7 @@
 </div>
 
 @push('scripts')
-    <script type="text/javascript">
+    <script type="text/javascript" >
 
         {{--$('#property-modal-{{$property_id}}').on('hidden.bs.modal',function () {--}}
             {{--$('#sold_date').val('');--}}

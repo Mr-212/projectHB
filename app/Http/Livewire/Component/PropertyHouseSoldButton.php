@@ -14,7 +14,7 @@ use Livewire\Component;
 class PropertyHouseSoldButton extends Component
 {
     public  $client,$property;
-    public  $client_id, $property_id;
+    public  $client_id, $property_id, $wire_id;
     protected  $client_property_pre_closing_handler = null;
 
     protected $rules = [
@@ -23,6 +23,7 @@ class PropertyHouseSoldButton extends Component
         ];
 
     public function mount($property_id){
+        $this->wire_id = $this->id;
         $this->property_id = $property_id;
         $this->client_property_pre_closing_handler = new ClientPropertyChecklistHandler(null,$property_id);
         $this->getClientProperty();

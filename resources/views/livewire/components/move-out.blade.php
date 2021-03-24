@@ -1,5 +1,5 @@
-<div class="">
-    <a id="move-out-{{$property_id}}" class="btn btn-info mx-1" wire:key="{{$property_id}}">Move Out</a>
+<div class=""  wire:key="{{$wire_id}}">
+    <a id="move-out-{{$property_id}}" class="btn btn-info mx-1">Move Out</a>
 </div>
 
 @push('scripts')
