@@ -77,9 +77,9 @@ class SoldHouseTable extends LivewireDatatable
                 ->label('Sold Date')
                 ->filterable(),
 
-
-            Column::name('closing_date')
-                ->label('Purchase Date')
+            Column::callback(['closing_date'],function($closing_date){
+                return date('Y-m-d',strtotime($closing_date));
+            })->label('Purchase Date')
                 ->filterable(),
 
             Column::callback(['sold_date','closing_date'],function($sold_date,$purchase_date){
