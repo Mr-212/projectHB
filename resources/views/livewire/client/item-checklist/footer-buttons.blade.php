@@ -38,6 +38,7 @@
 
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)
+                    <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
                     @livewire('component.property-house-sold-button',['property_id' => $property_id])
                     @livewire('component.move-out-property-button',['property_id' => $property_id])
                     {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}

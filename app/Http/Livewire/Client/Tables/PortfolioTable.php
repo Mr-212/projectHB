@@ -72,9 +72,9 @@ class PortfolioTable extends LivewireDatatable
 //                return view('livewire.property.tables.portfolio.action-property',['closing_cost' => $closing_cost,'property_id'=>$property_id,'key'=>'closing_cost']);
 //            })->label('Closing Cost'),
 
-            Column::callback(['id','pre_closing.rent'],function ($property_id, $rent){
-                return view('livewire.property.tables.portfolio.action-property',['rent' => $rent,'property_id'=>$property_id,'key'=>'rent']);
-            })->label('Rent'),
+//            Column::callback(['id','pre_closing.rent'],function ($property_id, $rent){
+//                return view('livewire.property.tables.portfolio.action-property',['rent' => $rent,'property_id'=>$property_id,'key'=>'rent']);
+//            })->label('Rent'),
 
 //            Column::name('pre_closing.rent')
 //              ->label('Rent'),
@@ -83,8 +83,12 @@ class PortfolioTable extends LivewireDatatable
 //                ->label('Closing Cost'),
 ////            ->editable(),
 
-            Column::name('gross_monthly_rent')
-            ->label('Gross Monthly Rent'),
+//            Column::name('gross_monthly_rent')
+//            ->label('Gross Monthly Rent'),
+
+            Column::callback(['gross_monthly_rent'],function ($gross_monthly_rent){
+                return number_format($gross_monthly_rent);
+            })->label('Gross Monthly Rent'),
 
 
 
