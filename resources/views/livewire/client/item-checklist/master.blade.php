@@ -13,6 +13,7 @@
     @include('livewire.client.item-checklist.property1')
     @include('livewire.client.item-checklist.pre-closing.master')
     @endif
+    
 
     <div class="col-md-12 border-bottom pt-4">
     </div>

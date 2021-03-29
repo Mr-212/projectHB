@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Client\Tables;
 use App\Constants\ClientStatusConstant;
 use App\Constants\Dropdowns\YesNoDropdown;
 use App\Models\Client;
+use App\Models\Property;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -16,7 +17,8 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
 
     public function builder()
     {
-        return Client::query()->with('property','pre_closing')->Active()->BeforeDDExpireQuery();
+        return Property::query()->with('client','pre_closing')->BeforeDD();
+        // return Client::query()->with('property','pre_closing')->Active()->BeforeDDExpireQuery();
 
     }
 
@@ -24,23 +26,23 @@ class OutstandingItemsBeforeDueDiligenceTable extends LivewireDatatable
     {
         return [
 //            Column::checkbox(),
-            Column::callback(['id', 'property.id'], function ($id,$property_id) {
-                return view('livewire.client.tables.actions.index', ['client_id' => $id,'property_id'=>$property_id]);
+            Column::callback(['id', 'client.id'], function ($id,$client_id) {
+                return view('livewire.client.tables.actions.index', ['property_id' => $id,'client_id'=>$client_id]);
             }),
 
             NumberColumn::name('id')
                 ->defaultSort('id')
                 ->label('ID'),
 
-            NumberColumn::name('property.id')
-                ->label('property'),
+            NumberColumn::name('client.id')
+                ->label('Client'),
 
 
 //            Column::callback('status',function($stage){
 //                return ClientStatusConstant::getValueByKey($stage);
 //            })->label('Client Status'),
 
-            Column::name('applicant_name')
+            Column::name('client.applicant_name')
                 ->label('Applicant Name')
                 ->filterable(),
 

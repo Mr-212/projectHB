@@ -34,7 +34,12 @@
                         {{--<span class="hide-menu">PortfolioTable</span>--}}
                     {{--</a>--}}
                 {{--</li>--}}
-
+                <li class="sidebar-item">
+                    <a href="{{route('clients')}}" class="sidebar-link {{ str_contains(url()->current(), '/clients') ?'active':''}}">
+                        <i class="fa fa-users"></i>
+                        <span class="hide-menu"> Clients </span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i class="icon-grid font-18"></i

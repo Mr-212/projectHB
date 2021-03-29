@@ -71,6 +71,9 @@ Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->g
     });
 
     Route::get('/dashboard', [DashBoardController::class,'index'])->name('dashboard');
+    Route::get('/clients', [ClientController::class,'clients'])->name('clients');
+    Route::get('/edit/client/{client_id}',AddClientComponent::class);
+
     Route::prefix('user')->middleware(['role:Super Admin'])->group(function(){
 
 
@@ -95,6 +98,7 @@ Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->g
         Route::get('/log/{property_id}', ClientPropertyChecklistLogComponent::class);
         Route::get('/add/client', AddClientComponent::class);
         Route::get('/client/add', ClientItemChecklist::class);
+        Route::get('/property/client/{client_id}/{new_property}', ClientItemChecklist::class)->name('attach_property');
 
 //        Route::prefix('/house')->group(function(){
 ////        Route::get('/outstanding_before_dd',[ ItemController::class, 'outstanding_before_dd']);

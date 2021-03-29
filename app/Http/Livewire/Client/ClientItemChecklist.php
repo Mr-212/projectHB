@@ -79,6 +79,7 @@ class ClientItemChecklist extends Component
         "property.net_monthly_rent" =>'',
         "property.yield" =>'',
         'property.repair_credit' => '',
+        'property.property_status_id' => '',
 
         "property.hoa_check" => '',
         "property.hoa_name" => '',
@@ -382,6 +383,9 @@ class ClientItemChecklist extends Component
 
         try{
             $this->validate($this->rules);
+            if(empty($this->property->property_status_id)){
+                $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
+            }
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
@@ -401,6 +405,31 @@ class ClientItemChecklist extends Component
         }
 
     }
+
+    // public function movve_to_before_DD(){
+
+
+    //     try{
+    //         $this->validate($this->rules);
+    //         $this->client_property_pre_closing_handler->setClient($this->client);
+    //         $this->client_property_pre_closing_handler->setProperty($this->property);
+    //         $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
+
+    //         if($this->client_property_pre_closing_handler->save()){
+    //             $this->dispatchBrowserEvent('update-saved',['message'=>'Page saved successfully.']);
+    //         };
+    //     }
+    //     catch (ValidationException $e){
+    //         $this->dispatchBrowserEvent('validation-errors');
+    //         throw $e;
+    //     }
+    //     catch (\Exception $e){
+    //         //dd($e);
+    //         report($e);
+
+    //     }
+
+    // }
 
     private function calculate_net_monthly_rent(){
         $net_monthly_rent = null;

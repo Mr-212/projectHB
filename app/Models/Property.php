@@ -45,6 +45,7 @@ class Property extends Model
 
         'lender_name',
         'new_construction_builder',
+        'property_status_id',
 
 
         "hoa_check" ,
@@ -110,7 +111,7 @@ class Property extends Model
     }
 
     public function scopeBeforeDD($query){
-        return $query->where('stage', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
+        return $query->where('property_status_id', PropertyStatusConstant::BEFORE_DUE_DILIGENCE);
     }
 
     public function scopeBeforeDDExpire($query){

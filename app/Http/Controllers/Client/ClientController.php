@@ -53,4 +53,8 @@ class ClientController extends Controller
         return view('client.house.house',compact('type'));
 
     }
+
+    public function clients(){
+        return view('client.clients');
+    }
 }
