@@ -63,7 +63,7 @@ class ClientPropertyChecklistHandler
             if(isset($this->client) && $this->client->isDirty()){
                 $this->client->save();
             }
-            if(isset($this->property) && $this->property->isDirty()){
+            if(isset($this->property) && !empty($this->property->id)){
                 $this->property->client_id = $this->property->client_id?: ($this->client->id ?: null);
                 $this->property->save();
             }

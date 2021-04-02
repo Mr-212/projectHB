@@ -37,9 +37,9 @@ class PortfolioTable extends LivewireDatatable
                 ->defaultSort('desc')
                 ->label('ID'),
 
-            // Column::callback('property_status_id',function($property_status_id){
-            //     return PropertyStatusConstant::getValueByKey($property_status_id);
-            // })->label('Stage'),
+            Column::callback('property_status_id',function($property_status_id){
+                return PropertyStatusConstant::getValueByKey($property_status_id);
+            })->label('Stage'),
 
 
             Column::callback(['house_number_and_street','id'],function ($field,$property_id){
@@ -87,7 +87,8 @@ class PortfolioTable extends LivewireDatatable
 //            ->label('Gross Monthly Rent'),
 
             Column::callback(['gross_monthly_rent'],function ($gross_monthly_rent){
-                return number_format($gross_monthly_rent);
+                // if(gettype($gross_monthly_rent) == 'string'):
+                return number_format((float)$gross_monthly_rent, 2, '.', '');
             })->label('Gross Monthly Rent'),
 
 

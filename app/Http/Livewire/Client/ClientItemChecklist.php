@@ -383,15 +383,46 @@ class ClientItemChecklist extends Component
 
         try{
             $this->validate($this->rules);
-            if(empty($this->property->property_status_id)){
-                $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
-            }
+            // if(empty($this->property->property_status_id)){
+            //     $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
+            // }
+            // dd($this->client);
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
 
             if($this->client_property_pre_closing_handler->save()){
                 $this->dispatchBrowserEvent('update-saved',['message'=>'Page saved successfully.']);
+            };
+        }
+        catch (ValidationException $e){
+            $this->dispatchBrowserEvent('validation-errors');
+            throw $e;
+        }
+        catch (\Exception $e){
+            //dd($e);
+            report($e);
+
+        }
+
+    }
+    //move property to DD 
+    public function move_to_DD(){
+
+
+        try{
+            $this->validate($this->rules);
+            
+            $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
+            
+            $this->client_property_pre_closing_handler->setClient($this->client);
+            $this->client_property_pre_closing_handler->setProperty($this->property);
+            $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
+
+            if($this->client_property_pre_closing_handler->save()){
+                // $this->dispatchBrowserEvent('update-saved',['message'=>'Page saved successfully.']);
+                session()->flash('success', 'Item successfully updated.');
+                return $this->redirect('/items/outstanding/before_dd');
             };
         }
         catch (ValidationException $e){

@@ -5,8 +5,9 @@
             @if( empty($property->property_status_id) || $property->property_status_id ==\App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE )
                 <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
                 <a  class="btn btn-warning mx-1"  onclick="return before_closing()">Before Closing</a>
-                <a  class="btn btn-danger  mx-1"  onclick="cancel_house()">Cancel House</a>
-                @livewire('component.dropout-client-button', ['client_id' => $client_id,'property_id'=> $property_id])
+                <a  class="btn btn-primary mx-1 btn-success"  onclick="book_house()">New Tenant/Book House</a>
+                <!-- <a  class="btn btn-danger  mx-1"  onclick="cancel_house()">Cancel House</a> -->
+                {{--@livewire('component.dropout-client-button', ['client_id' => $client_id,'property_id'=> $property_id])--}}
 
             {{--<a  class="btn btn-danger  mr-2" type="submit" onclick="cancel_client()">Drop Out</a>--}}
                 {{--<a  class="" type="submit">@livewire('component.dropout-client-component', ['client_id' => $client_id])</a>--}}
@@ -39,9 +40,15 @@
 
             @if($property->property_status_id == \App\Constants\PropertyStatusConstant::HOUSE_VACANT)
                     <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
+                    <a  class="btn btn-info mx-1"  onclick="return move_to_dd()">Move to DD</a>
                     @livewire('component.property-house-sold-button',['property_id' => $property_id])
-                    @livewire('component.move-out-property-button',['property_id' => $property_id])
+                    {{--@livewire('component.move-out-property-button',['property_id' => $property_id])--}}
                     {{--<a  class="btn btn-warning mr-2" type="submit" onclick="return before_closing()">Before Closing</a>--}}
+                    <?php $request = new Illuminate\Http\Request; ?>
+                    @if(str_contains(url()->current(), '/portfolio'))
+                    @else
+                    <a  class="btn btn-primary mx-1 btn-success"  onclick="book_house()">New Tenant/Book House</a>
+                    @endif
             @endif
                 {{--<div  wire:poll="house_book_validate">--}}
                 {{--<a  class="btn btn-info" type="submit" onclick="return book_house()">Book House</a>--}}
@@ -164,6 +171,29 @@
     //         }
     //     });
     // }
+    
+    //move to dd 
+    function move_to_dd() {
+        bootbox.confirm({
+            message: 'Do you want to save current state of item?',
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    @this.move_to_DD();
+                }
+            }
+        });
+    }
+
 
     function save_item() {
         bootbox.confirm({
