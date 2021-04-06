@@ -3,7 +3,11 @@
 
         @if($property_id || $client_id && !$client->is_client_dropped)
             @if( empty($property->property_status_id) || $property->property_status_id ==\App\Constants\PropertyStatusConstant::BEFORE_DUE_DILIGENCE )
-                <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
+                @if(empty($property->property_status_id))
+                    <a  class="btn btn-info mx-1"  onclick="return move_to_dd()">Move to DD</a>
+                @else
+                    <a  class="btn btn-primary mx-1"  onclick="return save_item()">Save</a>
+                @endif
                 <a  class="btn btn-warning mx-1"  onclick="return before_closing()">Before Closing</a>
                 <a  class="btn btn-primary mx-1 btn-success"  onclick="book_house()">New Tenant/Book House</a>
                 <!-- <a  class="btn btn-danger  mx-1"  onclick="cancel_house()">Cancel House</a> -->

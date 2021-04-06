@@ -383,10 +383,10 @@ class ClientItemChecklist extends Component
 
         try{
             $this->validate($this->rules);
-            // if(empty($this->property->property_status_id)){
-            //     $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
-            // }
-            // dd($this->client);
+            if(empty($this->property->property_status_id)){
+                $this->property->property_status_id = PropertyStatusConstant::BEFORE_DUE_DILIGENCE;
+            }
+            // dd($this->property);
             $this->client_property_pre_closing_handler->setClient($this->client);
             $this->client_property_pre_closing_handler->setProperty($this->property);
             $this->client_property_pre_closing_handler->setPreClosingList($this->pre_closing);
