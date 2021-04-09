@@ -571,5 +571,17 @@ class ClientItemChecklist extends Component
         }
     }
 
+    public function change_status(){
+        $properties = Property::all();
+        foreach($properties as $property){
+            if(!empty($property->property_status_id) && $property->property_status_id = PropertyStatusConstant::HOUSE_VACANT) {
+                $property->property_status_id = PropertyStatusConstant::HOUSE_BOOKED;
+                $property->save();
+            }
+        }
+
+        dd('done');
+    }
+
 
 }
