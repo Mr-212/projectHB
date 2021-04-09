@@ -40,7 +40,7 @@ Route::get('/', function () {
 });
 //Route::post('login', [AuthController::class,'login']);
 Route::middleware(['web','auth','auth:sanctum', 'verified','before_request'])->group(function (){
-    Route::get('/change_status', [ClientItemChecklist::class,'change_status']);
+    //Route::get('/change_status', [ClientItemChecklist::class,'change_status']);
 
     Route::prefix('system_calls')->middleware(['role:Super Admin'])->group(function(){
 //    Route::prefix('system_calls')->group(function(){
